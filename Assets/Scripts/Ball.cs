@@ -4,7 +4,6 @@ public class Ball : MonoBehaviour
 {
     [SerializeField] private Vector2 launch = new Vector2(2f, 10f);
 
-
     private bool lockedToPaddle = true;
     private bool runningOnAndroid = false;
     private Vector3 ballToPaddle;
