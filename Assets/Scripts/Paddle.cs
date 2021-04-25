@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class Paddle : MonoBehaviour
 {
+    [SerializeField] private bool autoPlay;
+
+    private Ball ball;
+
     private float cameraScale;
     private bool runningOnAndroid;
 
@@ -11,6 +15,8 @@ public class Paddle : MonoBehaviour
         cameraScale = cameraSize / (Screen.height / 2);
 
         runningOnAndroid = Application.platform == RuntimePlatform.Android;
+
+        ball = FindObjectOfType<Ball>();
     }
 
     void Update()
@@ -24,6 +30,13 @@ public class Paddle : MonoBehaviour
         transform.position = new Vector2(clampedXPosition * cameraScale, transform.position.y);
     }
 
-    private float GetPressPosition() =>
-        runningOnAndroid ? Input.GetTouch(0).position.x : Input.mousePosition.x;
+    private float GetPressPosition()
+    {
+        if (autoPlay)
+        {
+            return ball.transform.position.x/ cameraScale;
+        }
+
+        return runningOnAndroid ? Input.GetTouch(0).position.x : Input.mousePosition.x;
+    }
 }

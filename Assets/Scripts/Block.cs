@@ -8,7 +8,6 @@ public class Block : MonoBehaviour
     
     private Rigidbody2D blocksRigidbody2D;
     private SpriteRenderer spriteRenderer;
-    
 
     private void Start()
     {
@@ -33,16 +32,35 @@ public class Block : MonoBehaviour
                 spritesToUse.First(i => i.direction == Direction.Down).sprite :
                 spritesToUse.First(i => i.direction == Direction.Up).sprite;
         }
-
-        var speedCorrection = initalVelocity.sqrMagnitude / blocksRigidbody2D.velocity.sqrMagnitude;
-        blocksRigidbody2D.velocity *= speedCorrection;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        var relativePosition = collision.transform.position - transform.position;
+
+        float directionToMove = 1;
+
+        if (blocksRigidbody2D.velocity.x == 0)
+        {
+            directionToMove = -Mathf.Sign(relativePosition.y); 
+        }
+
+        if (blocksRigidbody2D.velocity.y == 0)
+        {
+            directionToMove = -Mathf.Sign(relativePosition.x);
+        }
+
+
+        blocksRigidbody2D.velocity = directionToMove * new Vector2(Mathf.Abs(blocksRigidbody2D.velocity.x), Mathf.Abs(blocksRigidbody2D.velocity.y));
+
         if (collision.gameObject.name == "Ball")
         {
             Destroy(gameObject);
         }
+    }
+
+    public void FreezeBlock()
+    {
+        blocksRigidbody2D.constraints = RigidbodyConstraints2D.FreezeAll;
     }
 }
