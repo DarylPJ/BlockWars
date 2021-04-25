@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 81876197}
   - component: {fileID: 81876196}
   - component: {fileID: 81876198}
+  - component: {fileID: 81876199}
   m_Layer: 0
   m_Name: Paddle
   m_TagString: Untagged
@@ -201,7 +202,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 81876195}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8, y: 0, z: 0}
+  m_LocalPosition: {x: 10, y: 4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -220,10 +221,10 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -2, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0}
     oldSize: {x: 4, y: 1}
     newSize: {x: 4, y: 1}
     adaptiveTilingThreshold: 0.5
@@ -240,6 +241,18 @@ PolygonCollider2D:
       - {x: 1.068882, y: 0}
       - {x: 4, y: 0}
       - {x: 4, y: 0.7007923}
+--- !u!114 &81876199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 81876195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0008f3fffd70ba54189d9aafcbfa8454, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1371990910
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,6 +348,7 @@ GameObject:
   - component: {fileID: 1458128075}
   - component: {fileID: 1458128077}
   - component: {fileID: 1458128078}
+  - component: {fileID: 1458128079}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -402,7 +416,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1458128074}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.011, y: 1.333, z: 5}
+  m_LocalPosition: {x: 10.011, y: 5.333, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -445,6 +459,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.33333334
+--- !u!114 &1458128079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1458128074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e5901b2ae322814aab79583b8e546f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1919835500689303007
 PrefabInstance:
   m_ObjectHideFlags: 0
