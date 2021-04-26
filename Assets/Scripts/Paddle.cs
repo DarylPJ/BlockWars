@@ -21,7 +21,7 @@ public class Paddle : MonoBehaviour
 
     void Update()
     {
-        if (runningOnAndroid && Input.touchCount == 0)
+        if (runningOnAndroid && Input.touchCount == 0 && !autoPlay)
         {
             return;
         }
