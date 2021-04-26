@@ -7,7 +7,7 @@ public class Ball : MonoBehaviour
     [SerializeField] private Collider2D rightWall;
     [SerializeField] private Collider2D roof;
     [SerializeField] private Collider2D paddleCollider;
-
+    [SerializeField, Range(0, 5)] private float maxRandomToAdd = 1;
 
     private bool lockedToPaddle = true;
     private bool runningOnAndroid = false;
@@ -66,24 +66,35 @@ public class Ball : MonoBehaviour
 
     private void SetNewVelocity(Direction direction)
     {
+        var randomToAdd = Random.Range(-maxRandomToAdd, maxRandomToAdd);
+
+        var newXVelocity = myRigidbody.velocity.x + randomToAdd;
+        newXVelocity = Mathf.Abs(newXVelocity) < 0.1f ? 0.1f :
+            Mathf.Abs(newXVelocity) > myRigidbody.velocity.magnitude - 0.1f ?
+                newXVelocity > 0? myRigidbody.velocity.magnitude - 0.1f : -myRigidbody.velocity.magnitude + 0.1f :
+                    newXVelocity;
+
+        var newYVelocity = Mathf.Sqrt(myRigidbody.velocity.sqrMagnitude - Mathf.Pow(newXVelocity, 2));
+        newYVelocity = myRigidbody.velocity.y < 0 ? -newYVelocity : newYVelocity; 
+
         if (direction == Direction.Down)
         {
-            myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, -Mathf.Abs(myRigidbody.velocity.y));
+            myRigidbody.velocity = new Vector2(newXVelocity, -Mathf.Abs(newYVelocity));
         }
 
         if (direction == Direction.Right)
         {
-            myRigidbody.velocity = new Vector2(Mathf.Abs(myRigidbody.velocity.x), myRigidbody.velocity.y);
+            myRigidbody.velocity = new Vector2(Mathf.Abs(newXVelocity), newYVelocity);
         }
 
         if (direction == Direction.Left)
         {
-            myRigidbody.velocity = new Vector2(-Mathf.Abs(myRigidbody.velocity.x), myRigidbody.velocity.y);
+            myRigidbody.velocity = new Vector2(-Mathf.Abs(newXVelocity), newYVelocity);
         }
 
         if (direction == Direction.Up)
         {
-            myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, Mathf.Abs(myRigidbody.velocity.y));
+            myRigidbody.velocity = new Vector2(newXVelocity, Mathf.Abs(newYVelocity));
         }
     }
 
