@@ -3,6 +3,11 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     [SerializeField] private Vector2 launch = new Vector2(2f, 10f);
+    [SerializeField] private Collider2D leftWall;
+    [SerializeField] private Collider2D rightWall;
+    [SerializeField] private Collider2D roof;
+    [SerializeField] private Collider2D paddleCollider;
+
 
     private bool lockedToPaddle = true;
     private bool runningOnAndroid = false;
@@ -23,7 +28,7 @@ public class Ball : MonoBehaviour
 
     void Update()
     {
-        if(!lockedToPaddle)
+        if (!lockedToPaddle)
         {
             return;
         }
@@ -38,7 +43,6 @@ public class Ball : MonoBehaviour
 
     private bool ShouldFire()
     {
-        return true;
         if (!runningOnAndroid)
         {
             return Input.GetMouseButton(0);
@@ -52,60 +56,68 @@ public class Ball : MonoBehaviour
         return false;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("HideFromBall"))
-        {
-            Physics2D.IgnoreCollision(collision.collider, myCollider);
-            return;
-        }
+        var direction = HardCodedCollidionDirections(collision);
 
-        var boxCollider = collision.collider as BoxCollider2D;
-
-        // must be paddle
-        if (boxCollider == null)
-        {
-            myRigidbody.velocity *= new Vector2(1, -1);
-            return;
-        }
-
-        var contact = collision.contacts[0];
-        var relativePoint = contact.point - (Vector2)collision.transform.position;
-
-        var ballRelativePoint = contact.point - (Vector2)transform.position;
-        Debug.Log(Vector2.Angle(ballRelativePoint, Vector2.left));
-
-
-        ChangeVelocity(relativePoint, boxCollider);
+        direction = direction == Direction.None ? BoxCollidionDirection(collision) : direction;
+        SetNewVelocity(direction);
     }
 
-    private void ChangeVelocity(Vector2 relativePoint, BoxCollider2D boxCollider)
+    private void SetNewVelocity(Direction direction)
     {
-        if (ApproxametlyEqual(relativePoint.x, 0) && myRigidbody.velocity.x > 0)
-        {
-            myRigidbody.velocity = new Vector2(-Mathf.Abs(myRigidbody.velocity.x), myRigidbody.velocity.y);
-            return;
-        }
-
-        if (ApproxametlyEqual(relativePoint.x, boxCollider.size.x) && myRigidbody.velocity.x < 0)
-        {
-            myRigidbody.velocity = new Vector2(Mathf.Abs(myRigidbody.velocity.x), myRigidbody.velocity.y);
-            return;
-        }
-
-        if (ApproxametlyEqual(relativePoint.y, 0) && myRigidbody.velocity.y > 0)
+        if (direction == Direction.Down)
         {
             myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, -Mathf.Abs(myRigidbody.velocity.y));
-            return;
         }
 
-        if (ApproxametlyEqual(relativePoint.y, boxCollider.size.y) && myRigidbody.velocity.y < 0)
+        if (direction == Direction.Right)
+        {
+            myRigidbody.velocity = new Vector2(Mathf.Abs(myRigidbody.velocity.x), myRigidbody.velocity.y);
+        }
+
+        if (direction == Direction.Left)
+        {
+            myRigidbody.velocity = new Vector2(-Mathf.Abs(myRigidbody.velocity.x), myRigidbody.velocity.y);
+        }
+
+        if (direction == Direction.Up)
         {
             myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, Mathf.Abs(myRigidbody.velocity.y));
-            return;
         }
     }
 
-    private bool ApproxametlyEqual(float numerToApproxamate, float shouldEqual) =>
-        numerToApproxamate > shouldEqual - 0.2 && numerToApproxamate < shouldEqual + 0.2;
+    private Direction HardCodedCollidionDirections(Collider2D collision) => 
+        collision == roof ? Direction.Down : 
+            collision == leftWall ? Direction.Right :
+                collision == rightWall ? Direction.Left :
+                    collision == paddleCollider ? Direction.Up : Direction.None;
+
+    private Direction BoxCollidionDirection(Collider2D collision)
+    {
+        var relativePosition = (Vector2)collision.transform.position - (Vector2)transform.position + new Vector2(1.95f/2, 0.95f/2);
+        var angle = Vector2.SignedAngle(relativePosition, Vector2.right);
+
+        if (myRigidbody.velocity.x > 0 && myRigidbody.velocity.y > 0)
+        {
+            return angle > -30 && angle < 100 ? Direction.Left : Direction.Down;
+        }
+
+        if (myRigidbody.velocity.x < 0 && myRigidbody.velocity.y > 0)
+        {
+            return angle > -150 && angle < 100 ? Direction.Down : Direction.Right;
+        }
+
+        if (myRigidbody.velocity.x > 0 && myRigidbody.velocity.y < 0)
+        {
+            return angle > 30 ? Direction.Up : Direction.Left;
+        }
+
+        if (myRigidbody.velocity.x < 0 && myRigidbody.velocity.y < 0)
+        {
+            return angle > -50 && angle < 150 ? Direction.Up : Direction.Right;
+        }
+
+        return Direction.None;
+    }
 }

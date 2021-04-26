@@ -34,22 +34,19 @@ public class Block : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.GetComponent<Ball>() != null)
         {
             Destroy(gameObject);
         }
 
-        MoveBlockAway(collision);
+        MoveBlockAway(collision);                
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        MoveBlockAway(collision);
-    }
+    private void OnTriggerStay2D(Collider2D collision) => MoveBlockAway(collision);
 
-    private void MoveBlockAway(Collision2D collision)
+    private void MoveBlockAway(Collider2D collision)
     {
         var relativePosition = collision.transform.position - transform.position;
 
