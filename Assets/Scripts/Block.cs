@@ -36,13 +36,28 @@ public class Block : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.GetComponent<Ball>() != null)
+        {
+            Destroy(gameObject);
+        }
+
+        MoveBlockAway(collision);
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        MoveBlockAway(collision);
+    }
+
+    private void MoveBlockAway(Collision2D collision)
+    {
         var relativePosition = collision.transform.position - transform.position;
 
         float directionToMove = 1;
 
         if (blocksRigidbody2D.velocity.x == 0)
         {
-            directionToMove = -Mathf.Sign(relativePosition.y); 
+            directionToMove = -Mathf.Sign(relativePosition.y);
         }
 
         if (blocksRigidbody2D.velocity.y == 0)
@@ -50,17 +65,6 @@ public class Block : MonoBehaviour
             directionToMove = -Mathf.Sign(relativePosition.x);
         }
 
-
         blocksRigidbody2D.velocity = directionToMove * new Vector2(Mathf.Abs(blocksRigidbody2D.velocity.x), Mathf.Abs(blocksRigidbody2D.velocity.y));
-
-        if (collision.gameObject.name == "Ball")
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    public void FreezeBlock()
-    {
-        blocksRigidbody2D.constraints = RigidbodyConstraints2D.FreezeAll;
     }
 }
