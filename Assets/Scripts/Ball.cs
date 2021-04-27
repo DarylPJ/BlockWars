@@ -12,7 +12,7 @@ public class Ball : MonoBehaviour
     private bool lockedToPaddle = true;
     private bool runningOnAndroid = false;
     private Vector3 ballToPaddle;
-   
+
     private Paddle paddle;
     private Rigidbody2D myRigidbody;
 
@@ -56,7 +56,16 @@ public class Ball : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision) => SetNewVelocity(collision);
 
-    private void OnTriggerStay2D(Collider2D collision) => SetNewVelocity(collision);
+    private void OnTriggerStay2D(Collider2D collision) 
+    {
+        if (paddleCollider == collision)
+        {
+            return;
+        }
+
+        var direction = HardCodedCollidionDirections(collision);
+        SetVelocityByDirection(direction, myRigidbody.velocity.x, myRigidbody.velocity.y);
+    }
 
     private void SetNewVelocity(Collider2D collision)
     {
@@ -67,23 +76,28 @@ public class Ball : MonoBehaviour
 
         var direction = GetNewDirection(collision);
 
-        float newXVelocity;
 
         if (collision == paddleCollider)
         {
-            newXVelocity = GetXVelocityOnPaddleHit(collision);
+            HandlePaddleCollision(collision);
+            return;
         }
-        else
-        {
-            var randomToAdd = Random.Range(-maxRandomToAdd, maxRandomToAdd);
-            newXVelocity = myRigidbody.velocity.x + randomToAdd;
-        }
+
+        var randomToAdd = Random.Range(-maxRandomToAdd, maxRandomToAdd);
+        var newXVelocity = myRigidbody.velocity.x + randomToAdd;
 
         newXVelocity = Mathf.Abs(newXVelocity) < 0.1f ? 0.1f :
             Mathf.Abs(newXVelocity) > myRigidbody.velocity.magnitude - 0.1f ?
-                newXVelocity > 0? myRigidbody.velocity.magnitude - 0.1f : -myRigidbody.velocity.magnitude + 0.1f :
+                newXVelocity > 0 ? myRigidbody.velocity.magnitude - 0.1f : -myRigidbody.velocity.magnitude + 0.1f :
                     newXVelocity;
 
+        float newYVelocity = GetScaledYVelocity(newXVelocity);
+
+        SetVelocityByDirection(direction, newXVelocity, newYVelocity);
+    }
+
+    private float GetScaledYVelocity(float newXVelocity)
+    {
         var newYVelocity = Mathf.Sqrt(myRigidbody.velocity.sqrMagnitude - Mathf.Pow(newXVelocity, 2));
         newYVelocity = myRigidbody.velocity.y < 0 ? -newYVelocity : newYVelocity;
 
@@ -93,34 +107,52 @@ public class Ball : MonoBehaviour
             Debug.Log(newXVelocity);
         }
 
+        return newYVelocity;
+    }
+
+    private void SetVelocityByDirection(Direction direction, float xVelocity, float yVelocity)
+    {
         if (direction == Direction.Down)
         {
-            myRigidbody.velocity = new Vector2(newXVelocity, -Mathf.Abs(newYVelocity));
+            myRigidbody.velocity = new Vector2(xVelocity, -Mathf.Abs(yVelocity));
         }
 
         if (direction == Direction.Right)
         {
-            myRigidbody.velocity = new Vector2(Mathf.Abs(newXVelocity), newYVelocity);
+            myRigidbody.velocity = new Vector2(Mathf.Abs(xVelocity), yVelocity);
         }
 
         if (direction == Direction.Left)
         {
-            myRigidbody.velocity = new Vector2(-Mathf.Abs(newXVelocity), newYVelocity);
+            myRigidbody.velocity = new Vector2(-Mathf.Abs(xVelocity), yVelocity);
         }
 
         if (direction == Direction.Up)
         {
-            myRigidbody.velocity = new Vector2(newXVelocity, Mathf.Abs(newYVelocity));
+            myRigidbody.velocity = new Vector2(xVelocity, Mathf.Abs(yVelocity));
         }
     }
 
-    private float GetXVelocityOnPaddleHit(Collider2D collision)
+    private void HandlePaddleCollision(Collider2D collision)
     {
         var relativePosition = transform.position - collision.transform.position;
 
-        var maximum = myRigidbody.velocity.magnitude / 0.8f;
+        if (relativePosition.y < 1 && myRigidbody.velocity.x < 0)
+        {
+            myRigidbody.velocity = new Vector2(Mathf.Abs(myRigidbody.velocity.x), -Mathf.Abs(myRigidbody.velocity.y));
+            return;
+        }
 
-        return (relativePosition.x / 2f) * maximum;
+        if (relativePosition.y < 1 && myRigidbody.velocity.x > 0)
+        {
+            myRigidbody.velocity = new Vector2(-Mathf.Abs(myRigidbody.velocity.x), -Mathf.Abs(myRigidbody.velocity.y));
+            return;
+        }
+
+        var maximum = myRigidbody.velocity.magnitude / 0.8f;
+        var xVelocity = (relativePosition.x / 2f) * maximum;
+        var yVelocity = GetScaledYVelocity(xVelocity);
+        myRigidbody.velocity = new Vector2(xVelocity, Mathf.Abs(yVelocity));
     }
 
     private Direction GetNewDirection(Collider2D collision)
