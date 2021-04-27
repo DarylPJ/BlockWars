@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using UnityEngine;
 
 public class Ball : MonoBehaviour
@@ -8,10 +9,12 @@ public class Ball : MonoBehaviour
     [SerializeField] private Collider2D roof;
     [SerializeField] private Collider2D paddleCollider;
     [SerializeField, Range(0, 5)] private float maxRandomToAdd = 1;
+    [SerializeField] private bool instaLaunch = false;
 
     private bool lockedToPaddle = true;
     private bool runningOnAndroid = false;
     private Vector3 ballToPaddle;
+    private readonly Stopwatch stopwatch = new Stopwatch();
 
     private Paddle paddle;
     private Rigidbody2D myRigidbody;
@@ -22,6 +25,7 @@ public class Ball : MonoBehaviour
         ballToPaddle = transform.position - paddle.transform.position;
         runningOnAndroid = Application.platform == RuntimePlatform.Android;
         myRigidbody = GetComponent<Rigidbody2D>();
+        stopwatch.Start();
     }
 
     void Update()
@@ -41,6 +45,11 @@ public class Ball : MonoBehaviour
 
     private bool ShouldFire()
     {
+        if (instaLaunch)
+        {
+            return true;
+        }
+
         if (!runningOnAndroid)
         {
             return Input.GetMouseButton(0);
@@ -69,13 +78,12 @@ public class Ball : MonoBehaviour
 
     private void SetNewVelocity(Collider2D collision)
     {
-        if (lockedToPaddle)
+        if (lockedToPaddle || stopwatch.Elapsed < System.TimeSpan.FromMilliseconds(50))
         {
             return;
         }
 
         var direction = GetNewDirection(collision);
-
 
         if (collision == paddleCollider)
         {
@@ -94,6 +102,8 @@ public class Ball : MonoBehaviour
         float newYVelocity = GetScaledYVelocity(newXVelocity);
 
         SetVelocityByDirection(direction, newXVelocity, newYVelocity);
+        stopwatch.Reset();
+        stopwatch.Start();
     }
 
     private float GetScaledYVelocity(float newXVelocity)
@@ -103,8 +113,8 @@ public class Ball : MonoBehaviour
 
         if (float.IsNaN(newYVelocity))
         {
-            Debug.Log(myRigidbody.velocity.sqrMagnitude);
-            Debug.Log(newXVelocity);
+            UnityEngine.Debug.Log(myRigidbody.velocity.magnitude);
+            UnityEngine.Debug.Log(newXVelocity);
         }
 
         return newYVelocity;
@@ -149,7 +159,7 @@ public class Ball : MonoBehaviour
             return;
         }
 
-        var maximum = myRigidbody.velocity.magnitude / 0.8f;
+        var maximum = myRigidbody.velocity.magnitude * 0.8f;
         var xVelocity = (relativePosition.x / 2f) * maximum;
         var yVelocity = GetScaledYVelocity(xVelocity);
         myRigidbody.velocity = new Vector2(xVelocity, Mathf.Abs(yVelocity));
