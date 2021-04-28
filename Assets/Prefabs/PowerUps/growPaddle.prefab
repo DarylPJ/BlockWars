@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 5057130047098751108}
   - component: {fileID: 5057130047098751111}
   - component: {fileID: 5057130047098751110}
-  - component: {fileID: 5057130047098751105}
   - component: {fileID: 5057130047098751109}
+  - component: {fileID: -933821656439108884}
   m_Layer: 0
-  m_Name: SplitBallPowerUp
+  m_Name: growPaddle
   m_TagString: PowerUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 3625043607559282579, guid: 19fb86013d8c24d6cb8410c0aadf30fa, type: 3}
-  m_Color: {r: 0.16746168, g: 0.7924528, b: 0.7924528, a: 1}
+  m_Color: {r: 0.16862743, g: 0.7921569, b: 0.2864704, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -107,21 +107,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &5057130047098751105
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5057130047098751104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ddceac942623f54b87a4b6e8d48bae9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: -5
-  floor: {fileID: 5527377732231658280, guid: 8a2170d1ced0e75499663e48aed04d71, type: 3}
-  ballPrefab: {fileID: 8382187271085266802, guid: 2eda672f39743c540a00bfc9214c2e4e, type: 3}
 --- !u!60 &5057130047098751109
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -151,3 +136,19 @@ PolygonCollider2D:
       - {x: -0.5, y: 0}
       - {x: 0, y: -0.25}
       - {x: 0.5, y: 0}
+--- !u!114 &-933821656439108884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5057130047098751104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36f69a62ccefe7c48a2b2b0c60f7a562, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: -5
+  fractionalResize: 2
+  resizeTime: 13
+  resizeFactor: 0.25

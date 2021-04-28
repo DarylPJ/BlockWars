@@ -126,6 +126,7 @@ MonoBehaviour:
   roof: {fileID: 0}
   paddleCollider: {fileID: 0}
   enemyFloor: {fileID: 0}
+  floor: {fileID: 0}
   maxRandomToAdd: 0.25
   instaLaunch: 0
   maxXFire: 0.75

@@ -21,12 +21,14 @@ public class Ball : MonoBehaviour
     private Paddle paddle;
     private Rigidbody2D myRigidbody;
     private AudioSource audioSource;
+    private CircleCollider2D circleCollider;
 
     private void Start()
     {
         paddle = FindObjectOfType<Paddle>();
         myRigidbody = GetComponent<Rigidbody2D>();
         audioSource = GetComponent<AudioSource>();
+        circleCollider = GetComponent<CircleCollider2D>();
 
         ballToPaddle = transform.position - paddle.transform.position;
         runningOnAndroid = Application.platform == RuntimePlatform.Android;
@@ -81,7 +83,7 @@ public class Ball : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("PowerUp"))
+        if (collision.gameObject.CompareTag("PowerUp"))
         {
             return;
         }
@@ -134,6 +136,12 @@ public class Ball : MonoBehaviour
         float newYVelocity = GetScaledYVelocity(newXVelocity);
 
         SetVelocityByDirection(direction, newXVelocity, newYVelocity);
+
+        if (!lockedToPaddle)
+        {
+            audioSource.Play();
+        }
+
         stopwatch.Reset();
         stopwatch.Start();
     }
@@ -181,10 +189,20 @@ public class Ball : MonoBehaviour
 
         var relativePosition = transform.position - collision.transform.position;
 
+        if (relativePosition.y < (circleCollider.radius / 2))
+        {
+            return;
+        }
+
         var maximum = myRigidbody.velocity.magnitude * 0.8f;
-        var xVelocity = (relativePosition.x / (boxCollider.size.x/2)) * maximum;
+        var xVelocity = (relativePosition.x / ((boxCollider.size.x/2)*boxCollider.transform.localScale.x)) * maximum;
         var yVelocity = GetScaledYVelocity(xVelocity);
         myRigidbody.velocity = new Vector2(xVelocity, Mathf.Abs(yVelocity));
+
+        if (!lockedToPaddle)
+        {
+            audioSource.Play();
+        }
     }
 
     private Direction GetNewDirection(Collider2D collision)

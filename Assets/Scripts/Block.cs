@@ -12,6 +12,7 @@ public class Block : MonoBehaviour
     
     private Rigidbody2D blocksRigidbody2D;
     private SpriteRenderer spriteRenderer;
+    private float powerupOffset;
 
     private void Start()
     {
@@ -19,6 +20,8 @@ public class Block : MonoBehaviour
         blocksRigidbody2D.velocity = initalVelocity;
 
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        powerupOffset = (GetComponent<BoxCollider2D>().size.x / 2);
     }
 
     private void Update()
@@ -49,7 +52,7 @@ public class Block : MonoBehaviour
                 var powerupToInstantiate = powerUps[Random.Range(0, powerUps.Length)];
                 var powerup = Instantiate(powerupToInstantiate);
 
-                powerup.transform.position = transform.position;
+                powerup.transform.position = (Vector2)transform.position + new Vector2(powerupOffset, 0);
             }
 
             Destroy(gameObject);
@@ -62,6 +65,11 @@ public class Block : MonoBehaviour
 
     private void MoveBlockAway(Collider2D collision)
     {
+        if (collision.gameObject.CompareTag("PowerUp"))
+        {
+            return;
+        }
+
         var relativePosition = collision.transform.position - transform.position;
 
         float directionToMove = 1;

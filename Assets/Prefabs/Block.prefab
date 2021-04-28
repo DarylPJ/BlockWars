@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3476856663433730438}
   - component: {fileID: 3476856663433730457}
   m_Layer: 0
-  m_Name: Block (34)
+  m_Name: Block
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -161,4 +161,6 @@ MonoBehaviour:
   volume: 0.103
   chanceOfPowerUp: 0.1
   powerUps:
+  - {fileID: 5057130047098751104, guid: 2ae6a17917dbe7b4e8a282e88d66bce0, type: 3}
+  - {fileID: 5057130047098751104, guid: 2b7fdc9f03f398948afe7e1b157c76c5, type: 3}
   - {fileID: 5057130047098751104, guid: 3c12f43afb0d75d4593796ac03c22fbf, type: 3}

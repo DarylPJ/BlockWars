@@ -8,6 +8,9 @@ public class Paddle : MonoBehaviour
 
     private float cameraScale;
     private bool runningOnAndroid;
+    private float targetXScale;
+    private float resizeFactor;
+    private float currentTimeStep;
 
     private void Start()
     {
@@ -21,6 +24,16 @@ public class Paddle : MonoBehaviour
 
     void Update()
     {
+
+        if (transform.localScale.x != targetXScale)
+        {
+            var scale = Mathf.Lerp(transform.localScale.x, targetXScale, currentTimeStep);
+            transform.localScale = new Vector2(scale, transform.localScale.y);
+
+            currentTimeStep += resizeFactor * Time.deltaTime;
+        }
+
+
         if (runningOnAndroid && Input.touchCount == 0 && !autoPlay)
         {
             return;
@@ -38,5 +51,22 @@ public class Paddle : MonoBehaviour
         }
 
         return runningOnAndroid ? Input.GetTouch(0).position.x : Mathf.Clamp(Input.mousePosition.x, 0, Screen.width);
+    }
+
+    public void TempResize(float fractionWidth, float time, float resizeFactor)
+    {
+        CancelInvoke(nameof(ScaleBackWith));
+        
+        transform.localScale = new Vector2(fractionWidth, 1);
+        targetXScale = fractionWidth;
+        this.resizeFactor = resizeFactor;
+
+        Invoke(nameof(ScaleBackWith), time);
+    }
+
+    private void ScaleBackWith()
+    {
+        targetXScale = 1;
+        this.currentTimeStep = 0;
     }
 }
