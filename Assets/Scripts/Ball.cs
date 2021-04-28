@@ -145,22 +145,12 @@ public class Ball : MonoBehaviour
 
     private void HandlePaddleCollision(Collider2D collision)
     {
+        var boxCollider = (BoxCollider2D)collision;
+
         var relativePosition = transform.position - collision.transform.position;
 
-        if (relativePosition.y < 1 && myRigidbody.velocity.x < 0)
-        {
-            myRigidbody.velocity = new Vector2(Mathf.Abs(myRigidbody.velocity.x), -Mathf.Abs(myRigidbody.velocity.y));
-            return;
-        }
-
-        if (relativePosition.y < 1 && myRigidbody.velocity.x > 0)
-        {
-            myRigidbody.velocity = new Vector2(-Mathf.Abs(myRigidbody.velocity.x), -Mathf.Abs(myRigidbody.velocity.y));
-            return;
-        }
-
         var maximum = myRigidbody.velocity.magnitude * 0.8f;
-        var xVelocity = (relativePosition.x / 2f) * maximum;
+        var xVelocity = (relativePosition.x / (boxCollider.size.x/2)) * maximum;
         var yVelocity = GetScaledYVelocity(xVelocity);
         myRigidbody.velocity = new Vector2(xVelocity, Mathf.Abs(yVelocity));
     }

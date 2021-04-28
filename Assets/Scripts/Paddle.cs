@@ -8,7 +8,6 @@ public class Paddle : MonoBehaviour
 
     private float cameraScale;
     private bool runningOnAndroid;
-    private float xOffset;
 
     private void Start()
     {
@@ -18,7 +17,6 @@ public class Paddle : MonoBehaviour
         runningOnAndroid = Application.platform == RuntimePlatform.Android;
 
         ball = FindObjectOfType<Ball>();
-        xOffset = GetComponent<SpriteRenderer>().bounds.size.x/ 2;
     }
 
     void Update()
@@ -28,7 +26,7 @@ public class Paddle : MonoBehaviour
             return;
         }
 
-        var xPosition = (GetPressPosition() * cameraScale) - xOffset;
+        var xPosition = GetPressPosition() * cameraScale;
         transform.position = new Vector2(xPosition, transform.position.y);
     }
 

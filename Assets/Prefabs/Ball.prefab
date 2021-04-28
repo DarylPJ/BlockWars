@@ -124,7 +124,8 @@ MonoBehaviour:
   rightWall: {fileID: 0}
   roof: {fileID: 0}
   paddleCollider: {fileID: 0}
-  maxRandomToAdd: 1
+  maxRandomToAdd: 0.25
+  instaLaunch: 1
 --- !u!58 &8382187271085266806
 CircleCollider2D:
   m_ObjectHideFlags: 0
