@@ -7,6 +7,8 @@ public class Block : MonoBehaviour
     [SerializeField] private Vector2 initalVelocity = new Vector2(0, 0);
     [SerializeField] private AudioClip soundOnDestroy;
     [SerializeField, Range(0, 1)] private float volume = 0.5f;
+    [SerializeField] private float chanceOfPowerUp = 0.1f;
+    [SerializeField] private GameObject[] powerUps;
     
     private Rigidbody2D blocksRigidbody2D;
     private SpriteRenderer spriteRenderer;
@@ -41,6 +43,15 @@ public class Block : MonoBehaviour
         if (collision.gameObject.GetComponent<Ball>() != null)
         {
             AudioSource.PlayClipAtPoint(soundOnDestroy, Camera.main.transform.position, volume);
+
+            if (Random.value < chanceOfPowerUp)
+            {
+                var powerupToInstantiate = powerUps[Random.Range(0, powerUps.Length)];
+                var powerup = Instantiate(powerupToInstantiate);
+
+                powerup.transform.position = transform.position;
+            }
+
             Destroy(gameObject);
         }
 

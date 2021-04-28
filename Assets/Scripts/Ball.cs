@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using UnityEngine;
 
 public class Ball : MonoBehaviour
@@ -8,6 +7,8 @@ public class Ball : MonoBehaviour
     [SerializeField] private Collider2D rightWall;
     [SerializeField] private Collider2D roof;
     [SerializeField] private Collider2D paddleCollider;
+    [SerializeField] private Collider2D enemyFloor;
+    [SerializeField] private Collider2D floor;
     [SerializeField, Range(0, 5)] private float maxRandomToAdd = 1;
     [SerializeField] private bool instaLaunch = false;
     [SerializeField, Range(0, 1)] private float maxXFire = 0.5f;
@@ -15,24 +16,24 @@ public class Ball : MonoBehaviour
     private bool lockedToPaddle = true;
     private bool runningOnAndroid = false;
     private Vector3 ballToPaddle;
-    private readonly Stopwatch stopwatch = new Stopwatch();
+    private readonly System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
 
     private Paddle paddle;
     private Rigidbody2D myRigidbody;
     private AudioSource audioSource;
 
-    void Start()
+    private void Start()
     {
         paddle = FindObjectOfType<Paddle>();
         myRigidbody = GetComponent<Rigidbody2D>();
         audioSource = GetComponent<AudioSource>();
-        
+
         ballToPaddle = transform.position - paddle.transform.position;
         runningOnAndroid = Application.platform == RuntimePlatform.Android;
         stopwatch.Start();
     }
 
-    void Update()
+    private void Update()
     {
         if (!lockedToPaddle)
         {
@@ -43,7 +44,7 @@ public class Ball : MonoBehaviour
         if (ShouldFire())
         {
             var xClick = (runningOnAndroid ? Input.GetTouch(0).position.x : Mathf.Clamp(Input.mousePosition.x, 0, Screen.width));
-            var relativePos = (xClick/Screen.width) - maxXFire;
+            var relativePos = (xClick / Screen.width) - maxXFire;
 
             var x = relativePos * launchSpeed;
             var y = Mathf.Sqrt(Mathf.Pow(launchSpeed, 2) - Mathf.Pow(x, 2));
@@ -51,6 +52,11 @@ public class Ball : MonoBehaviour
             lockedToPaddle = false;
             myRigidbody.velocity = new Vector2(x, y);
         }
+    }
+
+    public void NotLocked()
+    {
+        lockedToPaddle = false;
     }
 
     private bool ShouldFire()
@@ -73,7 +79,21 @@ public class Ball : MonoBehaviour
         return false;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision) => SetNewVelocity(collision);
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("PowerUp"))
+        {
+            return;
+        }
+
+        if (collision == floor)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        SetNewVelocity(collision);
+    }
 
     private void OnTriggerStay2D(Collider2D collision) 
     {
@@ -82,14 +102,19 @@ public class Ball : MonoBehaviour
             return;
         }
 
-        audioSource.Play();
         var direction = HardCodedCollidionDirections(collision);
         SetVelocityByDirection(direction, myRigidbody.velocity.x, myRigidbody.velocity.y);
     }
 
     private void SetNewVelocity(Collider2D collision)
     {
-        if (lockedToPaddle || stopwatch.Elapsed < System.TimeSpan.FromMilliseconds(50))
+        if (collision == paddleCollider)
+        {
+            HandlePaddleCollision(collision);
+            return;
+        }
+
+        if (lockedToPaddle || stopwatch.ElapsedMilliseconds < (Time.deltaTime * 1000) || collision == enemyFloor)
         {
             return;
         }
@@ -97,12 +122,6 @@ public class Ball : MonoBehaviour
         audioSource.Play();
 
         var direction = GetNewDirection(collision);
-
-        if (collision == paddleCollider)
-        {
-            HandlePaddleCollision(collision);
-            return;
-        }
 
         var randomToAdd = Random.Range(-maxRandomToAdd, maxRandomToAdd);
         var newXVelocity = myRigidbody.velocity.x + randomToAdd;
@@ -126,8 +145,8 @@ public class Ball : MonoBehaviour
 
         if (float.IsNaN(newYVelocity))
         {
-            UnityEngine.Debug.Log(myRigidbody.velocity.magnitude);
-            UnityEngine.Debug.Log(newXVelocity);
+            Debug.Log(myRigidbody.velocity.magnitude);
+            Debug.Log(newXVelocity);
         }
 
         return newYVelocity;

@@ -27,9 +27,6 @@ public class Paddle : MonoBehaviour
         }
 
         var xPosition = GetPressPosition() * cameraScale;
-
-        Debug.Log(xPosition);
-
         transform.position = new Vector2(xPosition - (Camera.main.rect.x * Screen.width * cameraScale), transform.position.y);
     }
 
