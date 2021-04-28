@@ -3,13 +3,14 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    [SerializeField] private Vector2 launch = new Vector2(2f, 10f);
+    [SerializeField] private float launchSpeed = 15;
     [SerializeField] private Collider2D leftWall;
     [SerializeField] private Collider2D rightWall;
     [SerializeField] private Collider2D roof;
     [SerializeField] private Collider2D paddleCollider;
     [SerializeField, Range(0, 5)] private float maxRandomToAdd = 1;
     [SerializeField] private bool instaLaunch = false;
+    [SerializeField, Range(0, 1)] private float maxXFire = 0.5f;
 
     private bool lockedToPaddle = true;
     private bool runningOnAndroid = false;
@@ -18,13 +19,16 @@ public class Ball : MonoBehaviour
 
     private Paddle paddle;
     private Rigidbody2D myRigidbody;
+    private AudioSource audioSource;
 
     void Start()
     {
         paddle = FindObjectOfType<Paddle>();
+        myRigidbody = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
+        
         ballToPaddle = transform.position - paddle.transform.position;
         runningOnAndroid = Application.platform == RuntimePlatform.Android;
-        myRigidbody = GetComponent<Rigidbody2D>();
         stopwatch.Start();
     }
 
@@ -38,8 +42,14 @@ public class Ball : MonoBehaviour
         transform.position = paddle.transform.position + ballToPaddle;
         if (ShouldFire())
         {
+            var xClick = (runningOnAndroid ? Input.GetTouch(0).position.x : Mathf.Clamp(Input.mousePosition.x, 0, Screen.width));
+            var relativePos = (xClick/Screen.width) - maxXFire;
+
+            var x = relativePos * launchSpeed;
+            var y = Mathf.Sqrt(Mathf.Pow(launchSpeed, 2) - Mathf.Pow(x, 2));
+
             lockedToPaddle = false;
-            myRigidbody.velocity = launch;
+            myRigidbody.velocity = new Vector2(x, y);
         }
     }
 
@@ -55,7 +65,7 @@ public class Ball : MonoBehaviour
             return Input.GetMouseButton(0);
         }
 
-        if (Input.touchCount == 0)
+        if (Input.touchCount == 1)
         {
             return true;
         }
@@ -67,11 +77,12 @@ public class Ball : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision) 
     {
-        if (paddleCollider == collision)
+        if (paddleCollider == collision  || lockedToPaddle)
         {
             return;
         }
 
+        audioSource.Play();
         var direction = HardCodedCollidionDirections(collision);
         SetVelocityByDirection(direction, myRigidbody.velocity.x, myRigidbody.velocity.y);
     }
@@ -82,6 +93,8 @@ public class Ball : MonoBehaviour
         {
             return;
         }
+
+        audioSource.Play();
 
         var direction = GetNewDirection(collision);
 

@@ -5,6 +5,8 @@ public class Block : MonoBehaviour
 {
     [SerializeField] private DirectionSprites[] spritesToUse;
     [SerializeField] private Vector2 initalVelocity = new Vector2(0, 0);
+    [SerializeField] private AudioClip soundOnDestroy;
+    [SerializeField, Range(0, 1)] private float volume = 0.5f;
     
     private Rigidbody2D blocksRigidbody2D;
     private SpriteRenderer spriteRenderer;
@@ -38,6 +40,7 @@ public class Block : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<Ball>() != null)
         {
+            AudioSource.PlayClipAtPoint(soundOnDestroy, Camera.main.transform.position, volume);
             Destroy(gameObject);
         }
 
