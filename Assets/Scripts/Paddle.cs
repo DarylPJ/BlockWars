@@ -12,7 +12,7 @@ public class Paddle : MonoBehaviour
     private void Start()
     {
         var cameraSize = Camera.main.orthographicSize;
-        cameraScale = cameraSize / (Screen.height / 2);
+        cameraScale = cameraSize / (Screen.height * (Camera.main.rect.height/2));
 
         runningOnAndroid = Application.platform == RuntimePlatform.Android;
 
@@ -27,7 +27,10 @@ public class Paddle : MonoBehaviour
         }
 
         var xPosition = GetPressPosition() * cameraScale;
-        transform.position = new Vector2(xPosition, transform.position.y);
+
+        Debug.Log(xPosition);
+
+        transform.position = new Vector2(xPosition - (Camera.main.rect.x * Screen.width * cameraScale), transform.position.y);
     }
 
     private float GetPressPosition()
