@@ -150,5 +150,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: -5
   fractionalResize: 1.5
-  resizeTime: 13
-  resizeFactor: 0.25
+  resizeTime: 10
+  resizeFactor: 2

@@ -8,9 +8,10 @@ public class Paddle : MonoBehaviour
 
     private float cameraScale;
     private bool runningOnAndroid;
-    private float targetXScale;
     private float resizeFactor;
     private float currentTimeStep;
+    private float targetXScale;
+    private float startXScale = 1;
 
     private void Start()
     {
@@ -26,7 +27,7 @@ public class Paddle : MonoBehaviour
     {
         if (transform.localScale.x != targetXScale)
         {
-            var scale = Mathf.Lerp(transform.localScale.x, targetXScale, currentTimeStep);
+            var scale = Mathf.Lerp(startXScale, targetXScale, currentTimeStep);
             transform.localScale = new Vector2(scale, transform.localScale.y);
 
             currentTimeStep += resizeFactor * Time.deltaTime;
@@ -56,8 +57,8 @@ public class Paddle : MonoBehaviour
     {
         CancelInvoke(nameof(ScaleBackWith));
 
-        this.currentTimeStep = 0;
-        transform.localScale = new Vector2(fractionWidth, 1);
+        currentTimeStep = 0;
+        startXScale = transform.localScale.x;
         targetXScale = fractionWidth;
         this.resizeFactor = resizeFactor;
 
@@ -67,6 +68,7 @@ public class Paddle : MonoBehaviour
     private void ScaleBackWith()
     {
         targetXScale = 1;
-        this.currentTimeStep = 0;
+        currentTimeStep = 0;
+        startXScale = transform.localScale.x;
     }
 }

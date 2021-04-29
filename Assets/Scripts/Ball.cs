@@ -196,6 +196,17 @@ public class Ball : MonoBehaviour
 
         var maximum = myRigidbody.velocity.magnitude * 0.8f;
         var xVelocity = (relativePosition.x / ((boxCollider.size.x/2)*boxCollider.transform.localScale.x)) * maximum;
+
+        if (xVelocity > myRigidbody.velocity.magnitude) 
+        {
+            xVelocity = myRigidbody.velocity.magnitude * 0.95f;
+        }
+
+        if (xVelocity < -myRigidbody.velocity.magnitude)
+        {
+            xVelocity = -myRigidbody.velocity.magnitude * 0.95f;
+        }
+
         var yVelocity = GetScaledYVelocity(xVelocity);
         myRigidbody.velocity = new Vector2(xVelocity, Mathf.Abs(yVelocity));
 
