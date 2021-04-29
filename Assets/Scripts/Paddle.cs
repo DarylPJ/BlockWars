@@ -24,7 +24,6 @@ public class Paddle : MonoBehaviour
 
     void Update()
     {
-
         if (transform.localScale.x != targetXScale)
         {
             var scale = Mathf.Lerp(transform.localScale.x, targetXScale, currentTimeStep);
@@ -56,7 +55,8 @@ public class Paddle : MonoBehaviour
     public void TempResize(float fractionWidth, float time, float resizeFactor)
     {
         CancelInvoke(nameof(ScaleBackWith));
-        
+
+        this.currentTimeStep = 0;
         transform.localScale = new Vector2(fractionWidth, 1);
         targetXScale = fractionWidth;
         this.resizeFactor = resizeFactor;
