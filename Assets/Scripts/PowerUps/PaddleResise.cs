@@ -7,6 +7,11 @@ public class PaddleResise : PowerUps
     [SerializeField] private float resizeFactor = 0.5f; 
     
     private Paddle[] paddles;
+    protected override void Start()
+    {
+        base.Start();
+        paddles = FindObjectsOfType<Paddle>();
+    }
 
     protected override void HandlePaddleCollision(Collider2D collision)
     {
@@ -16,9 +21,4 @@ public class PaddleResise : PowerUps
         }
     }
 
-    protected override void Start()
-    {
-        base.Start();
-        paddles = FindObjectsOfType<Paddle>();
-    }
 }

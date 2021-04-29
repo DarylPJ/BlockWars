@@ -33,7 +33,6 @@ public class Paddle : MonoBehaviour
             currentTimeStep += resizeFactor * Time.deltaTime;
         }
 
-
         if (runningOnAndroid && Input.touchCount == 0 && !autoPlay)
         {
             return;
