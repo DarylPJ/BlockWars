@@ -15,7 +15,6 @@ public class Ball : MonoBehaviour
 
     private bool lockedToPaddle = true;
     private bool runningOnAndroid = false;
-    private bool fireMode = false;
     private Vector3 ballToPaddle;
     private readonly System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
 
@@ -24,15 +23,7 @@ public class Ball : MonoBehaviour
     private AudioSource audioSource;
     private CircleCollider2D circleCollider;
     private SpriteRenderer spriteRenderer;
-
-    private Color spriteColour;
-    private float currentTimeStep;
-    private float startScale = 1;
-    private float targetScale = 1;
-    private float resizeFactor;
-
-    private Color currentFireModeColour;
-    private Color currentScaleUpColour;
+    private PowerUpState powerUpState;
 
     private void Start()
     {
@@ -41,8 +32,8 @@ public class Ball : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         circleCollider = GetComponent<CircleCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        powerUpState = FindObjectOfType<PowerUpState>();
 
-        spriteColour = spriteRenderer.color;
         ballToPaddle = transform.position - paddle.transform.position;
         runningOnAndroid = Application.platform == RuntimePlatform.Android;
         stopwatch.Start();
@@ -52,7 +43,10 @@ public class Ball : MonoBehaviour
     {
         if (!lockedToPaddle)
         {
-            HandleScale();
+            var scale = powerUpState.GetCurrentScale();
+            transform.localScale = new Vector2(scale, scale);
+
+            spriteRenderer.color = powerUpState.GetCurrentColour();
             return;
         }
 
@@ -67,22 +61,6 @@ public class Ball : MonoBehaviour
 
             lockedToPaddle = false;
             myRigidbody.velocity = new Vector2(x, y);
-        }
-    }
-
-    private void HandleScale()
-    {
-        if (transform.localScale.x != transform.localScale.y) 
-        {
-            transform.localScale = new Vector2(transform.localScale.x, transform.localScale.x);
-        }
-
-        if (transform.localScale.x != targetScale) 
-        {
-            var scale = Mathf.Lerp(startScale, targetScale, currentTimeStep);
-            transform.localScale = new Vector2(scale, scale);
-
-            currentTimeStep += resizeFactor * Time.deltaTime;
         }
     }
 
@@ -114,7 +92,7 @@ public class Ball : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("PowerUp") || collision.GetComponent<Ball>() != null ||
-            (fireMode && collision.GetComponent<Block>()))
+            (powerUpState.IsFireModeActive() && collision.GetComponent<Block>()))
         {
             return;
         }
@@ -286,49 +264,5 @@ public class Ball : MonoBehaviour
         }
 
         return Direction.None;
-    }
-
-    public void TriggerFireMode(Color colour, float time)
-    {
-        CancelInvoke(nameof(TurnOffFireMode));
-        spriteRenderer.color = colour;
-        fireMode = true;
-        currentFireModeColour = colour;
-        Invoke(nameof(TurnOffFireMode), time);
-    }
-
-    private void TurnOffFireMode()
-    {
-        if (spriteRenderer.color == currentFireModeColour)
-        {
-            spriteRenderer.color = spriteColour;
-        }
-        fireMode = false;
-    }
-
-    public void ScaleBall(float scale, float time, float resizeFactor, Color colour)
-    {
-        CancelInvoke(nameof(ScaleBack));
-
-        currentTimeStep = 0;
-        startScale = transform.localScale.x;
-        targetScale = scale;
-        this.resizeFactor = resizeFactor;
-        spriteRenderer.color = colour;
-        currentScaleUpColour = colour;
-
-        Invoke(nameof(ScaleBack), time);
-    }
-
-    private void ScaleBack()
-    {
-        if (spriteRenderer.color == currentScaleUpColour)
-        {
-            spriteRenderer.color = spriteColour;
-        }
-
-        targetScale = 1;
-        currentTimeStep = 0;
-        startScale = transform.localScale.x;
     }
 }

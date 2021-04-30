@@ -3,9 +3,12 @@ using UnityEngine;
 public abstract class PowerUps : MonoBehaviour
 {
     [SerializeField] private float speed = -5;
+    protected PowerUpState powerUpState;
 
     protected virtual void Start()
     {
+        powerUpState = FindObjectOfType<PowerUpState>();
+
         var rigidbody = GetComponent<Rigidbody2D>();
         rigidbody.velocity = new Vector2(0, speed);
     }

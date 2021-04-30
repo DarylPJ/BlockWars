@@ -12,13 +12,6 @@ public class FireBall : PowerUps
         base.Start();
     }
 
-    protected override void HandlePaddleCollision(Collider2D collision)
-    {
-        var balls = FindObjectsOfType<Ball>();
-
-        foreach (var ball in balls)
-        {
-            ball.TriggerFireMode(powerUpColour, effectTime);
-        }
-    }
+    protected override void HandlePaddleCollision(Collider2D collision) =>
+        powerUpState.TriggerFireMode(powerUpColour, effectTime);
 }

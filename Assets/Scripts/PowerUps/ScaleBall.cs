@@ -14,13 +14,6 @@ public class ScaleBall : PowerUps
         base.Start();
     }
 
-    protected override void HandlePaddleCollision(Collider2D collision)
-    {
-        var balls = FindObjectsOfType<Ball>();
-
-        foreach (var ball in balls)
-        {
-            ball.ScaleBall(fractionalResize, resizeTime, resizeFactor, powerUpColour);
-        }
-    }
+    protected override void HandlePaddleCollision(Collider2D collision) =>
+        powerUpState.ScaleBall(fractionalResize, resizeTime, resizeFactor, powerUpColour);
 }
