@@ -5,13 +5,19 @@ public class Paddle : MonoBehaviour
     [SerializeField] private bool autoPlay;
 
     private Ball ball;
+    private SpriteRenderer spriteRenderer;
 
     private float cameraScale;
     private bool runningOnAndroid;
     private float resizeFactor;
     private float currentTimeStep;
-    private float targetXScale;
+    private float targetXScale = 1;
     private float startXScale = 1;
+
+    private float startAlpha = 1;
+    private float targetAlpha = 1;
+    private float currentAlphaTimeStep;
+    private float transparentFactorChange;
 
     private void Start()
     {
@@ -21,6 +27,7 @@ public class Paddle : MonoBehaviour
         runningOnAndroid = Application.platform == RuntimePlatform.Android;
 
         ball = FindObjectOfType<Ball>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -32,6 +39,15 @@ public class Paddle : MonoBehaviour
 
             currentTimeStep += resizeFactor * Time.deltaTime;
         }
+
+        if (spriteRenderer.color.a != targetAlpha)
+        {
+            var alpha = Mathf.Lerp(startAlpha, targetAlpha, currentAlphaTimeStep);
+            var colour = spriteRenderer.color;
+            spriteRenderer.color = new Color(colour.r, colour.g, colour.b, alpha);
+            currentAlphaTimeStep += transparentFactorChange * Time.deltaTime;
+        }
+
 
         if (runningOnAndroid && Input.touchCount == 0 && !autoPlay)
         {
@@ -69,5 +85,23 @@ public class Paddle : MonoBehaviour
         targetXScale = 1;
         currentTimeStep = 0;
         startXScale = transform.localScale.x;
+    }
+
+    public void GhostPaddle(float time, float transparentFactorChange)
+    {
+        CancelInvoke(nameof(NoGhosts));
+        currentAlphaTimeStep = 0;
+
+        startAlpha = spriteRenderer.color.a;
+        targetAlpha = 0;
+        this.transparentFactorChange = transparentFactorChange;
+        Invoke(nameof(NoGhosts), time);
+    }
+
+    private void NoGhosts()
+    {
+        targetAlpha = 1;
+        currentAlphaTimeStep = 0;
+        startAlpha = spriteRenderer.color.a;
     }
 }

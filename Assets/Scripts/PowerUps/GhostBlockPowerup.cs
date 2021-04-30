@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GhostPowerup : PowerUps
+public class GhostBlockPowerup : PowerUps
 {
     [SerializeField] private float transparentFactorChange = 1;
     [SerializeField] private float resizeTime = 10;

@@ -150,4 +150,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: -5
   transparentFactorChange: 0.2
-  resizeTime: 8
+  resizeTime: 7
