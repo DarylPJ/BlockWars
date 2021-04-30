@@ -91,6 +91,12 @@ public class Ball : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.GetComponent<Shield>() != null)
+        {
+            HandleShieldTrigger();
+            return;
+        }
+
         if (collision.gameObject.CompareTag("PowerUp") || collision.GetComponent<Ball>() != null ||
             (powerUpState.IsFireModeActive() && collision.GetComponent<Block>()))
         {
@@ -108,6 +114,12 @@ public class Ball : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision) 
     {
+        if (collision.GetComponent<Shield>() != null)
+        {
+            HandleShieldTrigger();
+            return;
+        }
+
         if (paddleCollider == collision  || lockedToPaddle)
         {
             return;
@@ -264,5 +276,10 @@ public class Ball : MonoBehaviour
         }
 
         return Direction.None;
+    }
+
+    private void HandleShieldTrigger()
+    {
+        myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, Mathf.Abs(myRigidbody.velocity.y));
     }
 }
