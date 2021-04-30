@@ -15,5 +15,5 @@ public class ScaleBall : PowerUps
     }
 
     protected override void HandlePaddleCollision(Collider2D collision) =>
-        powerUpState.ScaleBall(fractionalResize, resizeTime, resizeFactor, powerUpColour);
+        ballPowerUpState.ScaleBall(fractionalResize, resizeTime, resizeFactor, powerUpColour);
 }

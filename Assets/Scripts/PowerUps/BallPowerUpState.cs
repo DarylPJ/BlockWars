@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PowerUpState : MonoBehaviour
+public class BallPowerUpState : MonoBehaviour
 {
     private Color curentColour;
     private bool fireModeActive = false;

@@ -13,5 +13,5 @@ public class FireBall : PowerUps
     }
 
     protected override void HandlePaddleCollision(Collider2D collision) =>
-        powerUpState.TriggerFireMode(powerUpColour, effectTime);
+        ballPowerUpState.TriggerFireMode(powerUpColour, effectTime);
 }

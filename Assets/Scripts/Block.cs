@@ -12,6 +12,7 @@ public class Block : MonoBehaviour
     
     private Rigidbody2D blocksRigidbody2D;
     private SpriteRenderer spriteRenderer;
+    private BlockPowerUpState blockPowerUpState;
     private float powerupOffset;
 
     private void Start()
@@ -22,10 +23,15 @@ public class Block : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         powerupOffset = (GetComponent<BoxCollider2D>().size.x / 2);
+
+        blockPowerUpState = FindObjectOfType<BlockPowerUpState>();
     }
 
     private void Update()
     {
+        var colour = spriteRenderer.color;
+        spriteRenderer.color = new Color(colour.r, colour.g, colour.b, blockPowerUpState.GetAlpha());
+
         if (blocksRigidbody2D.velocity.x != 0)
         {
             spriteRenderer.sprite = blocksRigidbody2D.velocity.x < 0 ?

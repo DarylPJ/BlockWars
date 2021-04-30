@@ -23,7 +23,7 @@ public class Ball : MonoBehaviour
     private AudioSource audioSource;
     private CircleCollider2D circleCollider;
     private SpriteRenderer spriteRenderer;
-    private PowerUpState powerUpState;
+    private BallPowerUpState powerUpState;
 
     private void Start()
     {
@@ -32,7 +32,7 @@ public class Ball : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         circleCollider = GetComponent<CircleCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        powerUpState = FindObjectOfType<PowerUpState>();
+        powerUpState = FindObjectOfType<BallPowerUpState>();
 
         ballToPaddle = transform.position - paddle.transform.position;
         runningOnAndroid = Application.platform == RuntimePlatform.Android;
