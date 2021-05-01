@@ -49,7 +49,7 @@ public class Block : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<Ball>() != null)
+        if (collision.gameObject.GetComponent<Ball>() != null || collision.gameObject.GetComponent<Projectile>())
         {
             AudioSource.PlayClipAtPoint(soundOnDestroy, Camera.main.transform.position, volume);
 

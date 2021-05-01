@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 5057130047098751111}
   - component: {fileID: 5057130047098751110}
   - component: {fileID: 5057130047098751109}
-  - component: {fileID: -933821656439108884}
+  - component: {fileID: 4508298840309177443}
   m_Layer: 0
-  m_Name: ShrinkPaddle
+  m_Name: ShootPowerUp
   m_TagString: PowerUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 3625043607559282579, guid: 19fb86013d8c24d6cb8410c0aadf30fa, type: 3}
-  m_Color: {r: 0.7921569, g: 0.16862743, b: 0.20182581, a: 1}
+  m_Color: {r: 0.54901963, g: 0.003921569, b: 0.003921569, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -136,7 +136,7 @@ PolygonCollider2D:
       - {x: -0.5, y: 0}
       - {x: 0, y: -0.25}
       - {x: 0.5, y: 0}
---- !u!114 &-933821656439108884
+--- !u!114 &4508298840309177443
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,10 +145,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 5057130047098751104}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36f69a62ccefe7c48a2b2b0c60f7a562, type: 3}
+  m_Script: {fileID: 11500000, guid: e2cd36134c76b3d448d87101f2b6335f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: -5
-  fractionalResize: 0.75
-  resizeTime: 10
-  resizeFactor: 2
+  time: 2.5

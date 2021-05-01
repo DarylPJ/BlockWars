@@ -91,6 +91,11 @@ public class Ball : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.GetComponent<Projectile>() != null)
+        {
+            return;
+        }
+
         if (collision.GetComponent<Shield>() != null)
         {
             HandleShieldTrigger();
@@ -114,6 +119,11 @@ public class Ball : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision) 
     {
+        if (collision.GetComponent<Projectile>() != null)
+        {
+            return;
+        }
+
         if (collision.GetComponent<Shield>() != null)
         {
             HandleShieldTrigger();
@@ -281,5 +291,6 @@ public class Ball : MonoBehaviour
     private void HandleShieldTrigger()
     {
         myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, Mathf.Abs(myRigidbody.velocity.y));
+        audioSource.Play();
     }
 }

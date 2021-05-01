@@ -3,9 +3,15 @@ using UnityEngine;
 public class Paddle : MonoBehaviour
 {
     [SerializeField] private bool autoPlay;
+    [SerializeField] private Color shootColor;
+    [SerializeField] private float shootTimeSpan;
+    [SerializeField] private GameObject projectile;
+    [SerializeField] private float shootYOffset = 0.75f;
+    [SerializeField] private float shootXOffset = -0.1f;
 
     private Ball ball;
     private SpriteRenderer spriteRenderer;
+    private BoxCollider2D myCollider;
 
     private float cameraScale;
     private bool runningOnAndroid;
@@ -19,6 +25,8 @@ public class Paddle : MonoBehaviour
     private float currentAlphaTimeStep;
     private float transparentFactorChange;
 
+    private bool shoot = false;
+
     private void Start()
     {
         var cameraSize = Camera.main.orthographicSize;
@@ -28,6 +36,9 @@ public class Paddle : MonoBehaviour
 
         ball = FindObjectOfType<Ball>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        myCollider = GetComponent<BoxCollider2D>();
+
+        InvokeRepeating(nameof(Shoot), 0 , shootTimeSpan);
     }
 
     void Update()
@@ -103,5 +114,38 @@ public class Paddle : MonoBehaviour
         targetAlpha = 1;
         currentAlphaTimeStep = 0;
         startAlpha = spriteRenderer.color.a;
+    }
+
+    public void TurnOnShoot(float time)
+    {
+        CancelInvoke(nameof(TurnOffShoot));
+
+        spriteRenderer.color = shootColor;
+        shoot = true;
+
+        Invoke(nameof(TurnOffShoot), time);
+    }
+
+    private void TurnOffShoot()
+    {
+        spriteRenderer.color = new Color(1, 1, 1, 1);
+        shoot = false;
+    }
+
+    private void Shoot()
+    {
+        if (!shoot)
+        {
+            return;
+        }
+
+        var width = ((myCollider.size.x / 2) * transform.localScale.x) + shootXOffset;
+        var xPositions = new float[] { transform.position.x + width, transform.position.x - width };
+
+        foreach (var xPosition in xPositions)
+        {
+            var newprojectile = Instantiate(projectile);
+            newprojectile.transform.position = new Vector2(xPosition, transform.position.y + shootYOffset);
+        }
     }
 }
