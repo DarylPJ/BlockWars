@@ -143,10 +143,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6573190487172105006}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f666f05752f4b3c4e9302153f059ed62, type: 3}
+  m_Script: {fileID: 11500000, guid: bfad814798af52e44ac789ebfcc08bd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocity: 15
+  velocity: 20
 --- !u!82 &-4670979254360450782
 AudioSource:
   m_ObjectHideFlags: 0
