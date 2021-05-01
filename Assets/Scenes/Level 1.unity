@@ -1985,6 +1985,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block (34)
       objectReference: {fileID: 0}
+    - target: {fileID: 3476856663433730457, guid: c47fd53880d9c9443828654b3dc04035, type: 3}
+      propertyPath: initalVelocity.y
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c47fd53880d9c9443828654b3dc04035, type: 3}
 --- !u!1001 &1303102231

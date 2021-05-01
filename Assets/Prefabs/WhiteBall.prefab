@@ -96,7 +96,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 238173702192747716}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e5901b2ae322814aab79583b8e546f0, type: 3}
+  m_Script: {fileID: 11500000, guid: 2545de493f395194aa3a2ae5bb76392a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   launchSpeed: 15
@@ -106,9 +106,9 @@ MonoBehaviour:
   paddleCollider: {fileID: 0}
   enemyFloor: {fileID: 0}
   floor: {fileID: 0}
-  maxRandomToAdd: 0.25
+  maxRandomToAdd: 1
   instaLaunch: 0
-  maxXFire: 0.75
+  maxXFire: 0.5
 --- !u!58 &238173702192747737
 CircleCollider2D:
   m_ObjectHideFlags: 0

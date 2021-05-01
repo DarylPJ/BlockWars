@@ -120,12 +120,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7968511295169606853}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0008f3fffd70ba54189d9aafcbfa8454, type: 3}
+  m_Script: {fileID: 11500000, guid: 03fe7a990dc8dda4793d6b3696bbabdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   autoPlay: 0
   shootColor: {r: 1, g: 0, b: 0, a: 0}
-  shootTimeSpan: 0.25
+  shootTimeSpan: 0.5
   projectile: {fileID: 6573190487172105006, guid: b4bf2e371d2560a49b0909b8b70b6e08, type: 3}
   shootYOffset: 0.75
   shootXOffset: -0.1

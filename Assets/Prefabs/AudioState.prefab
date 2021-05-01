@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8369665850121200788}
   - component: {fileID: 8369665850121200790}
   m_Layer: 0
-  m_Name: GameState
+  m_Name: AudioState
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8369665850121200789}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.713091, y: 15.7798395, z: -75.124374}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -140,3 +140,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c61bf4ddde6c944e908ab8c1b8cdc8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuSfxImage: {fileID: 8651425147032123166, guid: 2b127cb669ac6c145b8f486961744b9b, type: 3}
+  menuMusicImage: {fileID: 1226180945166348628, guid: 7902d89959e3e8b46a4a37ce512f9749, type: 3}
+  playSfxSprite: {fileID: 21300000, guid: 42743c6f57108a7448bacaf1b739bdac, type: 3}
+  dontPlaySfxSprite: {fileID: 21300000, guid: 6d864a248d4ca9a40acb201a9d0cddc3, type: 3}
+  playMusicSprite: {fileID: 21300000, guid: 0aa785b4d2d38264f88b4208fb283207, type: 3}
+  dontPlayMusicSprite: {fileID: 21300000, guid: e36a5a8c2039b8c46b609ed896b0f611, type: 3}

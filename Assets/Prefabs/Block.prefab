@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3476856663433730456}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 27, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -142,10 +142,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3476856663433730456}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14f6ab87dada90f458629ad713626cc5, type: 3}
+  m_Script: {fileID: 11500000, guid: 7a58a0b6e75ee2941bb2dec943cc19d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spritesToUse:
+  - direction: 0
+    sprite: {fileID: 21300000, guid: 1f89df62b9811124da3e4748c87f6732, type: 3}
   - direction: 1
     sprite: {fileID: 21300000, guid: 3ef62eaf1b612524f9079edcde339c42, type: 3}
   - direction: 2
@@ -154,12 +156,10 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 2fe77cb817eb1884aa37fd6ff4370d1a, type: 3}
   - direction: 4
     sprite: {fileID: 21300000, guid: b800b3200b19fcd428b6753c92006f56, type: 3}
-  - direction: 0
-    sprite: {fileID: 21300000, guid: 1f89df62b9811124da3e4748c87f6732, type: 3}
-  initalVelocity: {x: 0, y: 3}
+  initalVelocity: {x: 0, y: 0}
   soundOnDestroy: {fileID: 8300000, guid: 878aaa04172ca714c99973e628c6a698, type: 3}
-  volume: 0.103
-  chanceOfPowerUp: 0.5
+  volume: 0.5
+  chanceOfPowerUp: 0.1
   powerUps:
   - {fileID: 5057130047098751104, guid: a3a1697f898bd15498b543f85d07ebcd, type: 3}
   - {fileID: 5057130047098751104, guid: aae982aecd9d51e488c5d68eeedbce16, type: 3}
