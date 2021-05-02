@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5057130047098751109}
   - component: {fileID: 5052185723775553671}
   m_Layer: 0
-  m_Name: Fire
+  m_Name: FirePowerUp
   m_TagString: PowerUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -149,4 +149,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: -5
-  effectTime: 5
+  effectTime: 3.5
