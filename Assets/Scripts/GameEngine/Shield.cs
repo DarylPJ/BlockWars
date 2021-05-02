@@ -3,6 +3,10 @@ using UnityEngine;
 public class Shield : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
+    private AudioState audioState;
+    private AudioSource audioSource;
+
+    private bool playingSfx;
 
     private float startingAlpha;
     private float minAlpha;
@@ -16,11 +20,23 @@ public class Shield : MonoBehaviour
 
     void Start()
     {
+        audioState = FindObjectOfType<AudioState>();
+        audioSource = GetComponent<AudioSource>();
+
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        playingSfx = audioState.PlaySfx();
+
+        if (playingSfx)
+        {
+            audioSource.Play();
+        }
     }
 
     void Update()
     {
+        HandleChangeInSfx();
+
         if (maxAlpha == spriteRenderer.color.a && !shuttngDown)
         {
             currentTimeStep = transparentFactorChange * Time.deltaTime;
@@ -45,6 +61,33 @@ public class Shield : MonoBehaviour
 
         var c = spriteRenderer.color;
         spriteRenderer.color = new Color(c.r, c.g, c.b, alpha);
+    }
+
+    private void HandleChangeInSfx()
+    {
+        if (Time.timeScale == 0)
+        {
+            if (playingSfx)
+            {
+                playingSfx = false;
+                audioSource.Stop();
+            }
+
+            return;
+        }
+
+        if (audioState.PlaySfx() != playingSfx)
+        {
+            playingSfx = audioState.PlaySfx();
+            if (playingSfx)
+            {
+                audioSource.Play();
+            }
+            else
+            {
+                audioSource.Stop();
+            }
+        }
     }
 
     private void ShutDown()

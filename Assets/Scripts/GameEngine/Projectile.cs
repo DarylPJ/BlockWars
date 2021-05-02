@@ -11,6 +11,11 @@ public class Projectile : MonoBehaviour
         GetComponent<Rigidbody2D>().velocity = new Vector2(0, velocity);
 
         maxHeight = Camera.main.orthographicSize * 2;
+
+        if (FindObjectOfType<AudioState>().PlaySfx())
+        {
+            GetComponent<AudioSource>().Play();
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)

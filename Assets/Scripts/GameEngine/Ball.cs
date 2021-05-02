@@ -24,6 +24,7 @@ public class Ball : MonoBehaviour
     private CircleCollider2D circleCollider;
     private SpriteRenderer spriteRenderer;
     private BallPowerUpState powerUpState;
+    private AudioState audioState;
 
     private void Start()
     {
@@ -33,6 +34,7 @@ public class Ball : MonoBehaviour
         circleCollider = GetComponent<CircleCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         powerUpState = FindObjectOfType<BallPowerUpState>();
+        audioState = FindObjectOfType<AudioState>();
 
         ballToPaddle = transform.position - paddle.transform.position;
         runningOnAndroid = Application.platform == RuntimePlatform.Android;
@@ -152,7 +154,7 @@ public class Ball : MonoBehaviour
             return;
         }
 
-        audioSource.Play();
+        playCollisionNoise();
 
         var direction = GetNewDirection(collision);
 
@@ -170,7 +172,7 @@ public class Ball : MonoBehaviour
 
         if (!lockedToPaddle)
         {
-            audioSource.Play();
+            playCollisionNoise();
         }
 
         stopwatch.Reset();
@@ -243,7 +245,7 @@ public class Ball : MonoBehaviour
 
         if (!lockedToPaddle)
         {
-            audioSource.Play();
+            playCollisionNoise();
         }
     }
 
@@ -291,6 +293,16 @@ public class Ball : MonoBehaviour
     private void HandleShieldTrigger()
     {
         myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, Mathf.Abs(myRigidbody.velocity.y));
+        playCollisionNoise();
+    }
+
+    private void playCollisionNoise()
+    {
+        if (!audioState.PlaySfx())
+        {
+            return;
+        }
+
         audioSource.Play();
     }
 }

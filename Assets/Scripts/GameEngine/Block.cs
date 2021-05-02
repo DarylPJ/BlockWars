@@ -12,7 +12,10 @@ public class Block : MonoBehaviour
     
     private Rigidbody2D blocksRigidbody2D;
     private SpriteRenderer spriteRenderer;
+
     private BlockPowerUpState blockPowerUpState;
+    private AudioState audioState;
+
     private float powerupOffset;
 
     private void Start()
@@ -25,6 +28,7 @@ public class Block : MonoBehaviour
         powerupOffset = (GetComponent<BoxCollider2D>().size.x / 2);
 
         blockPowerUpState = FindObjectOfType<BlockPowerUpState>();
+        audioState = FindObjectOfType<AudioState>();
     }
 
     private void Update()
@@ -51,7 +55,10 @@ public class Block : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<Ball>() != null || collision.gameObject.GetComponent<Projectile>())
         {
-            AudioSource.PlayClipAtPoint(soundOnDestroy, Camera.main.transform.position, volume);
+            if (audioState.PlaySfx())
+            {
+                AudioSource.PlayClipAtPoint(soundOnDestroy, Camera.main.transform.position, volume);
+            }
 
             if (Random.value < chanceOfPowerUp)
             {
