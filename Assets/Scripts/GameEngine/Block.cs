@@ -31,8 +31,6 @@ public class Block : MonoBehaviour
         blockPowerUpState = FindObjectOfType<BlockPowerUpState>();
         audioState = FindObjectOfType<AudioState>();
         levelState = FindObjectOfType<LevelState>();
-
-        levelState.AddBlock();
     }
 
     private void Update()

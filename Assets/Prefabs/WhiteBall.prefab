@@ -109,6 +109,7 @@ MonoBehaviour:
   maxRandomToAdd: 1
   instaLaunch: 0
   maxXFire: 0.5
+  ballToPaddle: {x: 0, y: 0.8, z: 0}
 --- !u!58 &238173702192747737
 CircleCollider2D:
   m_ObjectHideFlags: 0

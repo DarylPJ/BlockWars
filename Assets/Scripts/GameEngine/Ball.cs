@@ -12,10 +12,10 @@ public class Ball : MonoBehaviour
     [SerializeField, Range(0, 5)] private float maxRandomToAdd = 1;
     [SerializeField] private bool instaLaunch = false;
     [SerializeField, Range(0, 1)] private float maxXFire = 0.5f;
+    [SerializeField] private Vector3 ballToPaddle;
 
     private bool lockedToPaddle = true;
     private bool runningOnAndroid = false;
-    private Vector3 ballToPaddle;
     private readonly System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
 
     private Paddle paddle;
@@ -38,7 +38,6 @@ public class Ball : MonoBehaviour
         audioState = FindObjectOfType<AudioState>();
         levelState = FindObjectOfType<LevelState>();
 
-        ballToPaddle = transform.position - paddle.transform.position;
         runningOnAndroid = Application.platform == RuntimePlatform.Android;
         stopwatch.Start();
     }
@@ -114,7 +113,16 @@ public class Ball : MonoBehaviour
 
         if (collision == floor)
         {
-            Destroy(gameObject);
+            if (FindObjectsOfType<Ball>().Length == 1)
+            {
+                levelState.DeathScorePenaltyNeeded();
+                lockedToPaddle = true;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+
             return;
         }
 
@@ -295,6 +303,7 @@ public class Ball : MonoBehaviour
 
     private void HandleShieldTrigger()
     {
+        levelState.PaddleHit();
         myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, Mathf.Abs(myRigidbody.velocity.y));
         playCollisionNoise();
     }
