@@ -43,6 +43,11 @@ public class Paddle : MonoBehaviour
 
     void Update()
     {
+        if (Time.timeScale == 0)
+        {
+            return;
+        }
+
         if (transform.localScale.x != targetXScale)
         {
             var scale = Mathf.Lerp(startXScale, targetXScale, currentTimeStep);
