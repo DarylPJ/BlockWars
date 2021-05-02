@@ -25,6 +25,7 @@ public class Ball : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private BallPowerUpState powerUpState;
     private AudioState audioState;
+    private LevelState levelState;
 
     private void Start()
     {
@@ -35,6 +36,7 @@ public class Ball : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         powerUpState = FindObjectOfType<BallPowerUpState>();
         audioState = FindObjectOfType<AudioState>();
+        levelState = FindObjectOfType<LevelState>();
 
         ballToPaddle = transform.position - paddle.transform.position;
         runningOnAndroid = Application.platform == RuntimePlatform.Android;
@@ -218,6 +220,7 @@ public class Ball : MonoBehaviour
 
     private void HandlePaddleCollision(Collider2D collision)
     {
+        levelState.PaddleHit();
         var boxCollider = (BoxCollider2D)collision;
 
         var relativePosition = transform.position - collision.transform.position;

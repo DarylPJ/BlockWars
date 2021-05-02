@@ -12,6 +12,7 @@ public class Block : MonoBehaviour
     
     private Rigidbody2D blocksRigidbody2D;
     private SpriteRenderer spriteRenderer;
+    private LevelState levelState;
 
     private BlockPowerUpState blockPowerUpState;
     private AudioState audioState;
@@ -29,6 +30,9 @@ public class Block : MonoBehaviour
 
         blockPowerUpState = FindObjectOfType<BlockPowerUpState>();
         audioState = FindObjectOfType<AudioState>();
+        levelState = FindObjectOfType<LevelState>();
+
+        levelState.AddBlock();
     }
 
     private void Update()
@@ -68,6 +72,7 @@ public class Block : MonoBehaviour
                 powerup.transform.position = (Vector2)transform.position + new Vector2(powerupOffset, 0);
             }
 
+            levelState.BlockDestroyed();
             Destroy(gameObject);
         }
 
