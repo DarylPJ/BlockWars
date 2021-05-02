@@ -81,4 +81,12 @@ public class BallPowerUpState : MonoBehaviour
     public float GetCurrentScale() => currentScale;
 
     public Color GetCurrentColour() => curentColour;
+
+    public void RemoveAllPowerUps()
+    {
+        CancelInvoke(nameof(TurnOffFireMode));
+        CancelInvoke(nameof(ScaleBack));
+        ScaleBack();
+        TurnOffFireMode();
+    }
 }

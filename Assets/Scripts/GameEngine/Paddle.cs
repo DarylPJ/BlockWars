@@ -14,6 +14,8 @@ public class Paddle : MonoBehaviour
     private BoxCollider2D myCollider;
 
     private float cameraScale;
+    private float cameraXOffset;
+
     private bool runningOnAndroid;
     private float resizeFactor;
     private float currentTimeStep;
@@ -30,7 +32,10 @@ public class Paddle : MonoBehaviour
     private void Start()
     {
         var cameraSize = Camera.main.orthographicSize;
-        cameraScale = cameraSize / (Screen.height * (Camera.main.rect.height/2));
+
+        var adjustedScreenHeight = Screen.height * Camera.main.rect.height;
+        cameraScale = (cameraSize * 2) / adjustedScreenHeight;
+        cameraXOffset = (Camera.main.rect.x * Screen.width);
 
         runningOnAndroid = Application.platform == RuntimePlatform.Android;
 
@@ -70,8 +75,8 @@ public class Paddle : MonoBehaviour
             return;
         }
 
-        var xPosition = GetPressPosition() * cameraScale;
-        transform.position = new Vector2(xPosition - (Camera.main.rect.x * Screen.width * cameraScale), transform.position.y);
+        var xPosition = (GetPressPosition() - cameraXOffset) * cameraScale;
+        transform.position = new Vector2(xPosition, transform.position.y);
     }
 
     private float GetPressPosition()

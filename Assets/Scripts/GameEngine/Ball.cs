@@ -44,12 +44,12 @@ public class Ball : MonoBehaviour
 
     private void Update()
     {
+        spriteRenderer.color = powerUpState.GetCurrentColour();
+        var scale = powerUpState.GetCurrentScale();
+        transform.localScale = new Vector2(scale, scale);
+        
         if (!lockedToPaddle)
         {
-            var scale = powerUpState.GetCurrentScale();
-            transform.localScale = new Vector2(scale, scale);
-
-            spriteRenderer.color = powerUpState.GetCurrentColour();
             return;
         }
 
@@ -115,6 +115,7 @@ public class Ball : MonoBehaviour
         {
             if (FindObjectsOfType<Ball>().Length == 1)
             {
+                powerUpState.RemoveAllPowerUps(); 
                 levelState.DeathScorePenaltyNeeded();
                 lockedToPaddle = true;
             }

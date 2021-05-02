@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class LevelState : MonoBehaviour
 {
-    private const float deathScorePenalty = 30;
+    private const float deathScorePenalty = 100;
 
     private float currentBlocks = 0;
     private float score = 0;
@@ -57,12 +57,7 @@ public class LevelState : MonoBehaviour
         score += multiplier;
         multiplier++;
         currentBlocks--;
-        mainScreenScore.text = score.ToString();
-
-        if (score > highScore)
-        {
-            highScoreText.text = $"Highscore: {score}";
-        }
+        SetOnLevelScoreText();
 
         if (currentBlocks == 0)
         {
@@ -119,12 +114,17 @@ public class LevelState : MonoBehaviour
 
     public void DeathScorePenaltyNeeded() 
     {
-        if (score <= deathScorePenalty)
-        {
-            score = 0;
-            return;
-        }
+        score = score <= deathScorePenalty ? 0 : score - deathScorePenalty;
+        SetOnLevelScoreText();
+    }
 
-        score -= deathScorePenalty;
+    private void SetOnLevelScoreText()
+    {
+        mainScreenScore.text = score.ToString();
+
+        if (score > highScore)
+        {
+            highScoreText.text = $"Highscore: {score}";
+        }
     }
 }
