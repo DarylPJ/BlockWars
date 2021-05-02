@@ -57,7 +57,7 @@ public class Ball : MonoBehaviour
         if (ShouldFire())
         {
             var xClick = (runningOnAndroid ? Input.GetTouch(0).position.x : Mathf.Clamp(Input.mousePosition.x, 0, Screen.width));
-            var relativePos = (xClick / Screen.width) - maxXFire;
+            var relativePos = ((xClick / Screen.width) - maxXFire) / 0.7f;
 
             var x = relativePos * launchSpeed;
             var y = Mathf.Sqrt(Mathf.Pow(launchSpeed, 2) - Mathf.Pow(x, 2));
