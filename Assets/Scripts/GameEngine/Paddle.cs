@@ -29,6 +29,7 @@ public class Paddle : MonoBehaviour
     private float transparentFactorChange;
 
     private bool shoot = false;
+    private bool paddleOff = false;
 
     private void Start()
     {
@@ -50,7 +51,7 @@ public class Paddle : MonoBehaviour
 
     void Update()
     {
-        if (Time.timeScale == 0)
+        if (paddleOff)
         {
             return;
         }
@@ -163,4 +164,8 @@ public class Paddle : MonoBehaviour
             newprojectile.transform.position = new Vector2(xPosition, transform.position.y + shootYOffset);
         }
     }
+
+    public void TurnOffPaddle() => paddleOff = true;
+
+    public void TurnOnPaddle() => paddleOff = false;
 }

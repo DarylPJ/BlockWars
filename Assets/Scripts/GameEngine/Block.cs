@@ -70,7 +70,7 @@ public class Block : MonoBehaviour
                 powerup.transform.position = (Vector2)transform.position + new Vector2(powerupOffset, 0);
             }
 
-            levelState.BlockDestroyed();
+            levelState.BlockDestroyed(gameObject.name);
             Destroy(gameObject);
         }
 
@@ -101,5 +101,10 @@ public class Block : MonoBehaviour
         }
 
         blocksRigidbody2D.velocity = directionToMove * new Vector2(Mathf.Abs(blocksRigidbody2D.velocity.x), Mathf.Abs(blocksRigidbody2D.velocity.y));
+    }
+
+    public void DestoryBlock()
+    {
+        Destroy(gameObject);
     }
 }

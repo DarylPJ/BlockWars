@@ -4320,7 +4320,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2096230979}
   m_HandleRect: {fileID: 2096230978}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -4979,7 +4979,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2069958182}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.60657895
+  m_Size: 0.6065789
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5480,8 +5480,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Proceeding will overwrite your current progress and you will start with
-    3 lives at the chosen checkpoint.
+  m_text: 'Proceeding will overwrite your current progress.
+
+
+    You will start
+    with 3 lives at the chosen checkpoint.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

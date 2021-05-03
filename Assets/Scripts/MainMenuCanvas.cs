@@ -10,7 +10,7 @@ public class MainMenuCanvas : MonoBehaviour
         var saveManager = FindObjectOfType<SaveManager>();
         var currentSave = saveManager.GetSaveData();
 
-        if (currentSave.CurrentLevel != SaveData.StartLevel)
+        if (currentSave.CurrentLevel != SaveData.StartLevel || currentSave.Lives < 3)
         {
             playField.text = "Continue";
         };

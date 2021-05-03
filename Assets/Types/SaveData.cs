@@ -10,6 +10,8 @@ public class SaveData
 
     public int BlocksHit = 0;
 
-    public List<string> Checkpoints = new List<string>();
+    public List<string> Checkpoints = new List<string> { StartLevel };
+
+    public List<string> DestroyedBlocks = new List<string>();
 }
 
