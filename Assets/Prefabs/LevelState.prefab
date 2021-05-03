@@ -44,3 +44,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 0}
+  winMenu: {fileID: 0}
+  onScreenInfo: {fileID: 0}
+  mainScreenScore: {fileID: 0}
+  nextLevel: L1-2
+  isCheckpoint: 0
