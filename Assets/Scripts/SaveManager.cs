@@ -18,7 +18,6 @@ public class SaveManager : MonoBehaviour
         }
 
         dataLocation = Application.persistentDataPath + "/a526ae48-7883-41e0-ac8e-9060da3a8118.txt";
-        Debug.Log(dataLocation);
         DontDestroyOnLoad(gameObject);
     }
 
