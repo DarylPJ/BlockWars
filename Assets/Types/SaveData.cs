@@ -8,7 +8,7 @@ public class SaveData
 
     public int Lives = 3;
 
-    public int BlocksHit;
+    public int BlocksHit = 0;
 
     public List<string> Checkpoints = new List<string>();
 }
