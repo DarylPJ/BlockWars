@@ -116,7 +116,7 @@ public class Ball : MonoBehaviour
             if (FindObjectsOfType<Ball>().Length == 1)
             {
                 powerUpState.RemoveAllPowerUps(); 
-                levelState.DeathScorePenaltyNeeded();
+                levelState.LooseLife();
                 lockedToPaddle = true;
             }
             else
@@ -229,7 +229,6 @@ public class Ball : MonoBehaviour
 
     private void HandlePaddleCollision(Collider2D collision)
     {
-        levelState.PaddleHit();
         var boxCollider = (BoxCollider2D)collision;
 
         var relativePosition = transform.position - collision.transform.position;
@@ -304,7 +303,6 @@ public class Ball : MonoBehaviour
 
     private void HandleShieldTrigger()
     {
-        levelState.PaddleHit();
         myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, Mathf.Abs(myRigidbody.velocity.y));
         playCollisionNoise();
     }
