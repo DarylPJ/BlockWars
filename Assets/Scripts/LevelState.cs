@@ -20,20 +20,6 @@ public class LevelState : MonoBehaviour
     private SaveManager saveManager;
     private SceneHandler sceneHandler;
 
-    private void Awake()
-    {
-        var levelState = FindObjectsOfType<LevelState>();
-
-        if (levelState.Length > 1)
-        {
-            gameObject.SetActive(false);
-            Destroy(gameObject);
-            return;
-        }
-
-        DontDestroyOnLoad(gameObject);
-    }
-
     private void Start()
     {
         currentBlocks = FindObjectsOfType<Block>().Length;

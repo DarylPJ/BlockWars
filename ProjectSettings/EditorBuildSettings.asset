@@ -9,6 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 881dd8ee57285dc4aa9cd88008fb5252
   - enabled: 1
+    path: Assets/Scenes/About.unity
+    guid: c95edc1154ad34849b840e1ab218104c
+  - enabled: 1
+    path: Assets/Scenes/CheckPoints.unity
+    guid: ef226d65816abe146b4aa32d4c6f1a68
+  - enabled: 1
     path: Assets/Scenes/World 1/L1-1.unity
     guid: 06ba2f386853e8d40b14c6742b553ffe
   - enabled: 1

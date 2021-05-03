@@ -1,11 +1,9 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class MainMenuCanvas : MonoBehaviour
 {
     [SerializeField] private TMP_Text playField;
-    [SerializeField] private Button checkpointsButton;
  
     private void Start()
     {
@@ -16,10 +14,5 @@ public class MainMenuCanvas : MonoBehaviour
         {
             playField.text = "Continue";
         };
-
-        if (currentSave.Checkpoints.Count == 0)
-        {
-            checkpointsButton.interactable = false;
-        }
     }
 }
