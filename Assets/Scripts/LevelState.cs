@@ -5,17 +5,34 @@ using UnityEngine.SceneManagement;
 public class LevelState : MonoBehaviour
 {    
     private float currentBlocks = 0;
-    private int blocksDestroyed = 0;
+    private int blocksDestroyed;
+    private int lives;
 
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject winMenu;
     [SerializeField] private GameObject onScreenInfo;
+
     [SerializeField] private TMP_Text mainScreenScore;
+    [SerializeField] private TMP_Text livesText;
     [SerializeField] private string nextLevel;
     [SerializeField] private bool isCheckpoint;
 
     private SaveManager saveManager;
     private SceneHandler sceneHandler;
+
+    private void Awake()
+    {
+        var levelState = FindObjectsOfType<LevelState>();
+
+        if (levelState.Length > 1)
+        {
+            gameObject.SetActive(false);
+            Destroy(gameObject);
+            return;
+        }
+
+        DontDestroyOnLoad(gameObject);
+    }
 
     private void Start()
     {
@@ -23,6 +40,12 @@ public class LevelState : MonoBehaviour
         saveManager = FindObjectOfType<SaveManager>();
         sceneHandler = FindObjectOfType<SceneHandler>();
 
+        var currentData = saveManager.GetSaveData();
+
+        lives = currentData.Lives;
+        blocksDestroyed = currentData.BlocksHit;
+
+        livesText.text = lives.ToString("D2");
         mainScreenScore.text = blocksDestroyed.ToString("D3");
     }
 
@@ -47,6 +70,13 @@ public class LevelState : MonoBehaviour
     {
         blocksDestroyed++;
         currentBlocks--;
+
+        if (blocksDestroyed == 1000)
+        {
+            lives++;
+            blocksDestroyed = 0;
+        }
+
         mainScreenScore.text = blocksDestroyed.ToString("D3");
 
         if (currentBlocks == 0)
@@ -59,6 +89,8 @@ public class LevelState : MonoBehaviour
     {
         var data = saveManager.GetSaveData();
         data.CurrentLevel = nextLevel;
+        data.Lives = lives;
+        data.BlocksHit = blocksDestroyed;
 
         if (isCheckpoint)
         {
@@ -75,8 +107,14 @@ public class LevelState : MonoBehaviour
     public void LoadNextLevel() =>
         sceneHandler.GoToScene(nextLevel);
 
-    public void LooseLife()
+    public void LooseLife() 
     {
+        lives--;
+        livesText.text = lives.ToString("D2");
 
+        if (lives == 0)
+        {
+            Debug.Log("Dead!");
+        }
     }
 }
