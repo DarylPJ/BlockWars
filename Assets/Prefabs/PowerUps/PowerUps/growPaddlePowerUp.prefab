@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3476856663433730456
+--- !u!1 &5057130047098751104
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,25 +8,25 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3476856663433730437}
-  - component: {fileID: 3476856663433730436}
-  - component: {fileID: 3476856663433730439}
-  - component: {fileID: 3476856663433730438}
-  - component: {fileID: 3476856663433730457}
+  - component: {fileID: 5057130047098751108}
+  - component: {fileID: 5057130047098751111}
+  - component: {fileID: 5057130047098751110}
+  - component: {fileID: 5057130047098751109}
+  - component: {fileID: -933821656439108884}
   m_Layer: 0
-  m_Name: BlockPink
-  m_TagString: Untagged
+  m_Name: growPaddle
+  m_TagString: PowerUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3476856663433730437
+--- !u!4 &5057130047098751108
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3476856663433730456}
+  m_GameObject: {fileID: 5057130047098751104}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -34,13 +34,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &3476856663433730436
+--- !u!212 &5057130047098751111
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3476856663433730456}
+  m_GameObject: {fileID: 5057130047098751104}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -75,26 +75,26 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 9e86f2bce99bf2948a5155ed880fe59f, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 3625043607559282579, guid: 19fb86013d8c24d6cb8410c0aadf30fa, type: 3}
+  m_Color: {r: 0.16862743, g: 0.7921569, b: 0.2864704, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2, y: 1}
+  m_Size: {x: 1, y: 0.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &3476856663433730439
+--- !u!50 &5057130047098751110
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3476856663433730456}
-  m_BodyType: 1
+  m_GameObject: {fileID: 5057130047098751104}
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -105,69 +105,50 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 1
-  m_Constraints: 4
---- !u!61 &3476856663433730438
-BoxCollider2D:
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!60 &5057130047098751109
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3476856663433730456}
+  m_GameObject: {fileID: 5057130047098751104}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1, y: 0.5}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 2, y: 1}
-    newSize: {x: 2, y: 1}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 0.5}
+    newSize: {x: 1, y: 0.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.95, y: 0.95}
-  m_EdgeRadius: 0
---- !u!114 &3476856663433730457
+  m_Points:
+    m_Paths:
+    - - {x: 0, y: 0.25}
+      - {x: -0.5, y: 0}
+      - {x: 0, y: -0.25}
+      - {x: 0.5, y: 0}
+--- !u!114 &-933821656439108884
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3476856663433730456}
+  m_GameObject: {fileID: 5057130047098751104}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a58a0b6e75ee2941bb2dec943cc19d3, type: 3}
+  m_Script: {fileID: 11500000, guid: 36f69a62ccefe7c48a2b2b0c60f7a562, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spritesToUse:
-  - direction: 0
-    sprite: {fileID: 21300000, guid: 9e86f2bce99bf2948a5155ed880fe59f, type: 3}
-  - direction: 1
-    sprite: {fileID: 21300000, guid: 8e2d52de88eb1dc4587c96554713927d, type: 3}
-  - direction: 2
-    sprite: {fileID: 21300000, guid: 54c5c9706ae08204d8456f1d783e6c13, type: 3}
-  - direction: 3
-    sprite: {fileID: 21300000, guid: 7c777cfafe8dfd441ba743e424c075f6, type: 3}
-  - direction: 4
-    sprite: {fileID: 21300000, guid: 115b292e76b410a4aa598e95b8aad3ce, type: 3}
-  initalVelocity: {x: 0, y: 0}
-  soundOnDestroy: {fileID: 8300000, guid: 878aaa04172ca714c99973e628c6a698, type: 3}
-  volume: 0.5
-  chanceOfPowerUp: 0.034
-  powerUps:
-  - {fileID: 5057130047098751104, guid: a3a1697f898bd15498b543f85d07ebcd, type: 3}
-  - {fileID: 5057130047098751104, guid: aae982aecd9d51e488c5d68eeedbce16, type: 3}
-  - {fileID: 5057130047098751104, guid: 261e4fc587a31ad42aa7f59d06156a85, type: 3}
-  - {fileID: 5057130047098751104, guid: fa2214d72edfcb94aabc455c7754b1a6, type: 3}
-  - {fileID: 5057130047098751104, guid: 2b7fdc9f03f398948afe7e1b157c76c5, type: 3}
-  - {fileID: 5057130047098751104, guid: 968a89e5caacd2f46b7e71bebcae8588, type: 3}
-  - {fileID: 5057130047098751104, guid: 37a309e5ad86ccc4f9155373edd82749, type: 3}
-  - {fileID: 5057130047098751104, guid: 2ae6a17917dbe7b4e8a282e88d66bce0, type: 3}
-  - {fileID: 5057130047098751104, guid: ad6070a727e49a04cbdd69b2a2326cdd, type: 3}
-  - {fileID: 5057130047098751104, guid: 3c12f43afb0d75d4593796ac03c22fbf, type: 3}
+  speed: -5
+  fractionalResize: 1.5
+  resizeTime: 10
+  resizeFactor: 2

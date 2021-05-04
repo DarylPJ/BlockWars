@@ -86,7 +86,12 @@ public class Block : MonoBehaviour
             return;
         }
 
-        blocksRigidbody2D.velocity = -blocksRigidbody2D.velocity;
+
+        var relativePos = transform.position - collision.transform.position;
+        var newXSpeed = Mathf.Sign(relativePos.x) * Mathf.Abs(blocksRigidbody2D.velocity.x);
+        var newYSpeed = Mathf.Sign(relativePos.y) * Mathf.Abs(blocksRigidbody2D.velocity.y);
+
+        blocksRigidbody2D.velocity = new Vector2(newXSpeed, newYSpeed);
     }
 
     public void DestoryBlock()
