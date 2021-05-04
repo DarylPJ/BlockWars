@@ -17,6 +17,7 @@ public class Ball : MonoBehaviour
     private bool lockedToPaddle = true;
     private bool runningOnAndroid = false;
     private readonly System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
+    private bool allowLaunch = true;
 
     private Paddle paddle;
     private Rigidbody2D myRigidbody;
@@ -74,6 +75,11 @@ public class Ball : MonoBehaviour
 
     private bool ShouldFire()
     {
+        if(!allowLaunch)
+        {
+            return false;
+        }
+
         if (instaLaunch)
         {
             return true;
@@ -316,4 +322,6 @@ public class Ball : MonoBehaviour
 
         audioSource.Play();
     }
+
+    public void AllowLaunch(bool allowed) => allowLaunch = allowed;
 }

@@ -88,6 +88,12 @@ public class LevelState : MonoBehaviour
         pauseMenu.SetActive(false);
         TurnOnPaddles();
         Time.timeScale = 1;
+        Invoke(nameof(AllowStart), Time.deltaTime * 5);
+    }
+
+    private void AllowStart()
+    {
+        FindObjectOfType<Ball>().AllowLaunch(true);
     }
 
     public void OnDestroy()
@@ -174,6 +180,7 @@ public class LevelState : MonoBehaviour
 
     private void ShowDeathScreen()
     {
+        FindObjectOfType<Ball>().AllowLaunch(false);
         Time.timeScale = 0;
         TurnOffPaddles();
         pauseMenu.SetActive(false);
