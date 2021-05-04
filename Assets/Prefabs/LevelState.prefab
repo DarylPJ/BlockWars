@@ -46,7 +46,10 @@ MonoBehaviour:
   pauseMenu: {fileID: 0}
   winMenu: {fileID: 0}
   onScreenInfo: {fileID: 0}
+  deathScreen: {fileID: 0}
+  checkpoint: {fileID: 0}
+  currentlevelTxt: {fileID: 0}
   mainScreenScore: {fileID: 0}
-  livesText: {fileID: 3578798472736694533, guid: a28986be0428b6a41848326e7462e6bd, type: 3}
+  livesText: {fileID: 0}
   nextLevel: L1-2
-  isCheckpoint: 0
+  isCheckpoint: 1

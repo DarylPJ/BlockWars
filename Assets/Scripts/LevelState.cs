@@ -16,7 +16,9 @@ public class LevelState : MonoBehaviour
     [SerializeField] private GameObject winMenu;
     [SerializeField] private GameObject onScreenInfo;
     [SerializeField] private GameObject deathScreen;
+    [SerializeField] private GameObject checkpoint;
 
+    [SerializeField] private TMP_Text currentlevelTxt;
     [SerializeField] private TMP_Text mainScreenScore;
     [SerializeField] private TMP_Text livesText;
     [SerializeField] private string nextLevel;
@@ -27,6 +29,14 @@ public class LevelState : MonoBehaviour
 
     private void Start()
     {
+        currentlevelTxt.text = $"Level {SceneManager.GetActiveScene().name.Substring(1)}";
+
+        checkpoint.SetActive(false);
+        if (isCheckpoint)
+        {
+            checkpoint.SetActive(true);
+        }
+
         saveManager = FindObjectOfType<SaveManager>();
         sceneHandler = FindObjectOfType<SceneHandler>();
         paddles = FindObjectsOfType<Paddle>();
