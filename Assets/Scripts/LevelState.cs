@@ -107,7 +107,7 @@ public class LevelState : MonoBehaviour
 
     private void LevelComplete()
     {
-        Time.timeScale = 1;
+        Time.timeScale = 0;
         var data = saveManager.GetSaveData();
         data.CurrentLevel = nextLevel;
         data.BlocksHit = totalBlocksDestroyed;
@@ -127,6 +127,7 @@ public class LevelState : MonoBehaviour
 
     public void LoadNextLevel() =>
         sceneHandler.GoToScene(nextLevel);
+
 
     public void LooseLife() 
     {

@@ -165,7 +165,7 @@ public class Ball : MonoBehaviour
             return;
         }
 
-        playCollisionNoise();
+        PlayCollisionNoise();
 
         var direction = GetNewDirection(collision);
 
@@ -183,7 +183,7 @@ public class Ball : MonoBehaviour
 
         if (!lockedToPaddle)
         {
-            playCollisionNoise();
+            PlayCollisionNoise();
         }
 
         stopwatch.Reset();
@@ -256,7 +256,7 @@ public class Ball : MonoBehaviour
 
         if (!lockedToPaddle)
         {
-            playCollisionNoise();
+            PlayCollisionNoise();
         }
     }
 
@@ -304,10 +304,10 @@ public class Ball : MonoBehaviour
     private void HandleShieldTrigger()
     {
         myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, Mathf.Abs(myRigidbody.velocity.y));
-        playCollisionNoise();
+        PlayCollisionNoise();
     }
 
-    private void playCollisionNoise()
+    private void PlayCollisionNoise()
     {
         if (!audioState.PlaySfx())
         {

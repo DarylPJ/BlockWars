@@ -1,5 +1,8 @@
+using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Advertisements;
+using UnityEngine.Networking;
 
 public class AdsManager : MonoBehaviour, IUnityAdsListener
 {
@@ -7,6 +10,8 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
     const string myVideoPlacement = "Rewarded_Android";
 
     private SaveManager saveManager;
+
+    private bool unityAdsInitialized = false;
 
     private void Awake()
     {
@@ -19,16 +24,39 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
             return;
         }
 
+        StartCoroutine(nameof(CheckInternetConnection));
         DontDestroyOnLoad(gameObject);
     }
 
     private void Start()
     {
+        Advertisement.AddListener(this);        
         saveManager = FindObjectOfType<SaveManager>();
-        Advertisement.AddListener(this);
+    }
 
-        // change this to only initialize if internet connection. Check call to google.com 
-        Advertisement.Initialize(AndroidGameId, true);
+    private IEnumerator CheckInternetConnection()
+    {
+        float timeCheck = 2.0f;//will check google.com every two seconds
+        float t1;
+        float t2;
+        while (!unityAdsInitialized)
+        {
+            using var request = UnityWebRequest.Get("http://google.com");
+            yield return request.SendWebRequest();
+
+            t1 = Time.fixedTime;
+            if (request.result == UnityWebRequest.Result.Success) 
+            {
+                Advertisement.Initialize(AndroidGameId, true);
+                unityAdsInitialized = true;
+
+                break;//will end the coroutine
+            }
+
+            t2 = Time.fixedTime - t1;
+            if (t2 < timeCheck)
+                yield return new WaitForSeconds(timeCheck - t2);
+        }
     }
 
     public bool IsRewardAdReady() => Advertisement.IsReady(myVideoPlacement);
@@ -36,8 +64,8 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
     public void ShowRewardAd()
     {
         if (!IsRewardAdReady())
-        { 
-            Debug.Log("Ad not ready. Please wait a few seconds and try again.");
+        {
+            FindObjectOfType<ErrorMessageManager>().UpdateErrorMessage("Could not load video. Check you are online and try again in a few seconds.");
             return;
         }
 
@@ -49,10 +77,10 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
         switch (showResult)
         {
             case ShowResult.Failed:
-                Debug.Log("Ad failed for some reason. Please try again");
+                FindObjectOfType<ErrorMessageManager>().UpdateErrorMessage("Loading the video failed. Check you are online and try again in a few seconds.");
                 break;
             case ShowResult.Skipped:
-                Debug.LogError("Ad skipped. Please watch ad to receve lifes.");
+                FindObjectOfType<ErrorMessageManager>().UpdateErrorMessage("Video skipped! Watch the whole video to receve 2 lives.");
                 break;
             case ShowResult.Finished:
                 HandleRewardAdWatched();

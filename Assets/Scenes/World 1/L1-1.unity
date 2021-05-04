@@ -566,6 +566,17 @@ BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 8876682339714715599, guid: 45693246da210194daeaaa9f79d278c6, type: 3}
   m_PrefabInstance: {fileID: 8876682339376977223}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1045424705 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1045424705, guid: e0e80a34a3ed4954493bd844d4e4e33a, type: 3}
+  m_PrefabInstance: {fileID: 376737442495482233}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1255410756
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -980,18 +991,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1045424705, guid: e0e80a34a3ed4954493bd844d4e4e33a, type: 3}
+      propertyPath: m_text
+      value: placeholder text
+      objectReference: {fileID: 0}
+    - target: {fileID: 376737441621366844, guid: e0e80a34a3ed4954493bd844d4e4e33a, type: 3}
+      propertyPath: m_text
+      value: Go to checkpoint selection
+      objectReference: {fileID: 0}
     - target: {fileID: 376737442166998019, guid: e0e80a34a3ed4954493bd844d4e4e33a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 410139440}
-    - target: {fileID: 376737442837092695, guid: e0e80a34a3ed4954493bd844d4e4e33a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 4812374938642333639, guid: 282176558dfcd6b4bae1a9306c3ffcec, type: 3}
-    - target: {fileID: 376737442837092695, guid: e0e80a34a3ed4954493bd844d4e4e33a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ShowRewardAd
-      objectReference: {fileID: 0}
     - target: {fileID: 376737443543141177, guid: e0e80a34a3ed4954493bd844d4e4e33a, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1079,6 +1090,10 @@ PrefabInstance:
     - target: {fileID: 376737443543141189, guid: e0e80a34a3ed4954493bd844d4e4e33a, type: 3}
       propertyPath: m_Name
       value: DeathCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 376737443543141189, guid: e0e80a34a3ed4954493bd844d4e4e33a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0e80a34a3ed4954493bd844d4e4e33a, type: 3}
@@ -1498,6 +1513,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AdsManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4812374938642333639, guid: 282176558dfcd6b4bae1a9306c3ffcec, type: 3}
+      propertyPath: errorMessage
+      value: 
+      objectReference: {fileID: 1045424705}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 282176558dfcd6b4bae1a9306c3ffcec, type: 3}
 --- !u!1001 &5246660610694326263
