@@ -161,12 +161,19 @@ public class LevelState : MonoBehaviour
         }
     }
 
-
     private void ShowDeathScreen()
     {
         Time.timeScale = 0;
         TurnOffPaddles();
         pauseMenu.SetActive(false);
         deathScreen.SetActive(true);
+    }
+
+    public void RewardAdWatched()
+    {
+        lives = 2;
+        livesText.text = lives.ToString("D2");
+        deathScreen.SetActive(false);
+        Pause();
     }
 }

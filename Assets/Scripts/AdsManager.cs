@@ -6,6 +6,8 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
     const string AndroidGameId = "4115155";
     const string myVideoPlacement = "Rewarded_Android";
 
+    private SaveManager saveManager;
+
     private void Awake()
     {
         var adsManagers = FindObjectsOfType<AdsManager>();
@@ -22,6 +24,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
 
     private void Start()
     {
+        saveManager = FindObjectOfType<SaveManager>();
         Advertisement.AddListener(this);
 
         // change this to only initialize if internet connection. Check call to google.com 
@@ -52,11 +55,19 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
                 Debug.LogError("Ad skipped. Please watch ad to receve lifes.");
                 break;
             case ShowResult.Finished:
-                Debug.Log("You get 2 lives");
-                break;
-            default:
+                HandleRewardAdWatched();
                 break;
         }
+    }
+
+    private void HandleRewardAdWatched()
+    {
+        var currentSave = saveManager.GetSaveData();
+        currentSave.Lives = 2;
+        saveManager.SaveData(currentSave);
+
+        var levelState = FindObjectOfType<LevelState>();
+        levelState.RewardAdWatched();
     }
     
     public void OnUnityAdsDidError(string message){ }
@@ -67,6 +78,6 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
 
     private void OnDestroy()
     {
-        Advertisement.RemoveListener(this);
+        //Advertisement.RemoveListener(this);
     }
 }
