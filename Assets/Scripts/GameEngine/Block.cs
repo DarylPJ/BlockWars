@@ -86,21 +86,7 @@ public class Block : MonoBehaviour
             return;
         }
 
-        var relativePosition = collision.transform.position - transform.position;
-
-        float directionToMove = 1;
-
-        if (blocksRigidbody2D.velocity.x == 0)
-        {
-            directionToMove = -Mathf.Sign(relativePosition.y);
-        }
-
-        if (blocksRigidbody2D.velocity.y == 0)
-        {
-            directionToMove = -Mathf.Sign(relativePosition.x);
-        }
-
-        blocksRigidbody2D.velocity = directionToMove * new Vector2(Mathf.Abs(blocksRigidbody2D.velocity.x), Mathf.Abs(blocksRigidbody2D.velocity.y));
+        blocksRigidbody2D.velocity = -blocksRigidbody2D.velocity;
     }
 
     public void DestoryBlock()

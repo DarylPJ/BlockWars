@@ -332,6 +332,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlockBlue (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3476856663433730457, guid: 42a608f3d12f42343a65daa9d9c35ea1, type: 3}
+      propertyPath: initalVelocity.x
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a608f3d12f42343a65daa9d9c35ea1, type: 3}
 --- !u!4 &476058781 stripped
@@ -416,6 +420,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!61 &655708825 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 2525147894909410181, guid: 183e6416bb01dc94abd35781c5378ffe, type: 3}
+  m_PrefabInstance: {fileID: 7968511295707613982}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &809135828
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -544,12 +553,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlockBlue (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 3476856663433730457, guid: 42a608f3d12f42343a65daa9d9c35ea1, type: 3}
+      propertyPath: initalVelocity.x
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a608f3d12f42343a65daa9d9c35ea1, type: 3}
 --- !u!4 &879496116 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3476856663433730437, guid: 42a608f3d12f42343a65daa9d9c35ea1, type: 3}
   m_PrefabInstance: {fileID: 879496115}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &931557052 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 8876682340967185623, guid: 45693246da210194daeaaa9f79d278c6, type: 3}
+  m_PrefabInstance: {fileID: 8876682339376977223}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &1008835208 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 8876682339714715599, guid: 45693246da210194daeaaa9f79d278c6, type: 3}
+  m_PrefabInstance: {fileID: 8876682339376977223}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1255410756
 PrefabInstance:
@@ -606,12 +629,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlockBlue (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 3476856663433730457, guid: 42a608f3d12f42343a65daa9d9c35ea1, type: 3}
+      propertyPath: initalVelocity.x
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a608f3d12f42343a65daa9d9c35ea1, type: 3}
 --- !u!4 &1255410757 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3476856663433730437, guid: 42a608f3d12f42343a65daa9d9c35ea1, type: 3}
   m_PrefabInstance: {fileID: 1255410756}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &1259823968 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 8876682340569134631, guid: 45693246da210194daeaaa9f79d278c6, type: 3}
+  m_PrefabInstance: {fileID: 8876682339376977223}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1316094524 stripped
 GameObject:
@@ -684,6 +716,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlockBlue (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 3476856663433730457, guid: 42a608f3d12f42343a65daa9d9c35ea1, type: 3}
+      propertyPath: initalVelocity.x
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a608f3d12f42343a65daa9d9c35ea1, type: 3}
 --- !u!4 &1406790431 stripped
@@ -738,6 +774,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1681444861 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 8876682340923120314, guid: 45693246da210194daeaaa9f79d278c6, type: 3}
+  m_PrefabInstance: {fileID: 8876682339376977223}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1701470579
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -793,6 +834,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlockBlue (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3476856663433730457, guid: 42a608f3d12f42343a65daa9d9c35ea1, type: 3}
+      propertyPath: initalVelocity.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3476856663433730457, guid: 42a608f3d12f42343a65daa9d9c35ea1, type: 3}
+      propertyPath: initalVelocity.y
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42a608f3d12f42343a65daa9d9c35ea1, type: 3}
 --- !u!4 &1701470580 stripped
@@ -809,6 +858,11 @@ GameObject:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 610752820, guid: c9cdd6176dafb1243b2c043e4794a727, type: 3}
   m_PrefabInstance: {fileID: 2847741404524520414}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &2068966017 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 8876682340665765118, guid: 45693246da210194daeaaa9f79d278c6, type: 3}
+  m_PrefabInstance: {fileID: 8876682339376977223}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &2092911092 stripped
 MonoBehaviour:
@@ -890,13 +944,37 @@ PrefabInstance:
       value: WhiteBall
       objectReference: {fileID: 0}
     - target: {fileID: 238173702192747736, guid: a1d690f0dbe43af4da898c609cbea0fb, type: 3}
+      propertyPath: roof
+      value: 
+      objectReference: {fileID: 1008835208}
+    - target: {fileID: 238173702192747736, guid: a1d690f0dbe43af4da898c609cbea0fb, type: 3}
+      propertyPath: floor
+      value: 
+      objectReference: {fileID: 2068966017}
+    - target: {fileID: 238173702192747736, guid: a1d690f0dbe43af4da898c609cbea0fb, type: 3}
+      propertyPath: leftWall
+      value: 
+      objectReference: {fileID: 1681444861}
+    - target: {fileID: 238173702192747736, guid: a1d690f0dbe43af4da898c609cbea0fb, type: 3}
+      propertyPath: rightWall
+      value: 
+      objectReference: {fileID: 1259823968}
+    - target: {fileID: 238173702192747736, guid: a1d690f0dbe43af4da898c609cbea0fb, type: 3}
+      propertyPath: enemyFloor
+      value: 
+      objectReference: {fileID: 931557052}
+    - target: {fileID: 238173702192747736, guid: a1d690f0dbe43af4da898c609cbea0fb, type: 3}
       propertyPath: ballToPaddle.y
-      value: 0.9
+      value: 0.95
       objectReference: {fileID: 0}
     - target: {fileID: 238173702192747736, guid: a1d690f0dbe43af4da898c609cbea0fb, type: 3}
       propertyPath: ballToPaddle.z
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 238173702192747736, guid: a1d690f0dbe43af4da898c609cbea0fb, type: 3}
+      propertyPath: paddleCollider
+      value: 
+      objectReference: {fileID: 655708825}
     - target: {fileID: 238173702192747738, guid: a1d690f0dbe43af4da898c609cbea0fb, type: 3}
       propertyPath: m_RootOrder
       value: 2
