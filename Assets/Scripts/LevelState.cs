@@ -165,6 +165,11 @@ public class LevelState : MonoBehaviour
 
     private void TurnOffPaddles()
     {
+        if (paddles == null)
+        {
+            return;
+        }
+
         foreach (var paddle in paddles)
         {
             paddle.TurnOffPaddle();
