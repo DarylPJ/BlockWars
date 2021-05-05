@@ -106,6 +106,6 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
 
     private void OnDestroy()
     {
-        //Advertisement.RemoveListener(this);
+        Advertisement.RemoveListener(this);
     }
 }
