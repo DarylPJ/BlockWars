@@ -76,6 +76,7 @@ public class LevelState : MonoBehaviour
         }
     }
 
+    private void OnApplicationPause(bool pause) => Pause();
     public void Pause()
     {
         pauseMenu.SetActive(true);
