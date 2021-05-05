@@ -44,4 +44,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/World 1/L1-10.unity
     guid: c884c50986d415d4881b8c2a507ee51c
+  - enabled: 1
+    path: Assets/Scenes/World 1/L1-Boss.unity
+    guid: 21d40c83d272168449bb384a0ca27bc2
   m_configObjects: {}

@@ -89,7 +89,7 @@ public class Paddle : MonoBehaviour
     {
         if (autoPlay)
         {
-            return ball.transform.position.x/ cameraScale;
+            return (ball.transform.position.x/ cameraScale) + 20;
         }
 
         return runningOnAndroid ? Input.GetTouch(0).position.x : Input.mousePosition.x;

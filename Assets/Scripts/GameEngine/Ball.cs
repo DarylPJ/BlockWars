@@ -155,7 +155,7 @@ public class Ball : MonoBehaviour
         }
 
         var direction = HardCodedCollidionDirections(collision);
-        SetVelocityByDirection(direction, myRigidbody.velocity.x, myRigidbody.velocity.y);
+        myRigidbody.velocity = GetNewVelocityByDirection(direction, myRigidbody.velocity.x, myRigidbody.velocity.y);
     }
 
     private void SetNewVelocity(Collider2D collision)
@@ -183,9 +183,12 @@ public class Ball : MonoBehaviour
                 newXVelocity > 0 ? myRigidbody.velocity.magnitude - 0.1f : -myRigidbody.velocity.magnitude + 0.1f :
                     newXVelocity;
 
-        float newYVelocity = GetScaledYVelocity(newXVelocity);
+        var newYVelocity = GetScaledYVelocity(newXVelocity);
 
-        SetVelocityByDirection(direction, newXVelocity, newYVelocity);
+        var newVelocity = GetNewVelocityByDirection(direction, newXVelocity, newYVelocity);
+        newVelocity = CorrectForMovingCollision(collision, direction, newVelocity);
+
+        myRigidbody.velocity = newVelocity;
 
         if (!lockedToPaddle)
         {
@@ -194,6 +197,43 @@ public class Ball : MonoBehaviour
 
         stopwatch.Reset();
         stopwatch.Start();
+    }
+
+    private Vector2 CorrectForMovingCollision(Collider2D collision, Direction direction, Vector2 newVelocity)
+    {
+        var collisionRidgidbody = collision.gameObject.GetComponent<Rigidbody2D>();
+        if (collisionRidgidbody != null)
+        {
+            var collisionObjecVelocity = collisionRidgidbody.velocity;
+
+            if ((direction == Direction.Left || direction == Direction.Right) &&
+                Mathf.Abs(newVelocity.x) < Mathf.Abs(collisionObjecVelocity.x) &&
+                Mathf.Sign(newVelocity.x) == Mathf.Sign(collisionObjecVelocity.x))
+            {
+                newVelocity.x = collisionObjecVelocity.x * 1.1f;
+                newVelocity.x = Mathf.Abs(newVelocity.x) < 0.1f ? 0.1f :
+                    Mathf.Abs(newVelocity.x) > myRigidbody.velocity.magnitude - 0.1f ?
+                        newVelocity.x > 0 ? myRigidbody.velocity.magnitude - 0.1f : -myRigidbody.velocity.magnitude + 0.1f :
+                            newVelocity.x;
+
+                newVelocity.y = GetScaledYVelocity(newVelocity.x);
+            }
+
+            if((direction == Direction.Up || direction == Direction.Down) &&
+                Mathf.Abs(newVelocity.y) < Mathf.Abs(collisionObjecVelocity.y) &&
+                Mathf.Sign(newVelocity.y) == Mathf.Sign(collisionObjecVelocity.y))
+            {
+                newVelocity.y = collisionObjecVelocity.y * 1.1f;
+                newVelocity.y = Mathf.Abs(newVelocity.y) < 0.1f ? 0.1f :
+                    Mathf.Abs(newVelocity.y) > myRigidbody.velocity.magnitude - 0.1f ?
+                        newVelocity.y > 0 ? myRigidbody.velocity.magnitude - 0.1f : -myRigidbody.velocity.magnitude + 0.1f :
+                            newVelocity.y;
+
+                newVelocity.x = GetScaledYVelocity(newVelocity.y);
+            }
+        }
+
+        return newVelocity;
     }
 
     private float GetScaledYVelocity(float newXVelocity)
@@ -210,27 +250,29 @@ public class Ball : MonoBehaviour
         return newYVelocity;
     }
 
-    private void SetVelocityByDirection(Direction direction, float xVelocity, float yVelocity)
+    private Vector2 GetNewVelocityByDirection(Direction direction, float xVelocity, float yVelocity)
     {
         if (direction == Direction.Down)
         {
-            myRigidbody.velocity = new Vector2(xVelocity, -Mathf.Abs(yVelocity));
+            return new Vector2(xVelocity, -Mathf.Abs(yVelocity));
         }
 
         if (direction == Direction.Right)
         {
-            myRigidbody.velocity = new Vector2(Mathf.Abs(xVelocity), yVelocity);
+            return new Vector2(Mathf.Abs(xVelocity), yVelocity);
         }
 
         if (direction == Direction.Left)
         {
-            myRigidbody.velocity = new Vector2(-Mathf.Abs(xVelocity), yVelocity);
+            return new Vector2(-Mathf.Abs(xVelocity), yVelocity);
         }
 
         if (direction == Direction.Up)
         {
-            myRigidbody.velocity = new Vector2(xVelocity, Mathf.Abs(yVelocity));
+            return new Vector2(xVelocity, Mathf.Abs(yVelocity));
         }
+
+        return myRigidbody.velocity;
     }
 
     private void HandlePaddleCollision(Collider2D collision)
@@ -281,25 +323,28 @@ public class Ball : MonoBehaviour
 
     private Direction BoxCollidionDirection(Collider2D collision)
     {
-        var relativePosition = (Vector2)collision.transform.position - (Vector2)transform.position + new Vector2(1.95f/2, 0.95f/2);
+        var scale = collision.gameObject.transform.localScale;
+        var boxSize = new Vector2(1.95f / 2, 0.95f / 2) * scale;
+
+        var relativePosition = (Vector2)collision.transform.position - (Vector2)transform.position + boxSize;
         var angle = Vector2.SignedAngle(relativePosition, Vector2.right);
 
-        if (myRigidbody.velocity.x > 0 && myRigidbody.velocity.y > 0)
+        if (myRigidbody.velocity.x >= 0 && myRigidbody.velocity.y > 0)
         {
             return angle > -30 && angle < 100 ? Direction.Left : Direction.Down;
         }
 
-        if (myRigidbody.velocity.x < 0 && myRigidbody.velocity.y > 0)
+        if (myRigidbody.velocity.x <= 0 && myRigidbody.velocity.y > 0)
         {
             return angle > -150 && angle < 100 ? Direction.Down : Direction.Right;
         }
 
-        if (myRigidbody.velocity.x > 0 && myRigidbody.velocity.y < 0)
+        if (myRigidbody.velocity.x > 0 && myRigidbody.velocity.y <= 0)
         {
             return angle > 30 ? Direction.Up : Direction.Left;
         }
 
-        if (myRigidbody.velocity.x < 0 && myRigidbody.velocity.y < 0)
+        if (myRigidbody.velocity.x < 0 && myRigidbody.velocity.y <= 0)
         {
             return angle > -50 && angle < 150 ? Direction.Up : Direction.Right;
         }

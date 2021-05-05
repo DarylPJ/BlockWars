@@ -76,7 +76,14 @@ public class LevelState : MonoBehaviour
         }
     }
 
-    private void OnApplicationPause(bool pause) => Pause();
+    private void OnApplicationPause(bool pause)
+    {
+        if (pause)
+        {
+            Pause();
+        }
+    }
+
     public void Pause()
     {
         pauseMenu.SetActive(true);
@@ -112,6 +119,7 @@ public class LevelState : MonoBehaviour
         {
             lives++;
             totalBlocksDestroyed = 0;
+            livesText.text = lives.ToString("D2");
         }
 
         mainScreenScore.text = totalBlocksDestroyed.ToString("D3");
@@ -120,6 +128,12 @@ public class LevelState : MonoBehaviour
         {
             LevelComplete();
         }
+    }
+
+    public void AddBlockPoint()
+    {
+        totalBlocksDestroyed++;
+        mainScreenScore.text = totalBlocksDestroyed.ToString("D3");
     }
 
     private void LevelComplete()

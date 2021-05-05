@@ -6967,7 +6967,7 @@ PrefabInstance:
       objectReference: {fileID: 6858191161551250402}
     - target: {fileID: 497515861211248784, guid: 4a2818f6b10d79849b99497891ecdc15, type: 3}
       propertyPath: nextLevel
-      value: L1-1
+      value: L1-Boss
       objectReference: {fileID: 0}
     - target: {fileID: 497515861211248784, guid: 4a2818f6b10d79849b99497891ecdc15, type: 3}
       propertyPath: pauseMenu

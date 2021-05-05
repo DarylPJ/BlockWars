@@ -3,23 +3,23 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
-    [SerializeField] private DirectionSprites[] spritesToUse;
+    [SerializeField] protected DirectionSprites[] spritesToUse;
     [SerializeField] private Vector2 initalVelocity = new Vector2(0, 0);
     [SerializeField] private AudioClip soundOnDestroy;
     [SerializeField, Range(0, 1)] private float volume = 0.5f;
     [SerializeField] private float chanceOfPowerUp = 0.1f;
     [SerializeField] private GameObject[] powerUps;
     
-    private Rigidbody2D blocksRigidbody2D;
+    protected Rigidbody2D blocksRigidbody2D;
     private SpriteRenderer spriteRenderer;
-    private LevelState levelState;
+    protected LevelState levelState;
 
     private BlockPowerUpState blockPowerUpState;
     private AudioState audioState;
 
     private float powerupOffset;
 
-    private void Start()
+    protected virtual void Start()
     {
         blocksRigidbody2D = GetComponent<Rigidbody2D>();
         blocksRigidbody2D.velocity = initalVelocity;
@@ -38,7 +38,12 @@ public class Block : MonoBehaviour
         var colour = spriteRenderer.color;
         spriteRenderer.color = new Color(colour.r, colour.g, colour.b, blockPowerUpState.GetAlpha());
 
-        if (blocksRigidbody2D.velocity.magnitude == 0) 
+        UpdateSprite();
+    }
+
+    protected virtual void UpdateSprite()
+    {
+        if (blocksRigidbody2D.velocity.magnitude == 0)
         {
             spriteRenderer.sprite = spritesToUse.First(i => i.direction == Direction.None).sprite;
         }
@@ -58,15 +63,21 @@ public class Block : MonoBehaviour
         }
     }
 
+    protected virtual void HitByBall()
+    {
+        if (audioState.PlaySfx())
+        {
+            AudioSource.PlayClipAtPoint(soundOnDestroy, Camera.main.transform.position, volume);
+        }
+
+        levelState.BlockDestroyed(gameObject.name);
+        Destroy(gameObject);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.GetComponent<Ball>() != null || collision.gameObject.GetComponent<Projectile>())
         {
-            if (audioState.PlaySfx())
-            {
-                AudioSource.PlayClipAtPoint(soundOnDestroy, Camera.main.transform.position, volume);
-            }
-
             if (Random.value < chanceOfPowerUp)
             {
                 var powerupToInstantiate = powerUps[Random.Range(0, powerUps.Length)];
@@ -75,8 +86,8 @@ public class Block : MonoBehaviour
                 powerup.transform.position = (Vector2)transform.position + new Vector2(powerupOffset, 0);
             }
 
-            levelState.BlockDestroyed(gameObject.name);
-            Destroy(gameObject);
+            HitByBall();
+            return;
         }
 
         MoveBlockAway(collision);                
