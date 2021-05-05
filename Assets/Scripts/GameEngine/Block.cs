@@ -38,6 +38,11 @@ public class Block : MonoBehaviour
         var colour = spriteRenderer.color;
         spriteRenderer.color = new Color(colour.r, colour.g, colour.b, blockPowerUpState.GetAlpha());
 
+        if (blocksRigidbody2D.velocity.magnitude == 0) 
+        {
+            spriteRenderer.sprite = spritesToUse.First(i => i.direction == Direction.None).sprite;
+        }
+
         if (blocksRigidbody2D.velocity.x != 0)
         {
             spriteRenderer.sprite = blocksRigidbody2D.velocity.x < 0 ?

@@ -147,7 +147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spritesToUse:
   - direction: 0
-    sprite: {fileID: 21300000, guid: 6ccbe8cbb023b08438edd8ea16e34939, type: 3}
+    sprite: {fileID: 21300000, guid: 0429a3e891a8d6940a9cabadc9cb04d3, type: 3}
   - direction: 1
     sprite: {fileID: 21300000, guid: e76db05b9b1b40d4e9df9648126860e4, type: 3}
   - direction: 2
