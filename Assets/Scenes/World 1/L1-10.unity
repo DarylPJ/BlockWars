@@ -6856,6 +6856,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2182525, guid: e0e80a34a3ed4954493bd844d4e4e33a, type: 3}
+      propertyPath: adsButton
+      value: 
+      objectReference: {fileID: 376737442495482234}
     - target: {fileID: 376737442166998019, guid: e0e80a34a3ed4954493bd844d4e4e33a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -6948,8 +6952,23 @@ PrefabInstance:
       propertyPath: m_Name
       value: DeathCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 376737443543141189, guid: e0e80a34a3ed4954493bd844d4e4e33a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0e80a34a3ed4954493bd844d4e4e33a, type: 3}
+--- !u!114 &376737442495482234 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 376737442837092695, guid: e0e80a34a3ed4954493bd844d4e4e33a, type: 3}
+  m_PrefabInstance: {fileID: 376737442495482233}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &497515861672800612
 PrefabInstance:
   m_ObjectHideFlags: 0

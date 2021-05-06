@@ -26,6 +26,7 @@ public class LevelState : MonoBehaviour
 
     private SaveManager saveManager;
     private SceneHandler sceneHandler;
+    private AdsManager adsManager;
 
     private void Start()
     {
@@ -40,6 +41,7 @@ public class LevelState : MonoBehaviour
         saveManager = FindObjectOfType<SaveManager>();
         sceneHandler = FindObjectOfType<SceneHandler>();
         paddles = FindObjectsOfType<Paddle>();
+        adsManager = FindObjectOfType<AdsManager>();
 
         var currentData = saveManager.GetSaveData();
 
@@ -153,7 +155,7 @@ public class LevelState : MonoBehaviour
 
         TurnOffPaddles();
         onScreenInfo.SetActive(false);
-        winMenu.SetActive(true);        
+        winMenu.SetActive(true);
     }
 
     public void LoadNextLevel() =>
@@ -205,6 +207,7 @@ public class LevelState : MonoBehaviour
         TurnOffPaddles();
         pauseMenu.SetActive(false);
         deathScreen.SetActive(true);
+        adsManager.SetErrorState();
     }
 
     public void RewardAdWatched()

@@ -1,5 +1,6 @@
+using System;
 using System.Collections;
-using TMPro;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.Advertisements;
 using UnityEngine.Networking;
@@ -24,7 +25,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
             return;
         }
 
-        StartCoroutine(nameof(CheckInternetConnection));
+        StartCoroutine(nameof(ManageCallingSetErrorState));
         DontDestroyOnLoad(gameObject);
     }
 
@@ -34,29 +35,73 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
         saveManager = FindObjectOfType<SaveManager>();
     }
 
-    private IEnumerator CheckInternetConnection()
+    private IEnumerator ManageCallingSetErrorState()
     {
-        float timeCheck = 2.0f;//will check google.com every two seconds
-        float t1;
-        float t2;
-        while (!unityAdsInitialized)
+        using var requestInit = UnityWebRequest.Get("http://google.com");
+        yield return requestInit.SendWebRequest();
+
+        if (requestInit.result == UnityWebRequest.Result.Success)
         {
-            using var request = UnityWebRequest.Get("http://google.com");
-            yield return request.SendWebRequest();
+            Advertisement.Initialize(AndroidGameId, true);
+            unityAdsInitialized = true;
+        }
+        SetErrorState();
 
-            t1 = Time.fixedTime;
-            if (request.result == UnityWebRequest.Result.Success) 
+        var stopwatch = new Stopwatch();
+        stopwatch.Start();
+
+        while (true)
+        {
+            if (stopwatch.Elapsed < TimeSpan.FromSeconds(2)) 
             {
-                Advertisement.Initialize(AndroidGameId, true);
-                unityAdsInitialized = true;
-
-                break;//will end the coroutine
+                yield return null;
+                continue;
             }
 
-            t2 = Time.fixedTime - t1;
-            if (t2 < timeCheck)
-                yield return new WaitForSeconds(timeCheck - t2);
+            if (!unityAdsInitialized)
+            {
+                using var request = UnityWebRequest.Get("http://google.com");
+                yield return request.SendWebRequest();
+
+                if (request.result == UnityWebRequest.Result.Success)
+                {
+                    Advertisement.Initialize(AndroidGameId, true);
+                    unityAdsInitialized = true;
+                }
+            }
+
+            SetErrorState();
+            stopwatch.Restart();
+            stopwatch.Start();
+            yield return null;
         }
+    }
+
+    public void SetErrorState()
+    {
+        var errorMessageManager = FindObjectOfType<ErrorMessageManager>();
+        if (errorMessageManager == null)
+        {
+            return;
+        }
+
+        if (!unityAdsInitialized)
+        {
+            errorMessageManager.ToggleAdsButton(false);
+            errorMessageManager.UpdateErrorMessage(
+                "Could not load videos. Check you are online and wait a few seconds. This page will automatically refresh");
+            return;
+        }
+
+        if (!IsRewardAdReady())
+        {
+            errorMessageManager.ToggleAdsButton(false);
+            errorMessageManager.UpdateErrorMessage(
+                "Exceeded the maximum number of videos shown today. Check back tomorrow or start from a checkpoint.");
+        }
+
+        errorMessageManager.ToggleAdsButton(true);
+        errorMessageManager.UpdateErrorMessage("");
     }
 
     public bool IsRewardAdReady() => Advertisement.IsReady(myVideoPlacement);
@@ -65,7 +110,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
     {
         if (!IsRewardAdReady())
         {
-            FindObjectOfType<ErrorMessageManager>().UpdateErrorMessage("Could not load video. Check you are online and try again in a few seconds.");
+            SetErrorState();
             return;
         }
 
