@@ -6,7 +6,7 @@ public class SplitBall : PowerUps
     {
         var balls = FindObjectsOfType<Ball>();
 
-        if (balls.Length > 27)
+        if (balls.Length > 9)
         {
             return;
         }

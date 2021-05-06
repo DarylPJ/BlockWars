@@ -11,6 +11,9 @@ public class Ball : MonoBehaviour
     [SerializeField] private Collider2D floor;
     [SerializeField, Range(0, 5)] private float maxRandomToAdd = 1;
     [SerializeField] private bool instaLaunch = false;
+    [SerializeField] private Vector2 instaLaunchMe;
+    [SerializeField] private bool noDie;
+    
     [SerializeField, Range(0, 1)] private float maxXFire = 0.5f;
     [SerializeField] private Vector3 ballToPaddle;
 
@@ -54,6 +57,13 @@ public class Ball : MonoBehaviour
             return;
         }
 
+        if (instaLaunch)
+        {
+            myRigidbody.velocity = instaLaunchMe;
+            lockedToPaddle = false;
+            return;
+        }
+
         transform.position = paddle.transform.position + ballToPaddle;
         if (ShouldFire())
         {
@@ -78,11 +88,6 @@ public class Ball : MonoBehaviour
         if(!allowLaunch)
         {
             return false;
-        }
-
-        if (instaLaunch)
-        {
-            return true;
         }
 
         if (!runningOnAndroid)
@@ -119,6 +124,12 @@ public class Ball : MonoBehaviour
 
         if (collision == floor)
         {
+            if (noDie)
+            {
+                myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, Mathf.Abs(myRigidbody.velocity.y));
+                return;
+            }
+
             if (FindObjectsOfType<Ball>().Length == 1)
             {
                 powerUpState.RemoveAllPowerUps(); 
@@ -324,29 +335,30 @@ public class Ball : MonoBehaviour
     private Direction BoxCollidionDirection(Collider2D collision)
     {
         var scale = collision.gameObject.transform.localScale;
-        var boxSize = new Vector2(1.95f / 2, 0.95f / 2) * scale;
+        var boxSize = new Vector2(1.95f, 0.95f) * scale;
 
-        var relativePosition = (Vector2)collision.transform.position - (Vector2)transform.position + boxSize;
-        var angle = Vector2.SignedAngle(relativePosition, Vector2.right);
+        var adjustedRadius = circleCollider.radius * transform.localScale.x * 0.4;
 
-        if (myRigidbody.velocity.x >= 0 && myRigidbody.velocity.y > 0)
+        var relativePosition = transform.position - collision.transform.position;
+
+        if (relativePosition.y <= -adjustedRadius)
         {
-            return angle > -30 && angle < 100 ? Direction.Left : Direction.Down;
+            return Direction.Down;
         }
 
-        if (myRigidbody.velocity.x <= 0 && myRigidbody.velocity.y > 0)
+        if (relativePosition.y >= boxSize.y + adjustedRadius)
         {
-            return angle > -150 && angle < 100 ? Direction.Down : Direction.Right;
+            return Direction.Up;
         }
 
-        if (myRigidbody.velocity.x > 0 && myRigidbody.velocity.y <= 0)
+        if (relativePosition.x <= -adjustedRadius)
         {
-            return angle > 30 ? Direction.Up : Direction.Left;
+            return Direction.Left;
         }
 
-        if (myRigidbody.velocity.x < 0 && myRigidbody.velocity.y <= 0)
+        if (relativePosition.x >= boxSize.x + adjustedRadius)
         {
-            return angle > -50 && angle < 150 ? Direction.Up : Direction.Right;
+            return Direction.Right;
         }
 
         return Direction.None;

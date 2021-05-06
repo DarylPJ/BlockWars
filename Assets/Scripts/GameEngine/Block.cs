@@ -102,7 +102,6 @@ public class Block : MonoBehaviour
             return;
         }
 
-
         var relativePos = transform.position - collision.transform.position;
         var newXSpeed = Mathf.Sign(relativePos.x) * Mathf.Abs(blocksRigidbody2D.velocity.x);
         var newYSpeed = Mathf.Sign(relativePos.y) * Mathf.Abs(blocksRigidbody2D.velocity.y);

@@ -54,7 +54,7 @@ public class BossBlock : Block
     private void ChangeBlockDirection()
     {
         Invoke(nameof(ChangeBlockDirection), Random.Range(directionFrequencyRange[0], directionFrequencyRange[1]));
-        
+
         var currentV = blocksRigidbody2D.velocity;
         var sign = Mathf.Sign(Random.Range(-1, 1));
 

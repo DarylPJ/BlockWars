@@ -24,6 +24,8 @@ public class LevelState : MonoBehaviour
     [SerializeField] private string nextLevel;
     [SerializeField] private bool isCheckpoint;
 
+    [SerializeField] private bool isDebug;
+
     private SaveManager saveManager;
     private SceneHandler sceneHandler;
     private AdsManager adsManager;
@@ -70,6 +72,11 @@ public class LevelState : MonoBehaviour
         if (currentBlocks == 0)
         {
             LevelComplete();
+        }
+
+        if (isDebug)
+        {
+            lives = 100;
         }
 
         if (lives <= 0)
