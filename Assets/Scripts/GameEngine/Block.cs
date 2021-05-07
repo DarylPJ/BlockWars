@@ -26,14 +26,14 @@ public class Block : MonoBehaviour
 
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        powerupOffset = (GetComponent<BoxCollider2D>().size.x / 2);
+        powerupOffset = (GetComponent<BoxCollider2D>().size.x *transform.localScale.x)/ 2;
 
         blockPowerUpState = FindObjectOfType<BlockPowerUpState>();
         audioState = FindObjectOfType<AudioState>();
         levelState = FindObjectOfType<LevelState>();
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         var colour = spriteRenderer.color;
         spriteRenderer.color = new Color(colour.r, colour.g, colour.b, blockPowerUpState.GetAlpha());
@@ -95,9 +95,9 @@ public class Block : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision) => MoveBlockAway(collision);
 
-    private void MoveBlockAway(Collider2D collision)
+    protected void MoveBlockAway(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("PowerUp"))
+        if (collision.gameObject.CompareTag("PowerUp") || collision.gameObject.GetComponent<Ball>() != null)
         {
             return;
         }

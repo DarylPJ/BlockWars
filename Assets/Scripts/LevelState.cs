@@ -121,17 +121,8 @@ public class LevelState : MonoBehaviour
     public void BlockDestroyed(string blockName)
     {
         namesOfBlocksDestroyed.Add(blockName);
-        totalBlocksDestroyed++;
         currentBlocks--;
-
-        if (totalBlocksDestroyed >= 1000)
-        {
-            lives++;
-            totalBlocksDestroyed = 0;
-            livesText.text = lives.ToString("D2");
-        }
-
-        mainScreenScore.text = totalBlocksDestroyed.ToString("D3");
+        AddBlockPoint();
 
         if (currentBlocks == 0)
         {
@@ -143,6 +134,13 @@ public class LevelState : MonoBehaviour
     {
         totalBlocksDestroyed++;
         mainScreenScore.text = totalBlocksDestroyed.ToString("D3");
+
+        if (totalBlocksDestroyed >= 1000)
+        {
+            lives++;
+            totalBlocksDestroyed = 0;
+            livesText.text = lives.ToString("D2");
+        }
     }
 
     private void LevelComplete()

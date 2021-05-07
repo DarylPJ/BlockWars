@@ -19,7 +19,6 @@ public class Ball : MonoBehaviour
 
     private bool lockedToPaddle = true;
     private bool runningOnAndroid = false;
-    private readonly System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
     private bool allowLaunch = true;
 
     private Paddle paddle;
@@ -43,7 +42,6 @@ public class Ball : MonoBehaviour
         levelState = FindObjectOfType<LevelState>();
 
         runningOnAndroid = Application.platform == RuntimePlatform.Android;
-        stopwatch.Start();
     }
 
     private void Update()
@@ -177,7 +175,7 @@ public class Ball : MonoBehaviour
             return;
         }
 
-        if (lockedToPaddle || stopwatch.ElapsedMilliseconds < (Time.deltaTime * 1000) || collision == enemyFloor)
+        if (lockedToPaddle || collision == enemyFloor)
         {
             return;
         }
@@ -205,9 +203,6 @@ public class Ball : MonoBehaviour
         {
             PlayCollisionNoise();
         }
-
-        stopwatch.Reset();
-        stopwatch.Start();
     }
 
     private Vector2 CorrectForMovingCollision(Collider2D collision, Direction direction, Vector2 newVelocity)
@@ -336,29 +331,99 @@ public class Ball : MonoBehaviour
     {
         var scale = collision.gameObject.transform.localScale;
         var boxSize = new Vector2(1.95f, 0.95f) * scale;
+        boxSize = new Vector2(Mathf.Round(boxSize.x * 10) / 10, Mathf.Round(boxSize.y * 10) / 10);
 
-        var adjustedRadius = circleCollider.radius * transform.localScale.x * 0.4;
+        var collisionPoint = collision.ClosestPoint(transform.position) - (Vector2)collision.transform.position;
 
-        var relativePosition = transform.position - collision.transform.position;
+        if (Mathf.Abs(collisionPoint.x) < boxSize.x / 20)
+        {
+            collisionPoint.x = 0;
+        }
 
-        if (relativePosition.y <= -adjustedRadius)
+        if (Mathf.Abs(collisionPoint.x - boxSize.x) < boxSize.x / 20)
+        {
+            collisionPoint.x = boxSize.x;
+        }
+
+        if (Mathf.Abs(collisionPoint.y) < boxSize.y / 20)
+        {
+            collisionPoint.y = 0;
+        }
+
+        if (Mathf.Abs(collisionPoint.y - boxSize.y) < boxSize.y / 20)
+        {
+            collisionPoint.y = boxSize.y;
+        }
+
+
+        collisionPoint = new Vector2(Mathf.Round(collisionPoint.x * 10) / 10, Mathf.Round(collisionPoint.y * 10) / 10);
+        
+        if (collisionPoint.x == 0 && collisionPoint.y == 0)
+        {
+            var pointPos = (Vector2)(transform.position - collision.transform.position);
+
+            if (pointPos.y > pointPos.x)
+            {
+                return Direction.Left;
+            }
+
+            return Direction.Down;
+        }
+
+        if (collisionPoint.x == boxSize.x && collisionPoint.y == 0)
+        {
+            var pointPos = (Vector2)(transform.position - collision.transform.position) - new Vector2(boxSize.x, 0);
+
+            if (pointPos.y > -pointPos.x)
+            {
+                return Direction.Right;
+            }
+
+            return Direction.Down;
+        }
+
+        if (collisionPoint.x == 0 && collisionPoint.y == boxSize.y)
+        {
+            var pointPos = (Vector2)(transform.position - collision.transform.position) - new Vector2(0, boxSize.y);
+
+            if (pointPos.y > -pointPos.x)
+            {
+                return Direction.Up;
+            }
+
+            return Direction.Left;
+        }
+
+        if (collisionPoint.x == boxSize.x && collisionPoint.y == boxSize.y)
+        {
+            var pointPos = (Vector2)(transform.position - collision.transform.position) - new Vector2(boxSize.x, boxSize.y);
+
+            if (pointPos.y > pointPos.x)
+            {
+                return Direction.Up;
+            }
+
+            return Direction.Right;
+        }
+
+        if (collisionPoint.x == 0)
+        {
+            return Direction.Left;
+        }       
+        
+        if (collisionPoint.y == 0)
         {
             return Direction.Down;
         }
 
-        if (relativePosition.y >= boxSize.y + adjustedRadius)
-        {
-            return Direction.Up;
-        }
-
-        if (relativePosition.x <= -adjustedRadius)
-        {
-            return Direction.Left;
-        }
-
-        if (relativePosition.x >= boxSize.x + adjustedRadius)
+        if(collisionPoint.x == boxSize.x)
         {
             return Direction.Right;
+        }
+
+        if (collisionPoint.y == boxSize.y)
+        {
+            return Direction.Up;
         }
 
         return Direction.None;
