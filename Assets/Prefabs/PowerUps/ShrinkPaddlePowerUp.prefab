@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5057130047098751109}
   - component: {fileID: -933821656439108884}
   m_Layer: 0
-  m_Name: ShrinkPaddle
+  m_Name: ShrinkPaddlePowerUp
   m_TagString: PowerUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

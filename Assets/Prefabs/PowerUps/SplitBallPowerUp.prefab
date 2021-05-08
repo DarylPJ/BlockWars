@@ -120,8 +120,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: -5
-  floor: {fileID: 5527377732231658280, guid: 8a2170d1ced0e75499663e48aed04d71, type: 3}
-  ballPrefab: {fileID: 8382187271085266802, guid: 2eda672f39743c540a00bfc9214c2e4e, type: 3}
 --- !u!60 &5057130047098751109
 PolygonCollider2D:
   m_ObjectHideFlags: 0
