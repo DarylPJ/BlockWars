@@ -335,28 +335,8 @@ public class Ball : MonoBehaviour
 
         var collisionPoint = collision.ClosestPoint(transform.position) - (Vector2)collision.transform.position;
 
-        if (Mathf.Abs(collisionPoint.x) < boxSize.x / 20)
-        {
-            collisionPoint.x = 0;
-        }
-
-        if (Mathf.Abs(collisionPoint.x - boxSize.x) < boxSize.x / 20)
-        {
-            collisionPoint.x = boxSize.x;
-        }
-
-        if (Mathf.Abs(collisionPoint.y) < boxSize.y / 20)
-        {
-            collisionPoint.y = 0;
-        }
-
-        if (Mathf.Abs(collisionPoint.y - boxSize.y) < boxSize.y / 20)
-        {
-            collisionPoint.y = boxSize.y;
-        }
-
-
-        collisionPoint = new Vector2(Mathf.Round(collisionPoint.x * 10) / 10, Mathf.Round(collisionPoint.y * 10) / 10);
+        collisionPoint.x = collisionPoint.x < boxSize.x / 2 ? 0 : boxSize.x;
+        collisionPoint.y = collisionPoint.y < boxSize.y / 2 ? 0 : boxSize.y;
         
         if (collisionPoint.x == 0 && collisionPoint.y == 0)
         {
@@ -404,26 +384,6 @@ public class Ball : MonoBehaviour
             }
 
             return Direction.Right;
-        }
-
-        if (collisionPoint.x == 0)
-        {
-            return Direction.Left;
-        }       
-        
-        if (collisionPoint.y == 0)
-        {
-            return Direction.Down;
-        }
-
-        if (collisionPoint.x == boxSize.x)
-        {
-            return Direction.Right;
-        }
-
-        if (collisionPoint.y == boxSize.y)
-        {
-            return Direction.Up;
         }
 
         return Direction.None;
