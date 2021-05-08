@@ -416,7 +416,7 @@ public class Ball : MonoBehaviour
             return Direction.Down;
         }
 
-        if(collisionPoint.x == boxSize.x)
+        if (collisionPoint.x == boxSize.x)
         {
             return Direction.Right;
         }
