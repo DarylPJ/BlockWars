@@ -115,7 +115,7 @@ public class Ball : MonoBehaviour
         }
 
         if (collision.gameObject.CompareTag("PowerUp") || collision.GetComponent<Ball>() ||
-            (powerUpState.IsFireModeActive() && !collision.GetComponent<BossBlock>() && collision.GetComponent<Block>()))
+            (powerUpState.IsFireModeActive() && !collision.GetComponent<SideAvoidBlock>() && collision.GetComponent<Block>()))
         {
             return;
         }

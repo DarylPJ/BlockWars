@@ -59,6 +59,12 @@ public class LevelState : MonoBehaviour
         var destoryedBlocks = currentData.DestroyedBlocks;
         foreach (var block in blocks)
         {
+            if (block.GetComponent<NonBreakableBlock>())
+            {
+                currentBlocks--;
+                continue;
+            }
+
             if (!destoryedBlocks.Contains(block.name))
             {
                 continue;
