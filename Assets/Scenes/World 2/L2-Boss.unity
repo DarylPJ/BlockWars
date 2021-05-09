@@ -1603,6 +1603,17 @@ BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 8876682339714715599, guid: 45693246da210194daeaaa9f79d278c6, type: 3}
   m_PrefabInstance: {fileID: 8876682339376977223}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1084230984 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 376737442837092695, guid: e0e80a34a3ed4954493bd844d4e4e33a, type: 3}
+  m_PrefabInstance: {fileID: 376737442495482233}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1116053128 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3476856663433730437, guid: 7e0f3ca31c982204aa52b7fa250cd230, type: 3}
@@ -3645,6 +3656,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2182525, guid: e0e80a34a3ed4954493bd844d4e4e33a, type: 3}
+      propertyPath: adsButton
+      value: 
+      objectReference: {fileID: 1084230984}
     - target: {fileID: 376737442166998019, guid: e0e80a34a3ed4954493bd844d4e4e33a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

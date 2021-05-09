@@ -29,6 +29,7 @@ public class Ball : MonoBehaviour
     private BallPowerUpState powerUpState;
     private AudioState audioState;
     private LevelState levelState;
+    private TrailRenderer trailRenderer;
 
     private void Start()
     {
@@ -37,6 +38,9 @@ public class Ball : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         circleCollider = GetComponent<CircleCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        trailRenderer = GetComponent<TrailRenderer>();
+        trailRenderer.enabled = false;
+
         powerUpState = FindObjectOfType<BallPowerUpState>();
         audioState = FindObjectOfType<AudioState>();
         levelState = FindObjectOfType<LevelState>();
@@ -46,10 +50,14 @@ public class Ball : MonoBehaviour
 
     private void Update()
     {
-        spriteRenderer.color = powerUpState.GetCurrentColour();
+        var color = powerUpState.GetCurrentColour();
+        spriteRenderer.color = color;
         var scale = powerUpState.GetCurrentScale();
         transform.localScale = new Vector2(scale, scale);
-        
+
+        trailRenderer.startColor = color;
+        trailRenderer.startWidth = circleCollider.radius * 2 * scale;
+
         if (!lockedToPaddle)
         {
             return;
@@ -73,6 +81,7 @@ public class Ball : MonoBehaviour
 
             lockedToPaddle = false;
             myRigidbody.velocity = new Vector2(x, y);
+            trailRenderer.enabled = true;
         }
     }
 
@@ -130,6 +139,7 @@ public class Ball : MonoBehaviour
 
             if (FindObjectsOfType<Ball>().Length == 1)
             {
+                trailRenderer.enabled = false;
                 powerUpState.RemoveAllPowerUps(); 
                 levelState.LooseLife();
                 lockedToPaddle = true;
