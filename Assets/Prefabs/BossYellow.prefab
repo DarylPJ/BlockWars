@@ -170,7 +170,10 @@ MonoBehaviour:
   - {fileID: 5057130047098751104, guid: 2ae6a17917dbe7b4e8a282e88d66bce0, type: 3}
   - {fileID: 5057130047098751104, guid: ad6070a727e49a04cbdd69b2a2326cdd, type: 3}
   - {fileID: 5057130047098751104, guid: 3c12f43afb0d75d4593796ac03c22fbf, type: 3}
+  - {fileID: 5057130047098751104, guid: a3a1697f898bd15498b543f85d07ebcd, type: 3}
+  minDistToWalls: 1.5
   health: 40
+  changeDirection: 1
   broken1Sprites:
   - direction: 0
     sprite: {fileID: 21300000, guid: bb61a27a2c8630f46821fc1fcfafc66a, type: 3}
@@ -204,4 +207,3 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 76823658c68f500408d93b20717726e8, type: 3}
   - direction: 4
     sprite: {fileID: 21300000, guid: c60194b05797b554ba69be8fa62e2ac1, type: 3}
-  minDistToWalls: 1.5

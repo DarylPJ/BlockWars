@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1464117574688202307}
   - component: {fileID: 1464117574688202304}
   m_Layer: 0
-  m_Name: BossOrange
+  m_Name: BreakablePink
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,9 +27,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1464117574688202305}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.34, y: 17.441277, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a55f3214a170f294e9f7c2f4d287ebb5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9e86f2bce99bf2948a5155ed880fe59f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -147,15 +147,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spritesToUse:
   - direction: 0
-    sprite: {fileID: 21300000, guid: 711a73f8107c44e4ba5190414c321033, type: 3}
+    sprite: {fileID: 21300000, guid: 6f8b06f35d6da1a44ae74e368dd21086, type: 3}
   - direction: 1
-    sprite: {fileID: 21300000, guid: 980c71e7d128fb04c9f63f78ae974dda, type: 3}
+    sprite: {fileID: 21300000, guid: 8e2d52de88eb1dc4587c96554713927d, type: 3}
   - direction: 2
-    sprite: {fileID: 21300000, guid: 23382e23f2eb1e64e9c9115ecd47d31f, type: 3}
+    sprite: {fileID: 21300000, guid: 54c5c9706ae08204d8456f1d783e6c13, type: 3}
   - direction: 3
-    sprite: {fileID: 21300000, guid: aabda5ab255aa8c41aca0c1aff92e8c6, type: 3}
+    sprite: {fileID: 21300000, guid: 7c777cfafe8dfd441ba743e424c075f6, type: 3}
   - direction: 4
-    sprite: {fileID: 21300000, guid: 30854356616481d459870f62df848d6d, type: 3}
+    sprite: {fileID: 21300000, guid: 115b292e76b410a4aa598e95b8aad3ce, type: 3}
   initalVelocity: {x: 0, y: 8}
   soundOnDestroy: {fileID: 8300000, guid: 878aaa04172ca714c99973e628c6a698, type: 3}
   volume: 0.5
@@ -169,41 +169,41 @@ MonoBehaviour:
   - {fileID: 5057130047098751104, guid: 37a309e5ad86ccc4f9155373edd82749, type: 3}
   - {fileID: 5057130047098751104, guid: 2ae6a17917dbe7b4e8a282e88d66bce0, type: 3}
   - {fileID: 5057130047098751104, guid: ad6070a727e49a04cbdd69b2a2326cdd, type: 3}
-  - {fileID: 5057130047098751104, guid: 3c12f43afb0d75d4593796ac03c22fbf, type: 3}
+  - {fileID: 5057130047098751104, guid: a3a1697f898bd15498b543f85d07ebcd, type: 3}
   - {fileID: 5057130047098751104, guid: a3a1697f898bd15498b543f85d07ebcd, type: 3}
   minDistToWalls: 1.5
-  health: 40
-  changeDirection: 1
+  health: 4
+  changeDirection: 0
   broken1Sprites:
   - direction: 0
-    sprite: {fileID: 21300000, guid: 978b2bd794cbd304baac22cc3b1bac83, type: 3}
+    sprite: {fileID: 21300000, guid: b23a5889995397d46b78626978bb3671, type: 3}
   - direction: 1
-    sprite: {fileID: 21300000, guid: c74ea26df19c5324f83f1fe0575e5a2c, type: 3}
+    sprite: {fileID: 21300000, guid: a868ed608fdf8da49aa938a3b7cde3ec, type: 3}
   - direction: 2
-    sprite: {fileID: 21300000, guid: 8a354b76cf9a5564ab4ca2102adf865a, type: 3}
+    sprite: {fileID: 21300000, guid: 184c29a39d3c4eb409d3f3de0d72ae4d, type: 3}
   - direction: 3
-    sprite: {fileID: 21300000, guid: fee04776124e7a84abb15f2142848f4c, type: 3}
+    sprite: {fileID: 21300000, guid: a8e698392d975a84db28d3addf7b3c87, type: 3}
   - direction: 4
-    sprite: {fileID: 21300000, guid: baad9a7957733884b83e9aa331247708, type: 3}
+    sprite: {fileID: 21300000, guid: 2abeab14bc4028943b706ac8c54db332, type: 3}
   broken2Sprites:
   - direction: 0
-    sprite: {fileID: 21300000, guid: ad5aa8fa49486db4581d420c48e1fc09, type: 3}
+    sprite: {fileID: 21300000, guid: 6273801a1c9affb458595a979082ae7e, type: 3}
   - direction: 1
-    sprite: {fileID: 21300000, guid: 0a495c413287c4b4fb393c07bd03cd57, type: 3}
+    sprite: {fileID: 21300000, guid: d31db619729782740bcf82ad530cb284, type: 3}
   - direction: 2
-    sprite: {fileID: 21300000, guid: 6c6390a0b05c21f4da4e12935aa45f45, type: 3}
+    sprite: {fileID: 21300000, guid: f2f19bbd2e9564a4dabc6925188548e3, type: 3}
   - direction: 3
-    sprite: {fileID: 21300000, guid: ad3e9c2fb19a3ff4aa97d5f972cc2f51, type: 3}
+    sprite: {fileID: 21300000, guid: 738ad4663f2c50c449cfca99fe57de84, type: 3}
   - direction: 4
-    sprite: {fileID: 21300000, guid: b7903eeb6cbb18a4b947b5fec3ed2320, type: 3}
+    sprite: {fileID: 21300000, guid: ad8b35c0c723c2f449a86f0a6445861a, type: 3}
   broken3Sprites:
   - direction: 0
-    sprite: {fileID: 21300000, guid: a5908ceb57d707d48a8b507e34474021, type: 3}
+    sprite: {fileID: 21300000, guid: 8c4117e956caa9a4ba680269e4046553, type: 3}
   - direction: 1
-    sprite: {fileID: 21300000, guid: 43a1aca50bb45d54e81925ce2a0a213a, type: 3}
+    sprite: {fileID: 21300000, guid: df07151e17446cf428c3d69309280577, type: 3}
   - direction: 2
-    sprite: {fileID: 21300000, guid: 3a2e76167e885464683663e4e40730f5, type: 3}
+    sprite: {fileID: 21300000, guid: 60d96487c3a8b9b49aabaa0e3ce02685, type: 3}
   - direction: 3
-    sprite: {fileID: 21300000, guid: f39c164a2312ed7489900d42955ebaf5, type: 3}
+    sprite: {fileID: 21300000, guid: f21b2a6ebca83c14f8b19c01596b516c, type: 3}
   - direction: 4
-    sprite: {fileID: 21300000, guid: 4aa4d70dff66148499fec6ae765a6fda, type: 3}
+    sprite: {fileID: 21300000, guid: 2f3c55856ed069e419b724c210aea041, type: 3}

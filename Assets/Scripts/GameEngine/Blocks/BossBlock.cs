@@ -4,6 +4,7 @@ public class BossBlock : SideAvoidBlock
 {
     [SerializeField] private float health = 100;
     [SerializeField] private readonly float[] directionFrequencyRange = new float[] {2, 7};
+    [SerializeField] private bool changeDirection = true;
 
     private float currentHealth;
 
@@ -14,7 +15,11 @@ public class BossBlock : SideAvoidBlock
 
     protected override void Start()
     {
-        Invoke(nameof(ChangeBlockDirection), Random.Range(directionFrequencyRange[0], directionFrequencyRange[1]));
+        if (changeDirection)
+        {
+            Invoke(nameof(ChangeBlockDirection), Random.Range(directionFrequencyRange[0], directionFrequencyRange[1]));
+        }
+
         currentHealth = health;
 
         base.Start();

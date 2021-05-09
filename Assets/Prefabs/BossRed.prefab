@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1464117574688202307}
   - component: {fileID: 1464117574688202304}
   m_Layer: 0
-  m_Name: Block with Eyes-1.png
+  m_Name: BossRed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -170,7 +170,10 @@ MonoBehaviour:
   - {fileID: 5057130047098751104, guid: 2ae6a17917dbe7b4e8a282e88d66bce0, type: 3}
   - {fileID: 5057130047098751104, guid: ad6070a727e49a04cbdd69b2a2326cdd, type: 3}
   - {fileID: 5057130047098751104, guid: 3c12f43afb0d75d4593796ac03c22fbf, type: 3}
+  - {fileID: 5057130047098751104, guid: a3a1697f898bd15498b543f85d07ebcd, type: 3}
+  minDistToWalls: 1.5
   health: 40
+  changeDirection: 1
   broken1Sprites:
   - direction: 0
     sprite: {fileID: 21300000, guid: 9528ce6f35f8eca419b54f97a71257e0, type: 3}
@@ -204,4 +207,3 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 18e7a87b0e6dd6f46aedd8b027fdae63, type: 3}
   - direction: 4
     sprite: {fileID: 21300000, guid: 9bdaa90792c559e4e81c65c8efe1331a, type: 3}
-  minDistToWalls: 1.5
