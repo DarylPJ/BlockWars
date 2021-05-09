@@ -60,6 +60,7 @@ public class Ball : MonoBehaviour
 
         if (!lockedToPaddle)
         {
+            trailRenderer.enabled = true;
             return;
         }
 
@@ -81,7 +82,6 @@ public class Ball : MonoBehaviour
 
             lockedToPaddle = false;
             myRigidbody.velocity = new Vector2(x, y);
-            trailRenderer.enabled = true;
         }
     }
 

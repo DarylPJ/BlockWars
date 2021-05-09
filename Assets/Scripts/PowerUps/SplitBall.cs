@@ -14,18 +14,17 @@ public class SplitBall : PowerUps
         foreach (var ball in balls)
         {
             var origanalRigidBody = ball.GetComponent<Rigidbody2D>();
-            CreateBall(ball, origanalRigidBody, new Vector2(0.8f, 0f), -20);
-            CreateBall(ball, origanalRigidBody, new Vector2(-0.8f, 0f), 20);
+            CreateBall(ball, origanalRigidBody, -20);
+            CreateBall(ball, origanalRigidBody, 20);
         }
 
         Destroy(gameObject);
     }
 
-    private void CreateBall(Ball origanalBall, Rigidbody2D origanalRigidBody, Vector2 positionOffset, float rotation)
+    private void CreateBall(Ball origanalBall, Rigidbody2D origanalRigidBody, float rotation)
     {
         var ball = Instantiate(origanalBall);
         ball.NotLocked();
-        ball.transform.position = (Vector2)ball.transform.position + positionOffset;
 
         var rigidBody1 = ball.GetComponent<Rigidbody2D>();
         var vel = origanalRigidBody.velocity;
