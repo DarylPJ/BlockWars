@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BossBlock : SideAvoidBlock
+public class BossBlock : Block
 {
     [SerializeField] private float health = 100;
     [SerializeField] private readonly float[] directionFrequencyRange = new float[] {2, 7};
@@ -61,21 +61,19 @@ public class BossBlock : SideAvoidBlock
     {
         Invoke(nameof(ChangeBlockDirection), Random.Range(directionFrequencyRange[0], directionFrequencyRange[1]));
 
-        var hits = GetNoneBallHit(minDistToWalls + 0.1f);
-        if (hits != null)
-        {
-            return;
-        }
-
         var currentV = blocksRigidbody2D.velocity;
         var sign = Mathf.Sign(Random.Range(-1, 1));
 
         if (Mathf.Abs(currentV.x) > 0)
         {
             blocksRigidbody2D.velocity = new Vector2(0, sign * blocksRigidbody2D.velocity.magnitude);
-            return;
+
+        }
+        else
+        {
+            blocksRigidbody2D.velocity = new Vector2(sign * blocksRigidbody2D.velocity.magnitude, 0);
         }
 
-        blocksRigidbody2D.velocity = new Vector2(sign * blocksRigidbody2D.velocity.magnitude, 0);
+        UpdateSprite();
     }
 }

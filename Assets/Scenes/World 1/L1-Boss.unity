@@ -3563,6 +3563,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1559787068}
     m_Modifications:
+    - target: {fileID: 1464117574688202304, guid: 16627cba23cad0f42a2c11652f2d4395, type: 3}
+      propertyPath: health
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 1464117574688202305, guid: 16627cba23cad0f42a2c11652f2d4395, type: 3}
       propertyPath: m_Name
       value: Block with Eyes-1.png
@@ -3610,6 +3614,10 @@ PrefabInstance:
     - target: {fileID: 1464117574688202308, guid: 16627cba23cad0f42a2c11652f2d4395, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641345473223087201, guid: 16627cba23cad0f42a2c11652f2d4395, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16627cba23cad0f42a2c11652f2d4395, type: 3}

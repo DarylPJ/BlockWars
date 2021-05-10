@@ -46,7 +46,7 @@ public class Block : MonoBehaviour
 
     }
 
-    private void UpdateSprite()
+    protected void UpdateSprite()
     {
         if (blocksRigidbody2D.velocity.x != 0 && 
             Mathf.Abs(blocksRigidbody2D.velocity.x) > Mathf.Abs(blocksRigidbody2D.velocity.y))

@@ -1,4 +1,4 @@
-public class NonBreakableBlock : SideAvoidBlock
+public class NonBreakableBlock : Block
 {
     protected override void HitByBall() { }
 }

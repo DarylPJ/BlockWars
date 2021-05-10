@@ -126,8 +126,12 @@ public class LevelState : MonoBehaviour
 
     public void BlockDestroyed(string blockName)
     {
-        namesOfBlocksDestroyed.Add(blockName);
-        currentBlocks--;
+        if (!namesOfBlocksDestroyed.Contains(blockName))
+        {
+            namesOfBlocksDestroyed.Add(blockName);
+            currentBlocks--;
+        }
+
         AddBlockPoint();
 
         if (currentBlocks == 0)
