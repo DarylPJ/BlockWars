@@ -9,12 +9,16 @@ public class Block : MonoBehaviour
     [SerializeField, Range(0, 1)] private float volume = 0.5f;
     [SerializeField] private float chanceOfPowerUp = 0.1f;
     [SerializeField] private GameObject[] powerUps;
-    
+
+    [SerializeField] private BoxCollider2D leftBoxCollider;
+    [SerializeField] private BoxCollider2D rightBoxCollider;
+    [SerializeField] private BoxCollider2D upBoxCollider;
+    [SerializeField] private BoxCollider2D downBoxCollider;
+
     protected Rigidbody2D blocksRigidbody2D;
     protected LevelState levelState;
     
     private SpriteRenderer spriteRenderer;
-    private BoxCollider2D boxCollider2D;
 
     private BlockPowerUpState blockPowerUpState;
     private AudioState audioState;
@@ -27,8 +31,7 @@ public class Block : MonoBehaviour
         blocksRigidbody2D.velocity = initalVelocity;
 
         spriteRenderer = GetComponent<SpriteRenderer>();
-        boxCollider2D = GetComponent<BoxCollider2D>();
-        powerupOffset = (boxCollider2D.size.x *transform.localScale.x)/ 2;
+        powerupOffset = transform.localScale.x;
 
         blockPowerUpState = FindObjectOfType<BlockPowerUpState>();
         audioState = FindObjectOfType<AudioState>();
@@ -100,51 +103,39 @@ public class Block : MonoBehaviour
 
     protected void MoveBlockAway(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("PowerUp") || collision.gameObject.GetComponent<Ball>() != null)
+        if (collision.gameObject.CompareTag("PowerUp") || collision.gameObject.GetComponent<Ball>() != null
+            || blocksRigidbody2D.velocity.sqrMagnitude == 0)
         {
             return;
         }
 
-        var midPoint = (boxCollider2D.size * transform.localScale) / 2 + (Vector2)transform.position;
-        var closestPoint = collision.ClosestPoint(midPoint);
+        var newVelocity = blocksRigidbody2D.velocity;
 
-        var hitLocation = closestPoint - midPoint;
-        hitLocation = new Vector2(Mathf.Round(hitLocation.x * 100) / 100, Mathf.Round(hitLocation.y * 100) / 100);
-
-        if (hitLocation.x > 0)
+        if (collision.IsTouching(leftBoxCollider) && blocksRigidbody2D.velocity.x != 0)
         {
-            blocksRigidbody2D.velocity = new Vector2(-Mathf.Abs(blocksRigidbody2D.velocity.x), blocksRigidbody2D.velocity.y);
-            spriteRenderer.sprite = spritesToUse.First(i => i.direction == Direction.Left).sprite;
-            return;
-        }
-
-        if (hitLocation.x < 0)
-        {
-            blocksRigidbody2D.velocity = new Vector2(Mathf.Abs(blocksRigidbody2D.velocity.x), blocksRigidbody2D.velocity.y);
+            newVelocity.x = Mathf.Abs(newVelocity.x);
             spriteRenderer.sprite = spritesToUse.First(i => i.direction == Direction.Right).sprite;
-            return;
         }
 
-        if (hitLocation.y > 0)
+        if (collision.IsTouching(rightBoxCollider) && blocksRigidbody2D.velocity.x != 0)
         {
-            blocksRigidbody2D.velocity = new Vector2(blocksRigidbody2D.velocity.x, -Mathf.Abs(blocksRigidbody2D.velocity.y));
+            newVelocity.x = -Mathf.Abs(newVelocity.x);
+            spriteRenderer.sprite = spritesToUse.First(i => i.direction == Direction.Left).sprite;
+        }
+
+        if (collision.IsTouching(upBoxCollider) && blocksRigidbody2D.velocity.y != 0)
+        {
+            newVelocity.y = -Mathf.Abs(newVelocity.y);
             spriteRenderer.sprite = spritesToUse.First(i => i.direction == Direction.Down).sprite;
-            return;
         }
 
-        if (hitLocation.y < 0)
+        if (collision.IsTouching(downBoxCollider) && blocksRigidbody2D.velocity.y != 0)
         {
-            blocksRigidbody2D.velocity = new Vector2(blocksRigidbody2D.velocity.x, Mathf.Abs(blocksRigidbody2D.velocity.y));
+            newVelocity.y = Mathf.Abs(newVelocity.y);
             spriteRenderer.sprite = spritesToUse.First(i => i.direction == Direction.Up).sprite;
-            return;
         }
 
-
-        var relativePos = transform.position - collision.transform.position;
-        var newXSpeed = Mathf.Sign(relativePos.x) * Mathf.Abs(blocksRigidbody2D.velocity.x);
-        var newYSpeed = Mathf.Sign(relativePos.y) * Mathf.Abs(blocksRigidbody2D.velocity.y);
-
-        blocksRigidbody2D.velocity = new Vector2(newXSpeed, newYSpeed);
+        blocksRigidbody2D.velocity = newVelocity;
     }
 
     public void DestoryBlock()
