@@ -11,8 +11,10 @@ public class Block : MonoBehaviour
     [SerializeField] private GameObject[] powerUps;
     
     protected Rigidbody2D blocksRigidbody2D;
-    private SpriteRenderer spriteRenderer;
     protected LevelState levelState;
+    
+    private SpriteRenderer spriteRenderer;
+    private BoxCollider2D boxCollider2D;
 
     private BlockPowerUpState blockPowerUpState;
     private AudioState audioState;
@@ -25,12 +27,13 @@ public class Block : MonoBehaviour
         blocksRigidbody2D.velocity = initalVelocity;
 
         spriteRenderer = GetComponent<SpriteRenderer>();
-
-        powerupOffset = (GetComponent<BoxCollider2D>().size.x *transform.localScale.x)/ 2;
+        boxCollider2D = GetComponent<BoxCollider2D>();
+        powerupOffset = (boxCollider2D.size.x *transform.localScale.x)/ 2;
 
         blockPowerUpState = FindObjectOfType<BlockPowerUpState>();
         audioState = FindObjectOfType<AudioState>();
         levelState = FindObjectOfType<LevelState>();
+        UpdateSprite();
     }
 
     protected virtual void Update()
@@ -38,21 +41,17 @@ public class Block : MonoBehaviour
         var colour = spriteRenderer.color;
         spriteRenderer.color = new Color(colour.r, colour.g, colour.b, blockPowerUpState.GetAlpha());
 
-        UpdateSprite();
     }
 
-    protected virtual void UpdateSprite()
+    private void UpdateSprite()
     {
-        if (blocksRigidbody2D.velocity.magnitude == 0)
-        {
-            spriteRenderer.sprite = spritesToUse.First(i => i.direction == Direction.None).sprite;
-        }
-
-        if (blocksRigidbody2D.velocity.x != 0)
+        if (blocksRigidbody2D.velocity.x != 0 && 
+            Mathf.Abs(blocksRigidbody2D.velocity.x) > Mathf.Abs(blocksRigidbody2D.velocity.y))
         {
             spriteRenderer.sprite = blocksRigidbody2D.velocity.x < 0 ?
                 spritesToUse.First(i => i.direction == Direction.Left).sprite :
                 spritesToUse.First(i => i.direction == Direction.Right).sprite;
+            return;
         }
 
         if (blocksRigidbody2D.velocity.y != 0)
@@ -60,7 +59,11 @@ public class Block : MonoBehaviour
             spriteRenderer.sprite = blocksRigidbody2D.velocity.y < 0 ?
                 spritesToUse.First(i => i.direction == Direction.Down).sprite :
                 spritesToUse.First(i => i.direction == Direction.Up).sprite;
+
+            return;
         }
+        
+        spriteRenderer.sprite = spritesToUse.First(i => i.direction == Direction.None).sprite;
     }
 
     protected virtual void HitByBall()
@@ -101,6 +104,41 @@ public class Block : MonoBehaviour
         {
             return;
         }
+
+        var midPoint = (boxCollider2D.size * transform.localScale) / 2 + (Vector2)transform.position;
+        var closestPoint = collision.ClosestPoint(midPoint);
+
+        var hitLocation = closestPoint - midPoint;
+        hitLocation = new Vector2(Mathf.Round(hitLocation.x * 100) / 100, Mathf.Round(hitLocation.y * 100) / 100);
+
+        if (hitLocation.x > 0)
+        {
+            blocksRigidbody2D.velocity = new Vector2(-Mathf.Abs(blocksRigidbody2D.velocity.x), blocksRigidbody2D.velocity.y);
+            spriteRenderer.sprite = spritesToUse.First(i => i.direction == Direction.Left).sprite;
+            return;
+        }
+
+        if (hitLocation.x < 0)
+        {
+            blocksRigidbody2D.velocity = new Vector2(Mathf.Abs(blocksRigidbody2D.velocity.x), blocksRigidbody2D.velocity.y);
+            spriteRenderer.sprite = spritesToUse.First(i => i.direction == Direction.Right).sprite;
+            return;
+        }
+
+        if (hitLocation.y > 0)
+        {
+            blocksRigidbody2D.velocity = new Vector2(blocksRigidbody2D.velocity.x, -Mathf.Abs(blocksRigidbody2D.velocity.y));
+            spriteRenderer.sprite = spritesToUse.First(i => i.direction == Direction.Down).sprite;
+            return;
+        }
+
+        if (hitLocation.y < 0)
+        {
+            blocksRigidbody2D.velocity = new Vector2(blocksRigidbody2D.velocity.x, Mathf.Abs(blocksRigidbody2D.velocity.y));
+            spriteRenderer.sprite = spritesToUse.First(i => i.direction == Direction.Up).sprite;
+            return;
+        }
+
 
         var relativePos = transform.position - collision.transform.position;
         var newXSpeed = Mathf.Sign(relativePos.x) * Mathf.Abs(blocksRigidbody2D.velocity.x);

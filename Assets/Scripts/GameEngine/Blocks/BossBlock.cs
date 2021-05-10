@@ -25,7 +25,7 @@ public class BossBlock : SideAvoidBlock
         base.Start();
     }
 
-    protected override void UpdateSprite()
+    private void UpdateSpriteToUse()
     {
         if (currentHealth <= 0.75 * health && currentHealth > 0.5 * health)
         {
@@ -41,8 +41,6 @@ public class BossBlock : SideAvoidBlock
         {
             spritesToUse = broken3Sprites;
         }
-
-        base.UpdateSprite();
     }
 
     protected override void HitByBall()
@@ -54,8 +52,9 @@ public class BossBlock : SideAvoidBlock
             base.HitByBall();
             return;
         }
-        
+
         levelState.AddBlockPoint();
+        UpdateSpriteToUse();
     }
 
     private void ChangeBlockDirection()
