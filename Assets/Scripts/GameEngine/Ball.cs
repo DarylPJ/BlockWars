@@ -123,8 +123,13 @@ public class Ball : MonoBehaviour
             return;
         }
 
+        var bossBlock = collision.GetComponent<BossBlock>();
+
         if (collision.gameObject.CompareTag("PowerUp") || collision.GetComponent<Ball>() ||
-            (powerUpState.IsFireModeActive() && collision.GetComponent<Block>() && !collision.GetComponent<BossBlock>() && !collision.GetComponent<NonBreakableBlock>()))
+            (powerUpState.IsFireModeActive() &&
+            collision.GetComponent<Block>() &&
+            (bossBlock == null || bossBlock.Health() < 4) &&
+            !collision.GetComponent<NonBreakableBlock>()))
         {
             return;
         }

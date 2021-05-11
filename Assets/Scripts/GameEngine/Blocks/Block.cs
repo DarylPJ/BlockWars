@@ -17,8 +17,7 @@ public class Block : MonoBehaviour
 
     protected Rigidbody2D blocksRigidbody2D;
     protected LevelState levelState;
-    
-    private SpriteRenderer spriteRenderer;
+    protected SpriteRenderer spriteRenderer;
 
     private BlockPowerUpState blockPowerUpState;
     private AudioState audioState;

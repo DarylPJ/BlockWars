@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class BossBlock : Block
@@ -54,7 +55,10 @@ public class BossBlock : Block
         }
 
         levelState.AddBlockPoint();
+        var direction = spritesToUse.First(i => i.sprite == spriteRenderer.sprite).direction; 
         UpdateSpriteToUse();
+
+        spriteRenderer.sprite = spritesToUse.First(i => i.direction == direction).sprite;
     }
 
     private void ChangeBlockDirection()
@@ -76,4 +80,6 @@ public class BossBlock : Block
 
         UpdateSprite();
     }
+
+    public float Health() => currentHealth;
 }

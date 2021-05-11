@@ -133,7 +133,7 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 7c777cfafe8dfd441ba743e424c075f6, type: 3}
   - direction: 4
     sprite: {fileID: 21300000, guid: 115b292e76b410a4aa598e95b8aad3ce, type: 3}
-  initalVelocity: {x: 0, y: 8}
+  initalVelocity: {x: 0, y: 0}
   soundOnDestroy: {fileID: 8300000, guid: 878aaa04172ca714c99973e628c6a698, type: 3}
   volume: 0.5
   chanceOfPowerUp: 0.05
@@ -147,14 +147,13 @@ MonoBehaviour:
   - {fileID: 5057130047098751104, guid: 2ae6a17917dbe7b4e8a282e88d66bce0, type: 3}
   - {fileID: 5057130047098751104, guid: ad6070a727e49a04cbdd69b2a2326cdd, type: 3}
   - {fileID: 5057130047098751104, guid: a3a1697f898bd15498b543f85d07ebcd, type: 3}
-  - {fileID: 5057130047098751104, guid: a3a1697f898bd15498b543f85d07ebcd, type: 3}
+  - {fileID: 5057130047098751104, guid: 3c12f43afb0d75d4593796ac03c22fbf, type: 3}
   leftBoxCollider: {fileID: -3424025779728664693}
   rightBoxCollider: {fileID: 5112193685123539719}
   upBoxCollider: {fileID: 5166321678807836138}
   downBoxCollider: {fileID: -3680473987182087402}
-  minDistToWalls: 1.5
   health: 4
-  changeDirection: 0
+  changeDirection: 1
   broken1Sprites:
   - direction: 0
     sprite: {fileID: 21300000, guid: b23a5889995397d46b78626978bb3671, type: 3}

@@ -133,7 +133,7 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: aabda5ab255aa8c41aca0c1aff92e8c6, type: 3}
   - direction: 4
     sprite: {fileID: 21300000, guid: 30854356616481d459870f62df848d6d, type: 3}
-  initalVelocity: {x: 0, y: 8}
+  initalVelocity: {x: 0, y: 0}
   soundOnDestroy: {fileID: 8300000, guid: 878aaa04172ca714c99973e628c6a698, type: 3}
   volume: 0.5
   chanceOfPowerUp: 0.05
@@ -152,9 +152,8 @@ MonoBehaviour:
   rightBoxCollider: {fileID: -6805936539324664397}
   upBoxCollider: {fileID: 1523002245499619328}
   downBoxCollider: {fileID: -3500551372913861960}
-  minDistToWalls: 1.5
   health: 4
-  changeDirection: 0
+  changeDirection: 1
   broken1Sprites:
   - direction: 0
     sprite: {fileID: 21300000, guid: 978b2bd794cbd304baac22cc3b1bac83, type: 3}

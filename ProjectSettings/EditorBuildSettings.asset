@@ -113,4 +113,40 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/World 3/L3-Boss.unity
     guid: 76650448b6c21174da9e2c457ddf963c
+  - enabled: 1
+    path: Assets/Scenes/World 4/L4-1.unity
+    guid: d845791fc6614e142ab567113171401e
+  - enabled: 1
+    path: Assets/Scenes/World 4/L4-2.unity
+    guid: 097539a8c65c8a84bba2d44c0d164bc5
+  - enabled: 1
+    path: Assets/Scenes/World 4/L4-3.unity
+    guid: 109911b3c8603454bb1cdecd0c662269
+  - enabled: 1
+    path: Assets/Scenes/World 4/L4-4.unity
+    guid: be446f16c727bf34bb37178dfeff7d10
+  - enabled: 1
+    path: Assets/Scenes/World 4/L4-5.unity
+    guid: 21860e217ed06fa46b68cb6c0e6877e4
+  - enabled: 1
+    path: Assets/Scenes/World 4/L4-6.unity
+    guid: 1028a4f3a89af4d458ddb02a81a76052
+  - enabled: 1
+    path: Assets/Scenes/World 4/L4-7.unity
+    guid: dcb6774a63026564fa8ed3ac9c8578a0
+  - enabled: 1
+    path: Assets/Scenes/World 4/L4-8.unity
+    guid: 2c6bab10b4c877e479498fa21d0b2f8f
+  - enabled: 1
+    path: Assets/Scenes/World 4/L4-9.unity
+    guid: 362dc91f6c31b3e4a916fe2e28467e3e
+  - enabled: 1
+    path: Assets/Scenes/World 4/L4-10.unity
+    guid: a13a03c6279983d49942b4eaf81dad62
+  - enabled: 1
+    path: Assets/Scenes/World 4/L4-Boss.unity
+    guid: 7acc8e6b4c8e0114f84025a72eeab0a7
+  - enabled: 1
+    path: Assets/Scenes/World 5/L5-1.unity
+    guid: 56226a63d87cb3542bb992275e5dc7e4
   m_configObjects: {}
