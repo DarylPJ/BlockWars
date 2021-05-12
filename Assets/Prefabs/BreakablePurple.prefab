@@ -153,7 +153,7 @@ MonoBehaviour:
   upBoxCollider: {fileID: -3106162828939689462}
   downBoxCollider: {fileID: 4033063816110295500}
   health: 4
-  changeDirection: 1
+  changeDirection: 0
   broken1Sprites:
   - direction: 0
     sprite: {fileID: 21300000, guid: 82002ccffa4c28949a9188626c3fa543, type: 3}
