@@ -136,7 +136,7 @@ MonoBehaviour:
   initalVelocity: {x: 0, y: 0}
   soundOnDestroy: {fileID: 8300000, guid: 878aaa04172ca714c99973e628c6a698, type: 3}
   volume: 0.5
-  chanceOfPowerUp: 0.05
+  chanceOfPowerUp: 0.025
   powerUps:
   - {fileID: 5057130047098751104, guid: a3a1697f898bd15498b543f85d07ebcd, type: 3}
   - {fileID: 5057130047098751104, guid: aae982aecd9d51e488c5d68eeedbce16, type: 3}
@@ -152,7 +152,6 @@ MonoBehaviour:
   rightBoxCollider: {fileID: 2012429751886085721}
   upBoxCollider: {fileID: 1236253901940568100}
   downBoxCollider: {fileID: 3871498133067345337}
-  minDistToWalls: 0
 --- !u!61 &3871498133067345337
 BoxCollider2D:
   m_ObjectHideFlags: 0
