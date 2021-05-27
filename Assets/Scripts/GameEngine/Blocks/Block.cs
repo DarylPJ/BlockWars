@@ -3,8 +3,11 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
-    [SerializeField] protected DirectionSprites[] spritesToUse;
     [SerializeField] private Vector2 initalVelocity = new Vector2(0, 0);
+    [SerializeField] private float deltaTheta = 0;
+    [SerializeField] private Vector2 relativeOrbitPoint = new Vector2(0, 0);
+
+    [SerializeField] protected DirectionSprites[] spritesToUse;
     [SerializeField] private AudioClip soundOnDestroy;
     [SerializeField, Range(0, 1)] private float volume = 0.5f;
     [SerializeField] private float chanceOfPowerUp = 0.1f;
@@ -23,6 +26,8 @@ public class Block : MonoBehaviour
     private AudioState audioState;
 
     private float powerupOffset;
+    private Vector2 orbitPoint;
+    private Vector2 orbitalDirectionOfMotion = new Vector2(0, 0);
 
     protected virtual void Start()
     {
@@ -31,6 +36,7 @@ public class Block : MonoBehaviour
 
         spriteRenderer = GetComponent<SpriteRenderer>();
         powerupOffset = transform.localScale.x;
+        orbitPoint = (Vector2)transform.position + relativeOrbitPoint;
 
         blockPowerUpState = FindObjectOfType<BlockPowerUpState>();
         audioState = FindObjectOfType<AudioState>();
@@ -42,7 +48,27 @@ public class Block : MonoBehaviour
     {
         var colour = spriteRenderer.color;
         spriteRenderer.color = new Color(colour.r, colour.g, colour.b, blockPowerUpState.GetAlpha());
+    }
 
+    protected void FixedUpdate()
+    {
+        if (deltaTheta == 0)
+        {
+            return;
+        }
+
+        var relativePos = (Vector2)transform.position - orbitPoint;
+        var theta = Mathf.Atan2(relativePos.y, relativePos.x);
+
+        var newTheta = theta + deltaTheta;
+
+        var newX = relativePos.magnitude * Mathf.Cos(newTheta);
+        var newY = relativePos.magnitude * Mathf.Sin(newTheta);
+
+        var newPosition = new Vector2(newX, newY) + orbitPoint;
+        orbitalDirectionOfMotion = (newPosition - (Vector2)transform.position).normalized;
+
+        blocksRigidbody2D.MovePosition(newPosition);
     }
 
     protected void UpdateSprite()
@@ -102,12 +128,37 @@ public class Block : MonoBehaviour
 
     protected void MoveBlockAway(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("PowerUp") || collision.gameObject.GetComponent<Ball>() != null
-            || blocksRigidbody2D.velocity.sqrMagnitude == 0)
+        if (collision.gameObject.CompareTag("PowerUp") || collision.gameObject.GetComponent<Ball>() != null)
         {
             return;
         }
 
+        if (blocksRigidbody2D.velocity.sqrMagnitude != 0)
+        {
+            SetNewVelocity(collision);
+        }
+
+        if (deltaTheta != 0) 
+        {
+            SetNewDeltaTheta(collision);
+        }
+    }
+
+    private void SetNewDeltaTheta(Collider2D collision)
+    {
+        // Change this to calculate the position +- delta theta. change deta theta accordingly. 
+        if (collision.IsTouching(leftBoxCollider) && orbitalDirectionOfMotion.x <= 0
+            || collision.IsTouching(rightBoxCollider) && orbitalDirectionOfMotion.x >= 0
+            || collision.IsTouching(upBoxCollider) && orbitalDirectionOfMotion.y >= 0
+            || collision.IsTouching(downBoxCollider) && orbitalDirectionOfMotion.y <= 0)
+        {
+            deltaTheta = -deltaTheta;
+            orbitalDirectionOfMotion = -orbitalDirectionOfMotion;
+        }
+    }
+
+    private void SetNewVelocity(Collider2D collision)
+    {
         var newVelocity = blocksRigidbody2D.velocity;
 
         if (collision.IsTouching(leftBoxCollider) && blocksRigidbody2D.velocity.x != 0)
