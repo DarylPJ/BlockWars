@@ -93,7 +93,7 @@ public class LevelState : MonoBehaviour
 
     private void OnApplicationPause(bool pause)
     {
-        if (pause)
+        if (pause && Time.timeScale != 0)
         {
             Pause();
         }

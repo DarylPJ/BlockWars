@@ -149,4 +149,34 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/World 5/L5-1.unity
     guid: 56226a63d87cb3542bb992275e5dc7e4
+  - enabled: 1
+    path: Assets/Scenes/World 5/L5-2.unity
+    guid: 33b4004c0e7c46e4892bf7117d5dd046
+  - enabled: 1
+    path: Assets/Scenes/World 5/L5-3.unity
+    guid: 16acb05d40385d74ba92c25ec1d13a0e
+  - enabled: 1
+    path: Assets/Scenes/World 5/L5-4.unity
+    guid: 962ddbf277e64a041b4bf5e51987f1d6
+  - enabled: 1
+    path: Assets/Scenes/World 5/L5-5.unity
+    guid: 486a9ef09e69aec4da4fde7d92aeac3a
+  - enabled: 1
+    path: Assets/Scenes/World 5/L5-6.unity
+    guid: f4532155db8dcf9479ee8808677f5365
+  - enabled: 1
+    path: Assets/Scenes/World 5/L5-7.unity
+    guid: 3ac86f0260056914da72ecd91ebdab30
+  - enabled: 1
+    path: Assets/Scenes/World 5/L5-8.unity
+    guid: c655f6aaecc1b4e4396f03cdd2287162
+  - enabled: 1
+    path: Assets/Scenes/World 5/L5-9.unity
+    guid: 4d472abfcc3b00349845eca70ce66698
+  - enabled: 1
+    path: Assets/Scenes/World 5/L5-10.unity
+    guid: 8416109b90dcf994a84911eb7ed18efb
+  - enabled: 1
+    path: Assets/Scenes/World 5/L5-Boss.unity
+    guid: 9c720ebba6887574789e2ee1dfc230c9
   m_configObjects: {}
