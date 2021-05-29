@@ -179,4 +179,37 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/World 5/L5-Boss.unity
     guid: 9c720ebba6887574789e2ee1dfc230c9
+  - enabled: 1
+    path: Assets/Scenes/World 6/L6-1.unity
+    guid: f1cd630c1fb5dcb43bb6e5b4574d8b5b
+  - enabled: 1
+    path: Assets/Scenes/World 6/L6-2.unity
+    guid: 9b59a14719d741d4db86b247a0ac3a8f
+  - enabled: 1
+    path: Assets/Scenes/World 6/L6-3.unity
+    guid: c3182d97f2a18fa4e8125d1385282721
+  - enabled: 1
+    path: Assets/Scenes/World 6/L6-4.unity
+    guid: b25393fc8646bc3419bce47e556b3ff2
+  - enabled: 1
+    path: Assets/Scenes/World 6/L6-5.unity
+    guid: 638b1c718b2845d4f970e76dd86e9717
+  - enabled: 1
+    path: Assets/Scenes/World 6/L6-6.unity
+    guid: c684bae23447de94f8b06f3f02305685
+  - enabled: 1
+    path: Assets/Scenes/World 6/L6-7.unity
+    guid: b0965ad412879d34494fad7673c4b55e
+  - enabled: 1
+    path: Assets/Scenes/World 6/L6-8.unity
+    guid: fb06c6171256a154aa4b50e1d391a41a
+  - enabled: 1
+    path: Assets/Scenes/World 6/L6-9.unity
+    guid: 17d46c5da05c920489a5dc8e1dfc290a
+  - enabled: 1
+    path: Assets/Scenes/World 6/L6-10.unity
+    guid: 92df1720c62a7f8458811d6d91f6b0c6
+  - enabled: 1
+    path: Assets/Scenes/World 6/L6-Boss.unity
+    guid: e223d18d87b998e40a12590ca1027c3f
   m_configObjects: {}
