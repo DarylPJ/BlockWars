@@ -4,7 +4,7 @@ using UnityEngine;
 public class Block : MonoBehaviour
 {
     [SerializeField] private Vector2 initalVelocity = new Vector2(0, 0);
-    [SerializeField] private float deltaTheta = 0;
+    [SerializeField] private float angularVelocity = 0;
     [SerializeField] private Vector2 relativeOrbitPoint = new Vector2(0, 0);
 
     [SerializeField] protected DirectionSprites[] spritesToUse;
@@ -48,11 +48,8 @@ public class Block : MonoBehaviour
     {
         var colour = spriteRenderer.color;
         spriteRenderer.color = new Color(colour.r, colour.g, colour.b, blockPowerUpState.GetAlpha());
-    }
 
-    protected void FixedUpdate()
-    {
-        if (deltaTheta == 0)
+        if (angularVelocity == 0)
         {
             return;
         }
@@ -60,7 +57,63 @@ public class Block : MonoBehaviour
         var relativePos = (Vector2)transform.position - orbitPoint;
         var theta = Mathf.Atan2(relativePos.y, relativePos.x);
 
-        var newTheta = theta + deltaTheta;
+        if (theta < Mathf.PI / 4 && theta > -Mathf.PI / 4)
+        {
+            if (angularVelocity > 0)
+            {
+                spriteRenderer.sprite = spritesToUse.First(i => i.direction == Direction.Up).sprite;
+                return;
+            }
+
+            spriteRenderer.sprite = spritesToUse.First(i => i.direction == Direction.Down).sprite;
+            return;
+        }
+
+        if (theta > Mathf.PI / 4 && theta < (3 * Mathf.PI) / 4)
+        {
+            if (angularVelocity > 0)
+            {
+                spriteRenderer.sprite = spritesToUse.First(i => i.direction == Direction.Left).sprite;
+                return;
+            }
+
+            spriteRenderer.sprite = spritesToUse.First(i => i.direction == Direction.Right).sprite;
+            return;
+        }
+
+        if (theta < -Mathf.PI / 4 && theta > -(3* Mathf.PI) / 4)
+        {
+            if (angularVelocity > 0)
+            {
+                spriteRenderer.sprite = spritesToUse.First(i => i.direction == Direction.Right).sprite;
+                return;
+            }
+
+            spriteRenderer.sprite = spritesToUse.First(i => i.direction == Direction.Left).sprite;
+            return;
+        }
+
+        if (angularVelocity > 0)
+        {
+            spriteRenderer.sprite = spritesToUse.First(i => i.direction == Direction.Down).sprite;
+            return;
+        }
+
+        spriteRenderer.sprite = spritesToUse.First(i => i.direction == Direction.Up).sprite;
+        return;
+    }
+
+    protected void FixedUpdate()
+    {
+        if (angularVelocity == 0)
+        {
+            return;
+        }
+
+        var relativePos = (Vector2)transform.position - orbitPoint;
+        var theta = Mathf.Atan2(relativePos.y, relativePos.x);
+
+        var newTheta = theta + ((angularVelocity/relativePos.magnitude) * Time.deltaTime);
 
         var newX = relativePos.magnitude * Mathf.Cos(newTheta);
         var newY = relativePos.magnitude * Mathf.Sin(newTheta);
@@ -138,7 +191,7 @@ public class Block : MonoBehaviour
             SetNewVelocity(collision);
         }
 
-        if (deltaTheta != 0) 
+        if (angularVelocity != 0) 
         {
             SetNewDeltaTheta(collision);
         }
@@ -146,13 +199,22 @@ public class Block : MonoBehaviour
 
     private void SetNewDeltaTheta(Collider2D collision)
     {
-        // Change this to calculate the position +- delta theta. change deta theta accordingly. 
-        if (collision.IsTouching(leftBoxCollider) && orbitalDirectionOfMotion.x <= 0
-            || collision.IsTouching(rightBoxCollider) && orbitalDirectionOfMotion.x >= 0
-            || collision.IsTouching(upBoxCollider) && orbitalDirectionOfMotion.y >= 0
-            || collision.IsTouching(downBoxCollider) && orbitalDirectionOfMotion.y <= 0)
+        var leftTouching = collision.IsTouching(leftBoxCollider);
+        var rightTouching = collision.IsTouching(rightBoxCollider);
+        var upTouching = collision.IsTouching(upBoxCollider);
+        var downTouching = collision.IsTouching(downBoxCollider);
+
+        if (new[] { leftTouching, rightTouching, upTouching, downTouching }.Count(i => i) > 1)
         {
-            deltaTheta = -deltaTheta;
+            return;
+        }
+
+        if (leftTouching && orbitalDirectionOfMotion.x <= 0
+            || rightTouching && orbitalDirectionOfMotion.x >= 0
+            || upTouching && orbitalDirectionOfMotion.y >= 0
+            || downTouching && orbitalDirectionOfMotion.y <= 0)
+        {
+            angularVelocity = -angularVelocity;
             orbitalDirectionOfMotion = -orbitalDirectionOfMotion;
         }
     }
