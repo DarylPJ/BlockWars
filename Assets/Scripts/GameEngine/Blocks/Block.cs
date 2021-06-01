@@ -18,6 +18,8 @@ public class Block : MonoBehaviour
     [SerializeField] private BoxCollider2D upBoxCollider;
     [SerializeField] private BoxCollider2D downBoxCollider;
 
+    [SerializeField] private SyncedMovement syncedMovement;
+
     protected Rigidbody2D blocksRigidbody2D;
     protected LevelState levelState;
     protected SpriteRenderer spriteRenderer;
@@ -31,6 +33,11 @@ public class Block : MonoBehaviour
 
     protected virtual void Start()
     {
+        if (syncedMovement)
+        {
+            syncedMovement.AddBlock(this);
+        }
+
         blocksRigidbody2D = GetComponent<Rigidbody2D>();
         blocksRigidbody2D.velocity = initalVelocity;
 
@@ -188,7 +195,16 @@ public class Block : MonoBehaviour
 
         if (blocksRigidbody2D.velocity.sqrMagnitude != 0)
         {
-            SetNewVelocity(collision);
+            var direction = GetDirectionToMove(collision);
+
+            if (syncedMovement)
+            {
+                syncedMovement.MoveBlocksDirection(direction);
+            }
+            else
+            {
+                SetNewVelocity(direction);
+            }
         }
 
         if (angularVelocity != 0) 
@@ -219,32 +235,55 @@ public class Block : MonoBehaviour
         }
     }
 
-    private void SetNewVelocity(Collider2D collision)
+    private Direction GetDirectionToMove(Collider2D collision)
     {
-        var newVelocity = blocksRigidbody2D.velocity;
-
         if (collision.IsTouching(leftBoxCollider) && blocksRigidbody2D.velocity.x != 0)
         {
-            newVelocity.x = Mathf.Abs(newVelocity.x);
-            spriteRenderer.sprite = spritesToUse.First(i => i.direction == Direction.Right).sprite;
+            return Direction.Right;
         }
 
         if (collision.IsTouching(rightBoxCollider) && blocksRigidbody2D.velocity.x != 0)
         {
-            newVelocity.x = -Mathf.Abs(newVelocity.x);
-            spriteRenderer.sprite = spritesToUse.First(i => i.direction == Direction.Left).sprite;
+            return Direction.Left;
         }
 
         if (collision.IsTouching(upBoxCollider) && blocksRigidbody2D.velocity.y != 0)
         {
-            newVelocity.y = -Mathf.Abs(newVelocity.y);
-            spriteRenderer.sprite = spritesToUse.First(i => i.direction == Direction.Down).sprite;
+            return Direction.Down;
         }
 
         if (collision.IsTouching(downBoxCollider) && blocksRigidbody2D.velocity.y != 0)
         {
-            newVelocity.y = Mathf.Abs(newVelocity.y);
-            spriteRenderer.sprite = spritesToUse.First(i => i.direction == Direction.Up).sprite;
+            return Direction.Up;
+        }
+
+        return Direction.None;
+    }
+
+    public void SetNewVelocity(Direction direction)
+    {
+        var newVelocity = blocksRigidbody2D.velocity;
+
+        switch (direction)
+        {
+            case Direction.None:
+                break;
+            case Direction.Left:
+                newVelocity.x = -Mathf.Abs(newVelocity.x);
+                spriteRenderer.sprite = spritesToUse.First(i => i.direction == Direction.Left).sprite;
+                break;
+            case Direction.Right:
+                newVelocity.x = Mathf.Abs(newVelocity.x);
+                spriteRenderer.sprite = spritesToUse.First(i => i.direction == Direction.Right).sprite;
+                break;
+            case Direction.Up:
+                newVelocity.y = Mathf.Abs(newVelocity.y);
+                spriteRenderer.sprite = spritesToUse.First(i => i.direction == Direction.Up).sprite;
+                break;
+            case Direction.Down:
+                newVelocity.y = -Mathf.Abs(newVelocity.y);
+                spriteRenderer.sprite = spritesToUse.First(i => i.direction == Direction.Down).sprite;
+                break;
         }
 
         blocksRigidbody2D.velocity = newVelocity;
