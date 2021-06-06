@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class Ball : MonoBehaviour
@@ -8,7 +9,9 @@ public class Ball : MonoBehaviour
     [SerializeField] private Collider2D roof;
     [SerializeField] private Collider2D paddleCollider;
     [SerializeField] private Collider2D enemyFloor;
+    [SerializeField] private Collider2D enemyFloor2;
     [SerializeField] private Collider2D floor;
+    [SerializeField] private Collider2D floor2;
     [SerializeField, Range(0, 5)] private float maxRandomToAdd = 1;
     [SerializeField] private bool instaLaunch = false;
     [SerializeField] private Vector2 instaLaunchMe;
@@ -33,7 +36,9 @@ public class Ball : MonoBehaviour
 
     private void Start()
     {
-        paddle = FindObjectOfType<Paddle>();
+        var paddles = FindObjectsOfType<Paddle>();
+        paddle = paddles.OrderBy(i => (i.transform.position - transform.position).sqrMagnitude).First();
+
         myRigidbody = GetComponent<Rigidbody2D>();
         audioSource = GetComponent<AudioSource>();
         circleCollider = GetComponent<CircleCollider2D>();
@@ -134,7 +139,7 @@ public class Ball : MonoBehaviour
             return;
         }
 
-        if (collision == floor)
+        if (collision == floor || collision == floor2)
         {
             if (noDie)
             {
@@ -184,13 +189,13 @@ public class Ball : MonoBehaviour
 
     private void SetNewVelocity(Collider2D collision)
     {
-        if (collision == paddleCollider)
+        if (collision.GetComponent<Paddle>())
         {
             HandlePaddleCollision(collision);
             return;
         }
 
-        if (lockedToPaddle || collision == enemyFloor)
+        if (lockedToPaddle || collision == enemyFloor || collision == enemyFloor2)
         {
             return;
         }
@@ -302,11 +307,6 @@ public class Ball : MonoBehaviour
 
         var relativePosition = transform.position - collision.transform.position;
 
-        if (relativePosition.y < ((circleCollider.radius * transform.localScale.x) / 2))
-        {
-            return;
-        }
-
         var maximum = myRigidbody.velocity.magnitude * 0.8f;
         var xVelocity = (relativePosition.x / ((boxCollider.size.x/2)*boxCollider.transform.localScale.x)) * maximum;
 
@@ -321,6 +321,18 @@ public class Ball : MonoBehaviour
         }
 
         var yVelocity = GetScaledYVelocity(xVelocity);
+
+        if (relativePosition.y < ((circleCollider.radius * transform.localScale.x) / 2))
+        {
+            if (myRigidbody.velocity.y < 0)
+            {
+                return;
+            }
+
+            myRigidbody.velocity = new Vector2(xVelocity, -Mathf.Abs(yVelocity));
+            return;
+        }
+
         myRigidbody.velocity = new Vector2(xVelocity, Mathf.Abs(yVelocity));
 
         if (!lockedToPaddle)
