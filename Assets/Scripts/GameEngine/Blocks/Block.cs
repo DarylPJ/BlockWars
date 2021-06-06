@@ -31,6 +31,9 @@ public class Block : MonoBehaviour
     private Vector2 orbitPoint;
     private Vector2 orbitalDirectionOfMotion = new Vector2(0, 0);
 
+    private Vector2 speedPreMovedown;
+    private Vector2 movedownSpeed;
+
     protected virtual void Start()
     {
         if (syncedMovement)
@@ -270,6 +273,31 @@ public class Block : MonoBehaviour
         }
 
         return Direction.None;
+    }
+
+    public void MoveDown(float speed)
+    {
+        if (angularVelocity != 0)
+        {
+            return;
+        }
+
+        speedPreMovedown = blocksRigidbody2D.velocity;
+        movedownSpeed = new Vector2(0, -speed);
+
+        blocksRigidbody2D.velocity = movedownSpeed;
+        UpdateSprite();
+    }
+
+    public void StopMoveDown()
+    {
+        if (angularVelocity != 0)
+        {
+            return;
+        }
+
+        blocksRigidbody2D.velocity = speedPreMovedown;
+        UpdateSprite();
     }
 
     public void SetNewVelocity(Direction direction)

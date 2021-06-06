@@ -22,7 +22,10 @@ public class SyncedMovement : MonoBehaviour
     {
         foreach (var block in blocks)
         {
-            block.ChangeAngularVelocity();
+            if (block)
+            {
+                block.ChangeAngularVelocity();
+            }
         }
     }
 }
