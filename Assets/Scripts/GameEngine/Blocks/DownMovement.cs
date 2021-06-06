@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class DownMovement : MonoBehaviour
 {
-    [SerializeField] private float movedownTimePeriod = 15f;
+    [SerializeField] private float maxMovedownTimePeriod = 10f;
     [SerializeField] private float moveSpeed = 1f;
     [SerializeField] private float moveDownTime = 4f;
 
@@ -11,7 +11,7 @@ public class DownMovement : MonoBehaviour
     private void Start()
     {
         blocks = FindObjectsOfType<Block>();
-        Invoke(nameof(MoveBlocksDown), movedownTimePeriod);
+        Invoke(nameof(MoveBlocksDown), Random.Range(2f, maxMovedownTimePeriod));
     }
     
     private void MoveBlocksDown()
@@ -35,6 +35,6 @@ public class DownMovement : MonoBehaviour
                 block.StopMoveDown();
             }
         }
-        Invoke(nameof(MoveBlocksDown), movedownTimePeriod);
+        Invoke(nameof(MoveBlocksDown), Random.Range(2f, maxMovedownTimePeriod));
     }
 }
