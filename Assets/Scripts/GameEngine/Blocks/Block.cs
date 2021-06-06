@@ -230,9 +230,21 @@ public class Block : MonoBehaviour
             || upTouching && orbitalDirectionOfMotion.y >= 0
             || downTouching && orbitalDirectionOfMotion.y <= 0)
         {
-            angularVelocity = -angularVelocity;
-            orbitalDirectionOfMotion = -orbitalDirectionOfMotion;
+            if (syncedMovement)
+            {
+                syncedMovement.FlipBlocksAngularVelocity();
+            }
+            else
+            {
+                ChangeAngularVelocity();
+            }
         }
+    }
+
+    public void ChangeAngularVelocity()
+    {
+        angularVelocity = -angularVelocity;
+        orbitalDirectionOfMotion = -orbitalDirectionOfMotion;
     }
 
     private Direction GetDirectionToMove(Collider2D collision)

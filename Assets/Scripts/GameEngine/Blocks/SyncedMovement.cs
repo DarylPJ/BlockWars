@@ -18,4 +18,11 @@ public class SyncedMovement : MonoBehaviour
         }
     }
 
+    public void FlipBlocksAngularVelocity()
+    {
+        foreach (var block in blocks)
+        {
+            block.ChangeAngularVelocity();
+        }
+    }
 }
