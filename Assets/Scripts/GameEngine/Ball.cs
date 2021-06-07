@@ -8,8 +8,6 @@ public class Ball : MonoBehaviour
     [SerializeField] private Collider2D rightWall;
     [SerializeField] private Collider2D roof;
     [SerializeField] private Collider2D paddleCollider;
-    [SerializeField] private Collider2D enemyFloor;
-    [SerializeField] private Collider2D enemyFloor2;
     [SerializeField] private Collider2D floor;
     [SerializeField] private Collider2D floor2;
     [SerializeField, Range(0, 5)] private float maxRandomToAdd = 1;
@@ -195,7 +193,7 @@ public class Ball : MonoBehaviour
             return;
         }
 
-        if (lockedToPaddle || collision == enemyFloor || collision == enemyFloor2)
+        if (lockedToPaddle || collision.CompareTag("EnemyFloor"))
         {
             return;
         }
