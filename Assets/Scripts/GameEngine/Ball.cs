@@ -37,7 +37,7 @@ public class Ball : MonoBehaviour
     private void Start()
     {
         var paddles = FindObjectsOfType<Paddle>();
-        paddle = paddles.OrderBy(i => (i.transform.position - transform.position).sqrMagnitude).First();
+        paddle = paddles.OrderBy(i => i.transform.position.y).First();
 
         myRigidbody = GetComponent<Rigidbody2D>();
         audioSource = GetComponent<AudioSource>();
