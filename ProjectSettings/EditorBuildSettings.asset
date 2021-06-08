@@ -333,11 +333,11 @@ EditorBuildSettings:
     path: Assets/Scenes/World 10/L10-7.unity
     guid: ed7d5b405aa8dd74ca30be0f53ef3cad
   - enabled: 1
-    path: Assets/Scenes/World 10/L10-8 2.unity
-    guid: 98acef82da2bc814cbda7f201a59540e
+    path: Assets/Scenes/World 10/L10-8.unity
+    guid: c0b066fc3ef48834099a960e6d73b56d
   - enabled: 1
     path: Assets/Scenes/World 10/L10-9.unity
-    guid: bb0e144d742879845ab2b61693336ef9
+    guid: 5f5d7117d6342fc49920840c59501d80
   - enabled: 1
     path: Assets/Scenes/World 10/L10-10.unity
     guid: ec800521aede11543a38d07fe7d6c819
