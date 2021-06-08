@@ -3892,6 +3892,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1316094524}
     - target: {fileID: 497515861211248784, guid: 4a2818f6b10d79849b99497891ecdc15, type: 3}
+      propertyPath: isCheckpoint
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 497515861211248784, guid: 4a2818f6b10d79849b99497891ecdc15, type: 3}
       propertyPath: onScreenInfo
       value: 
       objectReference: {fileID: 97376752}
