@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/CheckPoints.unity
     guid: ef226d65816abe146b4aa32d4c6f1a68
   - enabled: 1
+    path: Assets/Scenes/WinScreen.unity
+    guid: d9984665513205d4084e2dbab800d8bf
+  - enabled: 1
     path: Assets/Scenes/World 1/L1-1.unity
     guid: 06ba2f386853e8d40b14c6742b553ffe
   - enabled: 1

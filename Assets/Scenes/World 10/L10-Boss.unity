@@ -4456,7 +4456,7 @@ PrefabInstance:
       objectReference: {fileID: 6858191161551250402}
     - target: {fileID: 497515861211248784, guid: 4a2818f6b10d79849b99497891ecdc15, type: 3}
       propertyPath: nextLevel
-      value: L1-1
+      value: WinScreen
       objectReference: {fileID: 0}
     - target: {fileID: 497515861211248784, guid: 4a2818f6b10d79849b99497891ecdc15, type: 3}
       propertyPath: pauseMenu
@@ -4600,13 +4600,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1642109782, guid: c9cdd6176dafb1243b2c043e4794a727, type: 3}
-      propertyPath: m_text
-      value: 'Progress Saved
-
-
-        You have won the block wars!!'
-      objectReference: {fileID: 0}
     - target: {fileID: 2847741404511630695, guid: c9cdd6176dafb1243b2c043e4794a727, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -4697,12 +4690,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2847741404511630699, guid: c9cdd6176dafb1243b2c043e4794a727, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2847741404832814786, guid: c9cdd6176dafb1243b2c043e4794a727, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2092911092}
+    - target: {fileID: 2847741404832814786, guid: c9cdd6176dafb1243b2c043e4794a727, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadNextLevel
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9cdd6176dafb1243b2c043e4794a727, type: 3}
 --- !u!1001 &4412510552449693934

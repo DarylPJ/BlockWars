@@ -161,6 +161,7 @@ public class LevelState : MonoBehaviour
         data.CurrentLevel = nextLevel;
         data.BlocksHit = totalBlocksDestroyed;
         data.DestroyedBlocks = new List<string>();
+        data.Lives = lives;
 
         var checkpoint = SceneManager.GetActiveScene().name;
         if (isCheckpoint && !data.Checkpoints.Contains(checkpoint))

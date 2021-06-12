@@ -325,12 +325,12 @@ public class Ball : MonoBehaviour
             return;
         }
 
-        if (relativePosition.y > ((circleCollider.radius * transform.localScale.x) / 2) && myRigidbody.velocity.y > 0)
+        if (relativePosition.y - 0.75 > ((circleCollider.radius * transform.localScale.x) / 2) && myRigidbody.velocity.y > 0)
         {
             return;
         }
 
-        if(myRigidbody.velocity.y > 0)
+        if (myRigidbody.velocity.y > 0)
         {
             myRigidbody.velocity = new Vector2(xVelocity, -Mathf.Abs(yVelocity));
         }

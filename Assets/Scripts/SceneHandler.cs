@@ -15,4 +15,7 @@ public class SceneHandler : MonoBehaviour
 
     public void GoToUnlockedScene() =>
         SceneManager.LoadScene(saveManager.GetSaveData().CurrentLevel);
+
+    public void MoreApps() => 
+        Application.OpenURL("https://play.google.com/store/apps/developer?id=Daryl+Jones");
 }

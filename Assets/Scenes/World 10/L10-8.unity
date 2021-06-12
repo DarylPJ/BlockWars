@@ -3052,6 +3052,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1559787068}
     m_Modifications:
+    - target: {fileID: -2113916837320908982, guid: 4ee04c371cf132043b6d0175f0c7c51c, type: 3}
+      propertyPath: syncedMovement
+      value: 
+      objectReference: {fileID: 425103253}
     - target: {fileID: 3476856663433730437, guid: 4ee04c371cf132043b6d0175f0c7c51c, type: 3}
       propertyPath: m_RootOrder
       value: 0
