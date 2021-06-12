@@ -8,11 +8,15 @@ using UnityEngine.Networking;
 public class AdsManager : MonoBehaviour, IUnityAdsListener
 {
     const string AndroidGameId = "4115155";
-    const string myVideoPlacement = "Rewarded_Android";
+    const string RewardAdId = "Rewarded_Android";
+    const string InterstitialAdId = "Interstitial_Android";
+    const bool devMode = true;
 
     private SaveManager saveManager;
 
     private bool unityAdsInitialized = false;
+
+    private float timeSinceAd = 0;
 
     private void Awake()
     {
@@ -35,6 +39,11 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
         saveManager = FindObjectOfType<SaveManager>();
     }
 
+    private void Update()
+    {
+        timeSinceAd += Time.deltaTime;
+    }
+
     private IEnumerator ManageCallingSetErrorState()
     {
         using var requestInit = UnityWebRequest.Get("http://google.com");
@@ -42,7 +51,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
 
         if (requestInit.result == UnityWebRequest.Result.Success)
         {
-            Advertisement.Initialize(AndroidGameId, true);
+            Advertisement.Initialize(AndroidGameId, devMode);
             unityAdsInitialized = true;
         }
         SetErrorState();
@@ -65,7 +74,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
 
                 if (request.result == UnityWebRequest.Result.Success)
                 {
-                    Advertisement.Initialize(AndroidGameId, true);
+                    Advertisement.Initialize(AndroidGameId, devMode);
                     unityAdsInitialized = true;
                 }
             }
@@ -104,7 +113,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
         errorMessageManager.UpdateErrorMessage("");
     }
 
-    public bool IsRewardAdReady() => Advertisement.IsReady(myVideoPlacement);
+    private bool IsRewardAdReady() => Advertisement.IsReady(RewardAdId);
 
     public void ShowRewardAd()
     {
@@ -114,11 +123,16 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
             return;
         }
 
-        Advertisement.Show(myVideoPlacement);
+        Advertisement.Show(RewardAdId);
     }
 
     public void OnUnityAdsDidFinish(string placementId, ShowResult showResult)
     {
+        if (placementId != RewardAdId) 
+        {
+            return;
+        }
+
         switch (showResult)
         {
             case ShowResult.Failed:
@@ -141,8 +155,26 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
 
         var levelState = FindObjectOfType<LevelState>();
         levelState.RewardAdWatched();
+        RestartInterstitial();
     }
-    
+
+    public void ShowInterstitial()
+    {
+        if (timeSinceAd < TimeSpan.FromMinutes(5).TotalSeconds)
+        {
+            return;
+        }     
+        
+        if (Advertisement.IsReady(InterstitialAdId))
+        {
+            Advertisement.Show(InterstitialAdId);
+        }
+
+        RestartInterstitial();
+    }
+
+    private void RestartInterstitial() => timeSinceAd = 0;
+
     public void OnUnityAdsDidError(string message){ }
 
     public void OnUnityAdsDidStart(string placementId) { }

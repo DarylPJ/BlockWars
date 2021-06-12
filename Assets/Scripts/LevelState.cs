@@ -157,6 +157,8 @@ public class LevelState : MonoBehaviour
     private void LevelComplete()
     {
         Time.timeScale = 0;
+        TurnOffPaddles();
+        
         var data = saveManager.GetSaveData();
         data.CurrentLevel = nextLevel;
         data.BlocksHit = totalBlocksDestroyed;
@@ -170,10 +172,18 @@ public class LevelState : MonoBehaviour
         }
 
         saveManager.SaveData(data);
-
-        TurnOffPaddles();
+        
         onScreenInfo.SetActive(false);
         winMenu.SetActive(true);
+        
+        var adsManager = FindObjectOfType<AdsManager>();
+
+        if(!adsManager)
+        {
+            return;
+        }
+
+        adsManager.ShowInterstitial();
     }
 
     public void LoadNextLevel() =>
