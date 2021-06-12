@@ -320,18 +320,25 @@ public class Ball : MonoBehaviour
 
         var yVelocity = GetScaledYVelocity(xVelocity);
 
-        if (relativePosition.y < ((circleCollider.radius * transform.localScale.x) / 2))
+        if (relativePosition.y < ((circleCollider.radius * transform.localScale.x) / 2) && myRigidbody.velocity.y < 0)
         {
-            if (myRigidbody.velocity.y < 0)
-            {
-                return;
-            }
-
-            myRigidbody.velocity = new Vector2(xVelocity, -Mathf.Abs(yVelocity));
             return;
         }
 
-        myRigidbody.velocity = new Vector2(xVelocity, Mathf.Abs(yVelocity));
+        if (relativePosition.y > ((circleCollider.radius * transform.localScale.x) / 2) && myRigidbody.velocity.y > 0)
+        {
+            return;
+        }
+
+        if(myRigidbody.velocity.y > 0)
+        {
+            myRigidbody.velocity = new Vector2(xVelocity, -Mathf.Abs(yVelocity));
+        }
+        else
+        {
+            myRigidbody.velocity = new Vector2(xVelocity, Mathf.Abs(yVelocity));
+
+        }
 
         if (!lockedToPaddle)
         {
