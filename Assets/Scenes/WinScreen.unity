@@ -259,6 +259,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b7e36a678c38df4abe53787a1b35767, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &723341665 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6096574499500962791, guid: 909d0502f5301c94dbbacf097c249aff, type: 3}
+  m_PrefabInstance: {fileID: 6096574499919553158}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 125e2bd6e42695c4f9f1b6d3584650a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &758445382
 GameObject:
   m_ObjectHideFlags: 0
@@ -666,6 +677,63 @@ PrefabInstance:
       objectReference: {fileID: 947559764}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8ce2c186a161f94d81e978dbd80c4d6, type: 3}
+--- !u!1001 &6096574499919553158
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6096574499500962788, guid: 909d0502f5301c94dbbacf097c249aff, type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6096574499500962788, guid: 909d0502f5301c94dbbacf097c249aff, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6096574499500962788, guid: 909d0502f5301c94dbbacf097c249aff, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6096574499500962788, guid: 909d0502f5301c94dbbacf097c249aff, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6096574499500962788, guid: 909d0502f5301c94dbbacf097c249aff, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6096574499500962788, guid: 909d0502f5301c94dbbacf097c249aff, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6096574499500962788, guid: 909d0502f5301c94dbbacf097c249aff, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6096574499500962788, guid: 909d0502f5301c94dbbacf097c249aff, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6096574499500962788, guid: 909d0502f5301c94dbbacf097c249aff, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6096574499500962788, guid: 909d0502f5301c94dbbacf097c249aff, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6096574499500962788, guid: 909d0502f5301c94dbbacf097c249aff, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6096574499500962790, guid: 909d0502f5301c94dbbacf097c249aff, type: 3}
+      propertyPath: m_Name
+      value: OpenLink
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 909d0502f5301c94dbbacf097c249aff, type: 3}
 --- !u!1001 &6433788686332263381
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -730,6 +798,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5260898525813570121, guid: fc031c08630f69a45b30c67b11301233, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8394399452203936246, guid: fc031c08630f69a45b30c67b11301233, type: 3}
       propertyPath: m_text
       value: Other apps
@@ -946,27 +1018,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8394399453954842105, guid: fc031c08630f69a45b30c67b11301233, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8394399453954842105, guid: fc031c08630f69a45b30c67b11301233, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1355082596}
+      objectReference: {fileID: 723341665}
     - target: {fileID: 8394399453954842105, guid: fc031c08630f69a45b30c67b11301233, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8394399453954842105, guid: fc031c08630f69a45b30c67b11301233, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: MoreApps
+      value: OpenLink
       objectReference: {fileID: 0}
     - target: {fileID: 8394399453954842105, guid: fc031c08630f69a45b30c67b11301233, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: SceneHandler, Assembly-CSharp
+      value: Link, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8394399453954842105, guid: fc031c08630f69a45b30c67b11301233, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: CheckPoints
+      value: https://play.google.com/store/apps/developer?id=Daryl+Jones
       objectReference: {fileID: 0}
     - target: {fileID: 8394399453954842105, guid: fc031c08630f69a45b30c67b11301233, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
