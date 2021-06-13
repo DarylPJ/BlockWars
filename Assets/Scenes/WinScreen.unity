@@ -956,6 +956,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainMenuCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 8394399453062207922, guid: fc031c08630f69a45b30c67b11301233, type: 3}
+      propertyPath: m_ScreenMatchMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8394399453155489416, guid: fc031c08630f69a45b30c67b11301233, type: 3}
       propertyPath: m_text
       value: Play Again
