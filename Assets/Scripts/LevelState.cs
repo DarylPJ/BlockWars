@@ -130,9 +130,9 @@ public class LevelState : MonoBehaviour
         {
             namesOfBlocksDestroyed.Add(blockName);
             currentBlocks--;
+            AddBlockPoint();
         }
 
-        AddBlockPoint();
 
         if (currentBlocks == 0)
         {
